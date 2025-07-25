@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="./imagenes/tu_bodega_logo.png"> 
+</head>
+<body>
+        <!--Seccion de ingreso-->
+    <div class="inicioSesion">
+        
+     <div class="presentacion">
+        <div class="contenido"> 
+        <h1 class="contenido__titulo">TU BODEGA</h1>
+        <p class="contenido__parrafo">ADMINISTRA TU INVENTARIO , REALIZA TUS FACTURAS Y LLEVA EL CONTROL DE TUS VENTAS</p>
+        <img src="imagenes/tu_bodega_logo.png" class="contenido__imagen" >
+    </div>
+     </div>
+     <div class="botones botones--empresa">
+        <form class="registroEmpresa" novalidate>
+        <div class="inicio inicio--empresa">
+         <p class="inicio__parrafo">REGISTRA TU BODEGA O INGRESA EN ELLA</p>
+
+           <div class="inicio__contenido">
+           <div class="componente componente--empresa">
+                 <label for="nit" class="componente__label componente__label--empresa">NIT</label>
+                <input type="text" id="nit" class="componente__entrada componente__entrada--empresa" name="nit" required>     
+           </div>
+           
+           <div class="componente componente--empresa">
+                 <label for="empresa" class="componente__label componente__label--empresa">NOMBRE EMPRESA</label>
+                <input type="text" id="empresa" class="componente__entrada componente__entrada--empresa" name="nombreEmpresa" required>  
+                
+           </div>
+
+            <div class="componente componente--empresa">
+                 <label for="direccion" class="componente__label componente__label--empresa">DIRECCION</label>
+                <input type="text" id="direccion" class="componente__entrada componente__entrada--empresa" name="direccion" required>  
+                
+           </div>
+
+           <div class="componente componente--empresa">
+                 <label for="lineaAtencion" class="componente__label componente__label--empresa">LINEA DE ATENCION</label>
+                <input type="text" id="lineaAtencion" class="componente__entrada componente__entrada--empresa" name="lineaDeAtencion" required>  
+                
+           </div>
+
+           <div class="componente componente--empresa">
+                 <label for="correo" class="componente__label componente__label--empresa">CORREO EMPRESA</label>
+                <input type="text" id="correo" class="componente__entrada componente__entrada--empresa" name="correoEmpresa" required>  
+                
+           </div>
+           </div>
+           
+
+
+
+        <button class="inicio__ingresar" type="submit"> REGISTRAR </button>
+        <button class="inicio__ingresar">INGRESAR</button>
+        
+    </div>
+    </form>
+     </div>
+
+    </div>
+    
+    <script src="Api/Empresa.js" type="module"></script>
+
+</body>
+</html>
