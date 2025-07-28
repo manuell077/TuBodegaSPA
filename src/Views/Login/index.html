@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="./imagenes/tu_bodega_logo.png">
+</head>
+<body>
+        <form class="login" novalidate>
+          <div class="flecha "> 
+           <a href="#bienvenida"> <img src="/Images/Arrow 1.png" class="flecha__devolver"> </a>
+         </div> 
+
+        <div class="entrada entrada--login">
+              
+            <h1 class="entrada__titulo entrada__titulo--espacioAbajo">INGRESA EN EL SISTEMA</h1> 
+            
+            <div class="componente componente--login">
+
+                 <label for="cedula" class="componente__label">CEDULA</label>
+                <input type="number" id="cedula" class="componente__entrada" name="cedula" autocomplete="off" required>
+                
+           </div>
+           
+            <div class="componente componente--login">
+
+                <label for="contrasena" class="componente__label">CONTRASEÑA</label>
+                <input type="password" id="contrasena" class="componente__entrada" name="password" autocomplete="off" required>
+
+            </div>
+
+
+        
+        </div>
+        <div class="enviar">
+       <a href="#inventario" class="enviar__boton" type="submit">INGRESAR</a>
+       <a class="enviar__ayuda" href="#">Has olvidado tu contraseña ?</a>
+    </div>
+    </form>
+    
+    <script src="Api/Login.js" type="module"></script>
+    
+
+</body>
+</html>

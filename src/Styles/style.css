@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
+
 *{
     padding: 0;
     margin: 0;
@@ -11,6 +13,33 @@
     --colorBlanco: #fff;
     --colorNegro: #000;
 }
+
+
+.grid-container{
+  display: grid;
+  grid-template-areas:
+    "main";
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  height: 100vh;
+}
+
+
+.paddinDiez{
+    padding: 10px;
+}
+
+.layout {
+  display: grid;
+  grid-template-areas:
+    "sidebar main"
+    "sidebar main";
+  grid-template-columns: 15% 85%;
+  grid-template-rows: 10% 90%;
+  height: 100vh;
+}
+
+
 
 /*Parte de presentacion de tu bodega */
 .inicioSesion{
@@ -98,6 +127,8 @@
     align-items: center;
     font-size: 20px;
     color: var(--colorBlanco);
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /*Parte del login*/
@@ -266,6 +297,7 @@
     color:var(--colorBlanco) ;
     text-align: center;
     display: flex;
+    text-decoration: none;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
@@ -324,6 +356,7 @@
 /*ESTRUCTURA DE LA PAGINA WEB*/
 
 .estructura{
+    
     width: 100%;
     /* height: 100%; */
     display: grid;
@@ -338,7 +371,7 @@
 .sidebar{
     grid-area: sidebar;
     background-color: var(--colorPrograma);
-    padding: 10px;
+    
 }
 
 .perfil{
@@ -417,11 +450,46 @@
     margin-left: 50px;    
     margin-top: 50px;
     border-radius: 20px;
-    height: 350px;
+    height: 430px;
     color: var(--colorBlanco);
     background-color: var(--colorPrograma);
     width: 260px;
     
+}
+
+.botonesCarta{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    gap: 10px;
+    border-radius: 10px;
+}
+
+.botonesCarta__boton{
+    cursor: pointer;
+    border: none;
+    width: 60px;
+    text-align: center;
+    text-decoration: none;
+    background-color: var(--colorBlanco);
+    color: var(--colorPrograma);
+}
+
+.carta--añadir{
+    width: 290px;
+    height: 420px;
+}
+
+.carta__addImagen{
+    display: block;
+    margin: 0 auto;
+}
+
+.agregarCards{
+    display: flex;
+    align-items: center;
 }
 
 
@@ -435,6 +503,8 @@
 }
 
 .carta__imagen{
+  height: 120px;
+  border-radius: 10px;  
   width: 100%;
 
 }
@@ -638,6 +708,11 @@
 
 .botones__link{
     text-decoration: none;
+}
+
+.botones__link--agregar{
+    border: none;
+    cursor: pointer;
 }
 
 /*Pedido Deuda*/

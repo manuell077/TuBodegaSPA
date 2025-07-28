@@ -1,0 +1,25 @@
+<main class="main">
+
+          <h1 class="titulo">INVENTARIO</h1>
+          
+          <!-- Nos sirve para crear un conjunto de claves-valor se usa principalmente para enviar datos como subir imagenes -->
+          <form id="addProducto" enctype="multipart/form-data"> 
+
+           <div class="carta carta--añadir">
+                 <img src="/Images/añadir.png" class="carta__imagen carta__imagen--añadir">
+                 <input  class="carta__addImagen" type="file" name="imagen" id="imagen">
+                 <p class="carta__parrafo">NOMBRE:<input type="text" id="nombre" name="nombre" required></p>
+                 <p class="carta__parrafo">Peso: <input type="text" id="peso"  name="peso" required> </p>
+                 <div class="cantidad">
+                 <p class="cantidad__parrafo">Cantidad: </p>
+                 <input type="text" name="cantidad" id="cantidad" required>
+                 </div>
+                 <p class="carta__parrafo">Precio: <input type="text"  name="precio"  id="precio" required> </p>
+            </div>
+           <div class="botones">
+            <button class="botones__link botones__link--agregar" id="agregarProducto" type="submit"><div class="boton"><p class="boton__texto">AGREGAR</p><img src="/Images/Agregar.png" class="boton__imagen"></div></button>
+            </div>
+            
+      </form>
+
+</main>
