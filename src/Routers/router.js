@@ -2,9 +2,9 @@ import { routers } from "./routes.js"
 
 export const router = async (elemento) => {
     const hast = location.hash.slice(1);
-    const ruta = recorrerRutas(routers, hast);
+    const [ruta,parametros] = recorrerRutas(routers, hast);
     await cargarVista(ruta.path, elemento )  
-    await ruta.controller()
+    await ruta.controller(parametros)
 
     
 }
@@ -13,11 +13,18 @@ export const recorrerRutas = (routers, hast) => {
     
      const hasts =   hast.split("/") //El hash que obtuvo lo convierte en un arreglo utilizando como separador el "/"
     
-     
-     
+     let parametros = {} 
 
-    if(hasts[0]=="")return routers.empresa //Si la primera posicion del hash  separado por /  es "" retornamos la vista empresa 
+     if(hasts.length === 3 && hasts[2].includes("=")){
+         
+        parametros = extraerParametros(hasts[2])
+        hasts.pop()    
+         
+     }
 
+    if(hasts[0]=="")return [routers.empresa,parametros] //Si la primera posicion del hash  separado por /  es "" retornamos la vista empresa 
+    
+    
     for (const key in routers) { //Recorremos las rutas 
         
        
@@ -36,26 +43,38 @@ export const recorrerRutas = (routers, hast) => {
                 
                     if(hasts.length==1){ //Si la longitud es de 1 entonces retornara lo siguiente 
                         
-                        return  routers[key]["/"]
+                        return  [routers[key]["/"],parametros]
                     }
                     else{  //De caso contrario retornara el hast[1]      
                          
                          
-                        return routers[key][hasts[1]]
+                        return [routers[key][hasts[1]],parametros]
                     }
 
             }else{ //Retornara el router con su  key en caso contrario 
                 
-                return routers[key]
+                return [routers[key],parametros]
             }
 
            }
            
-           return routers[key]
+           return [routers[key],parametros]
         }
     }
+
     return "";    
 }
+
+// Extrae un objeto clave-valor desde un string de parámetros tipo "id=1&modo=editar"
+const extraerParametros = (parametros) => {
+  const pares = parametros.split("&");
+  const params = {};
+  pares.forEach(par => {
+    const [clave, valor] = par.split("=");
+    params[clave] = valor;
+  });
+  return params;
+};
 
 const cargarVista = async (path, elemento) => {
 

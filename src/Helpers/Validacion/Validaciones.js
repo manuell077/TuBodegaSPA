@@ -128,6 +128,8 @@ export function ValidarEspacios(e){
           e.target.nextSibling.remove()
           
        }
+
+       
        //Se crea el mensaje de error 
         let error = document.createElement("span") 
         error.classList.add("mensajeError")
@@ -143,6 +145,36 @@ export function ValidarEspacios(e){
         }
         
       }
+}
+
+export function ValidarEspaciosInventario(e){
+    
+  //Se evalua si el valor que ingreso el usuario es vacio o no 
+  if(!e.target.value){
+
+       //En caso de que exista un mensaje de error que lo borre 
+       if(e.target.nextSibling){
+          e.target.nextSibling.remove()
+          
+       }
+
+       //Se crea el mensaje de error 
+        let error = document.createElement("span") 
+        error.classList.add("mensajeError" , "mensajeError--inventario")
+        error.textContent = `⛔Este campo debe completarse` 
+        e.target.insertAdjacentElement("afterend",error)  //Se inserta debajo del input
+        
+      }else{
+
+        //Aca se evalua si algunos de estos campos es nombre o direccion ya que estos como tal solo validan que no se ingresen carateres que no son validos y no tienen en su else que elimine el mensaje de error del campo vacio
+           if(e.target.nextSibling){
+          e.target.nextSibling.remove()
+          }
+        
+        
+      }
+
+
 }
 
 export function ValidarLetras(e){
@@ -543,3 +575,151 @@ export function ValidarSeleccioandor(e){
   }
 
 }
+
+
+export function ValidarInventario(e,agregar,imagen){
+   
+    console.log("La imagen desde el validador es " + imagen.src )
+
+    let data = {};
+    e.preventDefault();
+    //Aca se cuentan todos los campos del formulario que son requeridos 
+    const campos = [...e.target].filter((elemento) =>{
+          
+          return elemento.hasAttribute('required')
+    })
+    
+    campos.forEach(campo=>{
+      if(agregar == false){    
+      switch(campo.name){
+     //Segun el nombre de campo se valida con su respectiva funcion y si devuelve true se añade al objeto data  
+          case "nombre":
+              
+             if(campo.value){
+
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+             }
+            
+            break;
+
+            case "peso":
+               
+             if(campo.value){
+              
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+             }
+            
+            break;
+
+            case "cantidadEnStock":
+               
+            if(campo.value){
+              
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+             }
+           
+
+            break;
+
+            case "precio":
+               
+             if(campo.value){
+              
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+                
+                
+             }
+
+            break;
+
+            
+
+            }
+
+
+      }else{
+          
+         switch(campo.name){
+     //Segun el nombre de campo se valida con su respectiva funcion y si devuelve true se añade al objeto data  
+          case "nombre":
+              
+             if(campo.value){
+
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+             }
+            
+            break;
+
+            case "peso":
+               
+             if(campo.value){
+              
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+             }
+            
+            break;
+
+            case "cantidadEnStock":
+               
+            if(campo.value){
+              
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+             }
+           
+
+            break;
+
+            case "precio":
+               
+             if(campo.value){
+              
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+             }
+
+            break;
+
+            case "imagen":
+              
+               if(campo.files.length > 0){
+                 let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+               }
+
+            break;
+
+            }
+
+      }
+
+    })
+
+    const cantidadObjeto = Object.keys(data).length //Aca obtenemos la longitud del objeto
+    const cantidadCampos =  ContarCampos(e.target) //Aca contamos todos los campos que tenemos en el formulario 
+    
+
+    if(cantidadCampos === cantidadObjeto){   //Se evalua si tienen la misma cantidad que quiere decir que todos los campos ya fueron validados correctamente
+     
+    data["imagen"] = imagen.src
+      
+     
+
+    
+   
+    return data;
+
+   }else{
+    return false
+
+  }
+
+
+}
+

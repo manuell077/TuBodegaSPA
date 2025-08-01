@@ -1,4 +1,4 @@
-import {Get} from "../../Helpers/Request/GetProductos.js"
+import {Get,Delete} from "../../Helpers/Request/GetProductos.js"
 
 
 export const inventarioController =  async() =>{
@@ -54,17 +54,33 @@ export const inventarioController =  async() =>{
   const botonModificar = document.createElement("a")
   botonModificar.classList.add("botonesCarta__boton")
   botonModificar.textContent = "Modificar"
-  botonModificar.href = "#inventario/Modificar"
+  botonModificar.href = `#inventario/Modificar/id=${element.idProducto}`
   contenedorBotones.appendChild(botonModificar)
    
-  const botonEditar = document.createElement("a")
-  botonEditar.classList.add("botonesCarta__boton")
-  botonEditar.textContent = "Eliminar"
-  contenedorBotones.appendChild(botonEditar)
+  const botonEliminar = document.createElement("a")
+  botonEliminar.classList.add("botonesCarta__boton")
+  botonEliminar.textContent = "Eliminar"
+  botonEliminar.href = `id=${element.idProducto}`
+
+  contenedorBotones.appendChild(botonEliminar)
 
   
-
   contenedor.appendChild(carta)
+
+  botonEliminar.addEventListener("click",(e)=>{
+    
+    e.preventDefault()
+
+    let idEliminar = botonEliminar.href 
+    let id =  idEliminar.replace("http://localhost:5173/id=" , "")
+
+     Delete(id)
+     location.reload()
+  })
+
  });
+  
+
+
 
 }

@@ -5,7 +5,7 @@ import { registroController} from "../Views/Registro/registroControlador.js"
 import { inventarioController} from "../Views/Inventario/inventarioController.js"
 import {AgregarController} from "../Views/Inventario/Agregar/AgregarController.js"
 import {ModificarController} from "../Views/Inventario/Modificar/ModificarController.js"
-import { EliminarController } from "../Views/Inventario/Eliminar/EliminarController.js"
+import {ventasController} from "../Views/Ventas/ventasController.js"
 
 
 export const routers = {
@@ -53,13 +53,25 @@ export const routers = {
         path: "Inventario/Modificar/index.html",
         controller: ModificarController,
         private: true
-        },
-        Eliminar:{
-        path: "Inventario/Modificar/index.html",
-        controller: EliminarController,
-        private: true 
         }
         
+    },
+    ventas:{
+       "/":{
+        path: "Ventas/index.html",
+        controller: ventasController,
+        private: true
+        },
+        Agregar:{
+        path: "Inventario/Agregar/index.html",
+        controller: AgregarController,
+        private: true
+        },
+        Modificar:{
+        path: "Inventario/Modificar/index.html",
+        controller: ModificarController,
+        private: true
+        } 
     }
 
 

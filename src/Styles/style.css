@@ -827,9 +827,19 @@
     
 }
 
+.botonModificar{
+    border: none;
+    cursor: pointer;
+}
 
 .mensajeError--repetir{
     margin-left: -20px;
+}
+
+.mensajeError--inventario{
+    display: block;
+    text-align: left;
+    margin-left: 0px;
 }
 
 
