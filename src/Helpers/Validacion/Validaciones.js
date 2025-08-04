@@ -579,7 +579,7 @@ export function ValidarSeleccioandor(e){
 
 export function ValidarInventario(e,agregar,imagen){
    
-    console.log("La imagen desde el validador es " + imagen.src )
+   
 
     let data = {};
     e.preventDefault();
@@ -723,3 +723,76 @@ export function ValidarInventario(e,agregar,imagen){
 
 }
 
+export function ValidarVentas(e){
+
+
+   let data = {};
+    e.preventDefault();
+    //Aca se cuentan todos los campos del formulario que son requeridos 
+    const campos = [...e.target].filter((elemento) =>{
+          
+          return elemento.hasAttribute('required')
+    })
+    
+    campos.forEach(campo=>{
+          
+      switch(campo.name){
+      //Segun el nombre de campo se valida con su respectiva funcion y si devuelve true se añade al objeto data  
+          case "nombreCliente":
+             
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value
+               }
+            
+            break;
+            
+            case "cantidadAbonado":
+             
+               if(campo.value || campo.value != 0){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value
+               }
+            
+            break;
+           
+            case "fechaHora":
+             
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value + ":00"
+               }
+            
+            break;
+            
+            case "fkUsuarios":
+             
+            
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value
+               }
+            
+            break;
+
+
+      }
+
+    })
+    
+
+    Object.keys(data).forEach(elemento => { console.log(elemento)})
+
+    const cantidadObjeto = Object.keys(data).length //Aca obtenemos la longitud del objeto
+    const cantidadCampos =  ContarCampos(e.target) //Aca contamos todos los campos que tenemos en el formulario 
+    
+    console.log(cantidadObjeto)
+
+    if(cantidadCampos === cantidadObjeto){   //Se evalua si tienen la misma cantidad que quiere decir que todos los campos ya fueron validados correctamente
+    
+    return data;
+   }else{
+    return false
+
+  }
+}
