@@ -951,7 +951,22 @@
     color: var(--colorPrograma);
 }
 
+.cantidadProductos__btnEliminarProducto{
+    height: 20px;
+    width: 50px;
+    text-align: center;
+}
+
 .botonesVenta{
     cursor: pointer;
     border: none;
+}
+
+.imagenEliminar{
+    height: 15px;
+    width: 30px;
+}
+
+.mensajeError--ventas{
+    margin-left: -90px; 
 }

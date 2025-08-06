@@ -7,7 +7,7 @@ import {AgregarController} from "../Views/Inventario/Agregar/AgregarController.j
 import {ModificarController} from "../Views/Inventario/Modificar/ModificarController.js"
 import {ventasController} from "../Views/Ventas/ventasController.js"
 import { agregarVentaController } from "../Views/Ventas/Agregar/agregarVentaController.js"
-
+import { modificarController } from "../Views/Ventas/Modificar/modificarController.js"
 
 export const routers = {
      
@@ -69,8 +69,8 @@ export const routers = {
         private: true
         },
         Modificar:{
-        path: "Inventario/Modificar/index.html",
-        controller: ModificarController,
+        path: "Ventas/Modificar/index.html",
+        controller: modificarController,
         private: true
         } 
     }

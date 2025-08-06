@@ -176,6 +176,38 @@ export function ValidarEspaciosInventario(e){
 
 
 }
+export function ValidarEspaciosVentas(e){
+    
+  //Se evalua si el valor que ingreso el usuario es vacio o no 
+  if(!e.target.value){
+
+       //En caso de que exista un mensaje de error que lo borre 
+       if(e.target.nextSibling){
+          e.target.nextSibling.remove()
+          
+       }
+
+       //Se crea el mensaje de error 
+        let error = document.createElement("span") 
+        error.classList.add("mensajeError" , "mensajeError--ventas")
+        error.textContent = `⛔Este campo debe completarse` 
+        e.target.insertAdjacentElement("afterend",error)  //Se inserta debajo del input
+        
+
+        
+      }else{
+
+        //Aca se evalua si algunos de estos campos es nombre o direccion ya que estos como tal solo validan que no se ingresen carateres que no son validos y no tienen en su else que elimine el mensaje de error del campo vacio
+           if(e.target.nextSibling){
+          e.target.nextSibling.remove()
+          }
+        
+        
+      }
+
+
+}
+
 
 export function ValidarLetras(e){
      
@@ -760,7 +792,7 @@ export function ValidarVentas(e){
              
                if(campo.value){
                  let nombreCampo = campo.getAttribute('name')
-                 data[nombreCampo] = campo.value + ":00"
+                 data[nombreCampo] = campo.value 
                }
             
             break;

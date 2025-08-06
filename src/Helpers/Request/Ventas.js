@@ -1,4 +1,3 @@
-
 export const Post = (event,objeto) =>{
     event.preventDefault()
 
@@ -22,7 +21,7 @@ export const Post = (event,objeto) =>{
 }
 
 
-export const ObtenerUsuarios = (select) =>{
+export const ObtenerUsuarios =  (select , valorSeleccionado) =>{
 
     fetch("http://localhost:8080/Tu_Bodega/api/usuario").then(response => response.json()).then(data =>{
          
@@ -31,16 +30,23 @@ export const ObtenerUsuarios = (select) =>{
         let opcion = document.createElement("option")
          opcion.value = element.idUsuarios
          opcion.textContent = element.cedula
+         if(element.idUsuarios === valorSeleccionado){
+            
+            opcion.selected = true
+         }
+         
          select.append(opcion)
         });
 
 })
 
+
+
 }
 
-export const ObtenerProductos = (select) =>{
+export const ObtenerProductos = async (select,idSeleccionado) =>{
 
-    fetch("http://localhost:8080/Tu_Bodega/api/productos").then(response => response.json()).then(data =>{
+    await fetch("http://localhost:8080/Tu_Bodega/api/productos").then(response => response.json()).then(data =>{
          
         data.forEach(element => {
         
@@ -48,6 +54,12 @@ export const ObtenerProductos = (select) =>{
          opcion.value = element.idProducto
          opcion.textContent = element.nombre
          opcion.setAttribute("data-precio",element.precio)
+         
+         
+        if (element.idProducto === idSeleccionado) {
+        opcion.selected = true;
+        console.log(opcion)
+         }
          select.append(opcion)
         });
 
@@ -57,3 +69,47 @@ export const ObtenerProductos = (select) =>{
 
 }
 
+
+export const ObtenerVentas = () =>{
+   
+    return fetch('http://localhost:8080/Tu_Bodega/api/ventas').then(response => response.json());
+
+}
+
+export const ObtenerVentasPorId = (id) =>{
+    return fetch (`http://localhost:8080/Tu_Bodega/api/ventas/${id}`).then(response => response.json()).catch(error => { console.log(error)});
+}
+
+export const Put = (id,data) =>{
+     fetch(`http://localhost:8080/Tu_Bodega/api/ventas/${id}`, { //Se realiza el fetch 
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data) //Se serializa en un json 
+
+    }).then(res => res.text().then(texto=>{ //Se convierte en texto la respuesta que nos trae el servidor y al ser una promesa la resolvemos con then 
+      if (res.ok) {
+        alert("✅ Se ha realizado la actualizacion correctamente"); //Si el servidor trae una respuesta de tipo "ok"
+    } else {
+        alert("❌ Ha ocurrido un error: " + texto); //Si devuelve cualquier otra respuesta como lo es error 500 o 404 entonces tirara un alert de error 
+    }
+
+    })).catch(err => console.error("Error:", err)); //Se  resuelve si el servidor trae una respuesta de tipo texto y despues se imprime lo que se obtiene por consola 
+}
+
+
+export const Delete = (id) =>{
+    fetch(`http://localhost:8080/Tu_Bodega/api/ventas/${id}`, {
+    method: 'DELETE',
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Venta eliminada correctamente');
+      // Puedes recargar o actualizar la vista aquí si deseas
+    } else {
+      console.error('Error al eliminar venta');
+    }
+  })
+  .catch(error => {
+    console.error('Error de red:', error);
+  });
+}

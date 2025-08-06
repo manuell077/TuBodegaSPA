@@ -1,7 +1,8 @@
 import { ObtenerProductos} from "../../../Helpers/Request/Ventas.js";
 import { ObtenerUsuarios } from "../../../Helpers/Request/Ventas.js";
-import {ValidarVentas} from "../../../Helpers/Validacion/Validaciones.js"
+import {ValidarNumeros, ValidarVentas} from "../../../Helpers/Validacion/Validaciones.js"
 import { Post } from "../../../Helpers/Request/Ventas.js";
+import { ValidarLetras , ValidarEspaciosVentas} from "../../../Helpers/Validacion/index.js";
 
 export const agregarVentaController  =  () =>{
 
@@ -101,12 +102,27 @@ btnAgregar.addEventListener("click", () => {
   cantidadDeProducto.classList.add('cantidadProductos__numero')   
 
 
-  
+  const btnEliminar = document.createElement('button');
+  btnEliminar.type = 'button';
+  btnEliminar.classList.add('cantidadProductos__btnEliminarProducto');
 
+  const icono = document.createElement('img');
+  icono.src = '/Images/basura.png'; 
+  icono.alt = 'Eliminar';
+  icono.classList.add('imagenEliminar')
+
+  
+  btnEliminar.addEventListener("click", () => {
+    productoCantidad.remove();
+    SacarTotal(); 
+  });
+   
+  btnEliminar.appendChild(icono)
 
   nuevoProducto.append(opcion)
   productoCantidad.appendChild(nuevoProducto)
   productoCantidad.appendChild(cantidadDeProducto)
+  productoCantidad.appendChild(btnEliminar)
   productosContainer.appendChild(productoCantidad);
   
   
@@ -143,7 +159,7 @@ opcionUsuario.disabled = true;
 opcionUsuario.hidden = true;
 opcionUsuario.value = "";       
 opcionUsuario.selected = true;  
-ObtenerUsuarios(selectorUsuario)
+ObtenerUsuarios(selectorUsuario,0)
 
 
 
@@ -213,7 +229,7 @@ formularioVentas.addEventListener("submit",(e)=>{
           
         })
           objeto["productos"] = productos
-          objeto["valor"] = parseInt(valorVenta.value)
+          objeto["valor"] = 0
           objeto["saldoTotal"] = 0
           console.log(objeto)
           Post(e,objeto)
@@ -233,6 +249,16 @@ formularioVentas.addEventListener("submit",(e)=>{
 })
 
 
+   cliente.addEventListener("keydown",ValidarLetras)
+   abonado.addEventListener("keyup",ValidarNumeros) 
+
+
+
+   cliente.addEventListener("keyup",ValidarEspaciosVentas)
+   abonado.addEventListener("keyup",ValidarEspaciosVentas)
+   fechaHora.addEventListener("keyup",ValidarEspaciosVentas)
+   selectorUsuario.addEventListener("change",ValidarEspaciosVentas)
+
 }
 
 const SacarTotal = () =>{
@@ -249,8 +275,9 @@ const SacarTotal = () =>{
     const cantidadInput = productoDiv.querySelector('.cantidadProductos__numero');
     
     
+    const selectedOption = select.selectedOptions[0];
 
-    const precio = parseFloat(select.selectedOptions[0]?.dataset.precio || 0); 
+    const precio = parseFloat(selectedOption.dataset.precio); 
     const cantidad = parseInt(cantidadInput.value)
 
 
