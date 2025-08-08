@@ -1,26 +1,9 @@
-export function CargarEmpresas(select){
-
-     fetch("http://localhost:8080/Tu_Bodega/api/empresas").then(response => response.json()).then(data =>{
-         
-        data.forEach(element => {
-        
-        let opcion = document.createElement("option")
-         opcion.value = element.nit
-         opcion.textContent = element.nombreEmpresa
-         select.append(opcion)
-        });
-
-})
-
-
-}
-
 export function post(event,objeto){ //Recibe como parametros el evento y el formulario
 
     event.preventDefault() //Evitara que se envie el formulario 
     
 
-        fetch(`http://localhost:8080/Tu_Bodega/api/tramitante`, { //Se realiza el fetch 
+        fetch(`http://localhost:8080/Tu_Bodega/api/usuarios`, { //Se realiza el fetch 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(objeto) //Se serializa en un json 

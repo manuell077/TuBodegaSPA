@@ -23,14 +23,15 @@ export const Post = (event,objeto) =>{
 
 export const ObtenerUsuarios =  (select , valorSeleccionado) =>{
 
-    fetch("http://localhost:8080/Tu_Bodega/api/usuario").then(response => response.json()).then(data =>{
+    fetch("http://localhost:8080/Tu_Bodega/api/usuarios").then(response => response.json()).then(data =>{
          
         data.forEach(element => {
         
+          console.log(element)
         let opcion = document.createElement("option")
-         opcion.value = element.idUsuarios
+         opcion.value = element.cedula
          opcion.textContent = element.cedula
-         if(element.idUsuarios === valorSeleccionado){
+         if(element.cedula === valorSeleccionado){
             
             opcion.selected = true
          }

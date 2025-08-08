@@ -1,0 +1,34 @@
+<body>
+<h1 class="titulo">Pedidos</h1>
+<div class="calendar"></div>
+
+<!-- Fondo oscurecido -->
+<div class="modalOverlay" id="modalOverlay">
+  <form class="formularioPedido" novalidate >
+  <h2 class="formularioPedido__titulo">Agregar Pedido</h2>
+
+  <label class="formularioPedido__label" for="fechaEntrega">Fecha de entrega:</label>
+  <input class="formularioPedido__input" type="date" id="fechaEntrega" name="fecha"  readonly>
+
+  <label class="formularioPedido__label" for="estadoPedido">¿Pedido terminado?</label>
+  <select class="formularioPedido__select" id="estadoPedido" name="terminado" required>
+    <option value="false">No</option>
+    <option value="true">Sí</option>
+  </select>
+
+  <label class="formularioPedido__label" for="ventaAsociada">Venta asociada:</label>
+  <select class="formularioPedido__select" id="ventaAsociada" name="fkVenta" required>
+    <option value="" hidden  selected >Seleccione una venta</option>
+    <!-- Aquí puedes insertar dinámicamente opciones -->
+    <option value="1">Venta 1</option>
+    <option value="2">Venta 2</option>
+  </select>
+
+  <button class="formularioPedido__boton" id="agregarPedido" type="submit">Agregar</button>
+</form>
+</div>
+</div>
+
+
+
+</body>

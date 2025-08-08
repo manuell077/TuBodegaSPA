@@ -91,16 +91,7 @@ export function ValidarRegistro(e) {
             }
             break;
              
-            case "empresa":
-               
-               if(ValidarSeleccioandor){
-
-                 let nombreCampo = campo.getAttribute('name')
-                data[nombreCampo] = campo.value
-
-               }
             
-            break;
 
           }
     })
@@ -806,6 +797,64 @@ export function ValidarVentas(e){
                }
             
             break;
+
+
+      }
+
+    })
+    
+
+    Object.keys(data).forEach(elemento => { console.log(elemento)})
+
+    const cantidadObjeto = Object.keys(data).length //Aca obtenemos la longitud del objeto
+    const cantidadCampos =  ContarCampos(e.target) //Aca contamos todos los campos que tenemos en el formulario 
+    
+    console.log(cantidadObjeto)
+
+    if(cantidadCampos === cantidadObjeto){   //Se evalua si tienen la misma cantidad que quiere decir que todos los campos ya fueron validados correctamente
+    
+    return data;
+   }else{
+    return false
+
+  }
+}
+
+
+export function ValidarPedidos(e){
+  let data = {};
+    e.preventDefault();
+    //Aca se cuentan todos los campos del formulario que son requeridos 
+    const campos = [...e.target].filter((elemento) =>{
+          
+          return elemento.hasAttribute('required')
+    })
+    
+    campos.forEach(campo=>{
+          
+      switch(campo.name){
+      //Segun el nombre de campo se valida con su respectiva funcion y si devuelve true se añade al objeto data  
+          
+            
+            case "terminado":
+             
+               if(campo.value || campo.value != 0){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value
+               }
+            
+            break;
+           
+            case "fkVenta":
+             
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value 
+               }
+            
+            break;
+            
+            
 
 
       }

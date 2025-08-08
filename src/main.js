@@ -24,9 +24,10 @@ const cargar = () =>{
      
   const hash = location.hash.slice(1);
     
+
    const [rutasEncontradas,parametros]  = recorrerRutas(routers,hash)
   
-   
+   console.log(rutasEncontradas.private) 
   
     if(rutasEncontradas.private == true){
        

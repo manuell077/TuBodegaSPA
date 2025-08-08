@@ -339,7 +339,7 @@
 
 .entrada--espacio{
     gap: 0;
-    height:65%; 
+    height:60%; 
 }
 .entrada--espacio .textos{
     gap: 30px;
@@ -969,4 +969,89 @@
 
 .mensajeError--ventas{
     margin-left: -90px; 
+}
+
+
+/*Estilos de calendario*/
+.calendar {
+      max-width: 900px;
+      margin: 0 auto;
+      color: var(--colorPrograma);
+    }
+
+.fc .fc-button-primary{
+    background-color: var(--colorPrograma);
+    color: var(--colorBlanco);
+}    
+
+.fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active{
+    background-color: var(--colorPrograma);
+}
+
+.fc .fc-button-primary:disabled{
+    background-color: var(--colorPrograma);
+}
+
+
+
+/* Fondo oscuro */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.formularioPedido {
+     
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+}
+
+.formularioPedido__titulo {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.formularioPedido__label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.formularioPedido__input,
+.formularioPedido__select,
+.formularioPedido__boton {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid var(--colorPrograma);
+  border-radius: 5px;
+  font-family: inherit;
+}
+
+.formularioPedido__boton {
+  background-color: var(--colorPrograma);
+  color: var(--colorBlanco);
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.formularioPedido__boton:hover {
+  background-color: var(--colorHover);
 }

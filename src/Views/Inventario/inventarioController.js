@@ -25,7 +25,7 @@ export const inventarioController =  async() =>{
 
   const pPeso = document.createElement("p");
   pPeso.classList.add("carta__parrafo")
-  pPeso.textContent = "Peso: " + element.peso
+  pPeso.textContent = "Peso: " + element.peso + " kg"
   carta.appendChild(pPeso)
 
   const divCantidad = document.createElement("div");

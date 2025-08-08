@@ -12,7 +12,10 @@ export const router = async (elemento) => {
 export const recorrerRutas = (routers, hast) => {
     
      const hasts =   hast.split("/") //El hash que obtuvo lo convierte en un arreglo utilizando como separador el "/"
-    
+     
+     console.log(hasts);
+     
+
      let parametros = {} 
 
      if(hasts.length === 3 && hasts[2].includes("=")){

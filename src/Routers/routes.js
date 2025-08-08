@@ -8,6 +8,8 @@ import {ModificarController} from "../Views/Inventario/Modificar/ModificarContro
 import {ventasController} from "../Views/Ventas/ventasController.js"
 import { agregarVentaController } from "../Views/Ventas/Agregar/agregarVentaController.js"
 import { modificarController } from "../Views/Ventas/Modificar/modificarController.js"
+import {pedidosController} from "../Views/Pedidos/pedidosController.js"
+import { listarController } from "../Views/Pedidos/Listar/listarController.js"
 
 export const routers = {
      
@@ -73,7 +75,21 @@ export const routers = {
         controller: modificarController,
         private: true
         } 
+    },
+    pedidos:{
+        "/":{
+           path: "Pedidos/index.html",
+           controller: pedidosController,
+           private: true  
+        },
+        Listar:{
+            path: "Pedidos/Listar/index.html",
+            controller: listarController,
+            private: true 
+        }
+    
     }
+
 
 
 

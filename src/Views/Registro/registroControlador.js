@@ -1,4 +1,4 @@
-import {post,CargarEmpresas} from "../../Helpers/Request/PostRegistarme.js" //Se importa el metodo post del archivo barril
+import {post} from "../../Helpers/Request/PostRegistarme.js" //Se importa el metodo post del archivo barril
 import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPassword, ValidarRepeticion, ValidarCorreo, ValidarNumeros, ValidarDireccion,ValidarCedula, ValidarTelefono, ValidarSeleccioandor} from "../../Helpers/Validacion/index.js"
 
 export const registroController = () =>{
@@ -13,8 +13,7 @@ const cedula = document.querySelector("#cedula") //Se selecciona el input con el
 const direccion = document.querySelector("#direccion") //Se selecciona el input con el id de la cedula
 const empresa = document.querySelector("#empresa")
 
-//Se cargaran las opciones de empresa para que el usuario se registre
-CargarEmpresas(empresa)
+
 
 //Validacion para que el usuario escriba solo letras 
 nombre.addEventListener("keydown",ValidarLetras)
@@ -49,13 +48,14 @@ cedula.addEventListener("keyup",ValidarEspacios)
 telefono.addEventListener("keyup",ValidarEspacios)
 direccion.addEventListener("keyup",ValidarEspacios)
 
-//Validamos que cuando se desenfoque exista una empresa seleccionada
-empresa.addEventListener('blur',ValidarSeleccioandor)
+
 
 
 
 formu.addEventListener("submit", (e) =>  {
-            
+     
+  e.preventDefault()
+
   let objeto =   ValidarRegistro(e)
     
   if(objeto != false){

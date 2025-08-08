@@ -214,7 +214,7 @@ export const modificarController = async(queryParams = null) =>{
     fechaHora.className = 'carta__parrafo';
     fechaHora.textContent = 'Fecha: ';
     const inputFecha = document.createElement('input');
-    inputFecha.type = 'time';
+    inputFecha.type = 'date';
     inputFecha.required = true;
     inputFecha.name = "fechaHora";
     inputFecha.value = contenido[0].fechaHora;
