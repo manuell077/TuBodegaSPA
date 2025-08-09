@@ -6,6 +6,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { ValidarPedidos } from '../../Helpers/Validacion';
 import {post} from '../../Helpers/Request/Pedidios'
 import { getPedidosNoTemrinados } from '../../Helpers/Request/Pedidios';
+import { getPedidosTerminados } from '../../Helpers/Request/Pedidios';
+import { ObtenerVentas } from '../../Helpers/Request/Pedidios';
 
 export const pedidosController = () =>{
      
@@ -27,14 +29,26 @@ export const pedidosController = () =>{
     events: async function(fetchInfo, successCallback, failureCallback) {
       try {
         const data = await getPedidosNoTemrinados()
+        const dataTerminada = await getPedidosTerminados()
         console.log(data)
+        console.log(dataTerminada)
         const eventos = data.map(item => ({
           title: `${item.cantidad} pedidos no terminados`,
           date: item.fecha,
-          url: `#pedidos/Listar/fecha=${item.fecha}`
+          url: `#pedidos/Listar/fecha=${item.fecha}`,
+          backgroundColor: 'red'
         }));
+         
+        const eventosDos = dataTerminada.map(item => ({
+          title: `${item.cantidad} pedidos  terminados`,
+          date: item.fecha,
+          url: `#pedidos/Listar/fecha=${item.fecha}`,
+          backgroundColor: 'green'
+        }));
+        
+       const todosLosEventos = [...eventos,...eventosDos];
 
-        successCallback(eventos);
+        successCallback(todosLosEventos);
       } catch (error) {
         console.error('Error al cargar pedidos no terminados:', error);
         failureCallback(error);
@@ -42,6 +56,8 @@ export const pedidosController = () =>{
     },
     dateClick: function (info) {
        const modal = document.querySelector('.modalOverlay');
+       const selectorVentas = document.querySelector('#ventaAsociada')
+       ObtenerVentas(selectorVentas)
        modal.style.display = 'flex'; // Muestra el fondo y el formulario centrado
        const formulario = document.querySelector('.formularioPedido')
        const fecha = document.querySelector('#fechaEntrega')

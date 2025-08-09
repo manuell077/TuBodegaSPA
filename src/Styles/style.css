@@ -513,7 +513,7 @@
 .carta__parrafo{
     font-size: 20px;
     padding: 15px;
-    
+        
 }
 
 
@@ -555,6 +555,10 @@
     align-items: center;
     justify-content: center;
     margin-top: 250px;
+}
+
+.botones--modificar{
+    margin-top: 200px;
 }
 
 .botones--venta{
@@ -744,7 +748,9 @@
 
 .carta--detallePedido{
     height: 500px;
+    max-height: 600px;
     width: 290px;
+    overflow-y: auto;
 }
 
 /*Inicio Link*/
@@ -836,6 +842,8 @@
     border: none;
     cursor: pointer;
 }
+
+
 
 .mensajeError--repetir{
     margin-left: -20px;
@@ -1055,3 +1063,5 @@
 .formularioPedido__boton:hover {
   background-color: var(--colorHover);
 }
+
+

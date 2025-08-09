@@ -114,3 +114,8 @@ export const Delete = (id) =>{
     console.error('Error de red:', error);
   });
 }
+
+export const ObtenerDeudores = () =>{
+    return fetch (`http://localhost:8080/Tu_Bodega/api/ventas/deudores`).then(response => response.json()).catch(error => { console.log(error)});
+}
+

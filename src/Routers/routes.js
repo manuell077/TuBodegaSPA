@@ -10,6 +10,10 @@ import { agregarVentaController } from "../Views/Ventas/Agregar/agregarVentaCont
 import { modificarController } from "../Views/Ventas/Modificar/modificarController.js"
 import {pedidosController} from "../Views/Pedidos/pedidosController.js"
 import { listarController } from "../Views/Pedidos/Listar/listarController.js"
+import { modificarPedidosController } from "../Views/Pedidos/Modificar/modificarController.js"
+import { deudoresController} from "../Views/Deudores/deudoresController.js"
+import { usuariosController } from "../Views/usuarios/usuariosController.js"
+
 
 export const routers = {
      
@@ -86,8 +90,29 @@ export const routers = {
             path: "Pedidos/Listar/index.html",
             controller: listarController,
             private: true 
+        },
+        Modificar:{
+            path: "Pedidos/Modificar/index.html",
+            controller: modificarPedidosController,
+            private: true 
         }
     
+    },
+    deudores:{
+        "/":{
+            path: "Deudores/index.html",
+            controller: deudoresController,
+            private: true
+        }
+    } , 
+
+    usuarios:{
+
+        "/":{
+            path: "usuarios/index.html",
+            controller: usuariosController,
+            private: true
+        }
     }
 
 
