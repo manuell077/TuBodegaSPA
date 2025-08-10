@@ -8,8 +8,6 @@ const gridContainer = document.querySelector('.grid-container')
 const sidebar = document.querySelector('.sidebar')
 
 
-const botonEnviar = document.querySelector
-
 const cargarVistasPrivadas = async () =>{
           
     const rol = "admin"
@@ -18,11 +16,12 @@ const cargarVistasPrivadas = async () =>{
        const response  = await fetch ('./src/Componentes/sidebar.html')
        const  sidebarHtml = await response.text()
        sidebar.innerHTML = sidebarHtml
-
+       
     }else{
        const response  = await fetch ('./src/Componentes/sidebarAdmin.html')
        const  sidebarHtml = await response.text()
        sidebar.innerHTML = sidebarHtml
+       
     }
 
 }

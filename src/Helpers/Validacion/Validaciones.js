@@ -935,3 +935,125 @@ export function ValidarPedidosModificar(e){
   }
 }
 
+export function ValidarFactura(e){
+    let data = {};
+    e.preventDefault();
+    //Aca se cuentan todos los campos del formulario que son requeridos 
+    const campos = [...e.target].filter((elemento) =>{
+          
+          return elemento.hasAttribute('required')
+    })
+    
+    campos.forEach(campo=>{
+          
+      switch(campo.name){
+      //Segun el nombre de campo se valida con su respectiva funcion y si devuelve true se añade al objeto data  
+          
+            
+            case "cedula":
+             
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value
+               }
+            
+            break;
+           
+            case "direccion":
+             
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value 
+               }
+            
+            break;
+
+             case "telefono":
+             
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value 
+               }
+            
+            break;
+
+            case "fkPedido":
+             
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value 
+               }
+            
+            break;
+
+            case "correo":
+             
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value 
+               }
+            
+            break;
+
+            case "fecha":
+             
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value 
+               }
+            
+            break;
+
+            case "medioDePago":
+             
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value 
+               }
+            
+            break;
+
+            case "iva":
+             
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value 
+               }
+            
+            break;
+
+            case "valorTotal":
+             
+               if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value 
+               }
+            
+            break;
+
+
+            
+            
+
+
+      }
+
+    })
+    
+
+    Object.keys(data).forEach(elemento => { console.log(elemento)})
+
+    const cantidadObjeto = Object.keys(data).length //Aca obtenemos la longitud del objeto
+    const cantidadCampos =  ContarCampos(e.target) //Aca contamos todos los campos que tenemos en el formulario 
+    
+    console.log(cantidadObjeto)
+
+    if(cantidadCampos === cantidadObjeto){   //Se evalua si tienen la misma cantidad que quiere decir que todos los campos ya fueron validados correctamente
+    
+    return data;
+   }else{
+    return false
+
+  }
+}
+

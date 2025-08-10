@@ -1,5 +1,4 @@
 import { bienvenidaController } from "../Views/Bienvenida/bienvenidaController.js"
-import { empresaController } from "../Views/Empresa/empresaController.js"
 import { loginController} from "../Views/Login/loginControlador.js"
 import { registroController} from "../Views/Registro/registroControlador.js"
 import { inventarioController} from "../Views/Inventario/inventarioController.js"
@@ -13,7 +12,10 @@ import { listarController } from "../Views/Pedidos/Listar/listarController.js"
 import { modificarPedidosController } from "../Views/Pedidos/Modificar/modificarController.js"
 import { deudoresController} from "../Views/Deudores/deudoresController.js"
 import { usuariosController } from "../Views/usuarios/usuariosController.js"
-
+import { agregarUsuariosController } from "../Views/usuarios/Agregar/AgregarController.js"
+import { modificarUsuariosControlador } from "../Views/usuarios/Modificar/ModificarControlador.js"
+import {facturaController} from "../Views/Factura/facturaController.js"
+import {empresaModificarController} from "../Views/EmpresaModificar/empresaController.js"
 
 export const routers = {
      
@@ -25,13 +27,7 @@ export const routers = {
         private:false
         
     },
-    empresa:{
-         path: "empresa/index.html",
-         controller: empresaController,
-         private: false
-         
-
-    },
+    
     login:{
          path: "login/index.html",
          controller: loginController,
@@ -112,8 +108,34 @@ export const routers = {
             path: "usuarios/index.html",
             controller: usuariosController,
             private: true
+        },
+        Agregar:{
+            path: "usuarios/Agregar/index.html",
+            controller: agregarUsuariosController,
+            private: true
+        },
+        Modificar:{
+            path: "usuarios/Modificar/index.html",
+            controller: modificarUsuariosControlador , 
+            private: true 
+        }
+        
+    },
+    factura:{
+         "/":{
+            path: "Factura/index.html",
+            controller: facturaController,
+            private: true
+         }
+    },empresaModificar:{
+
+        "/":{
+           path: "EmpresaModificar/index.html",
+            controller: empresaModificarController,
+            private: true 
         }
     }
+    
 
 
 

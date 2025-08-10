@@ -15,6 +15,8 @@
     "@fullcalendar/core": "^6.1.18",
     "@fullcalendar/daygrid": "^6.1.18",
     "@fullcalendar/interaction": "^6.1.18",
-    "@fullcalendar/list": "^6.1.18"
+    "@fullcalendar/list": "^6.1.18",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2"
   }
 }

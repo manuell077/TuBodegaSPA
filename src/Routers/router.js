@@ -25,7 +25,7 @@ export const recorrerRutas = (routers, hast) => {
          
      }
 
-    if(hasts[0]=="")return [routers.empresa,parametros] //Si la primera posicion del hash  separado por /  es "" retornamos la vista empresa 
+    if(hasts[0]=="")return [routers.Bienvenida,parametros] //Si la primera posicion del hash  separado por /  es "" retornamos la vista empresa 
     
     
     for (const key in routers) { //Recorremos las rutas 

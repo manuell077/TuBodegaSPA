@@ -1,0 +1,76 @@
+<h1 class="titulo">FACTURACION</h1>
+          
+       <form class="generarPdf">
+            <div class="factura">
+                
+
+                <div class="datos">
+                    <p class="datos__titulo">DATOS DEL RECEPTOR</p>
+                    <div class="datosIngreso">
+                        <label class="labelInput">PEDIDO:</label>
+                        <select class="datosIngreso__select" id="pedido"  name="fkPedido" required></select>
+                   </div>
+                   
+                    <div class="datosIngreso">
+                   <label class="labelInput" >CEDULA O NIT:</label>
+                   <input type="text" required name="cedula">
+                   </div>
+
+                   <div class="datosIngreso">
+                   <label class="labelInput">DIRECCION FISCAL:</label>
+                   <input type="text" required name="direccion">
+                   </div>
+                   
+                   <div class="datosIngreso">
+                   <label class="labelInput">TELEFONO:</label>
+                   <input type="text" required name="telefono">
+                   </div>
+
+                    <div class="datosIngreso">
+                   <label class="labelInput">CORREO ELECTRONICO:</label>
+                   <input type="text" required name="correo">
+                   </div>
+                   
+
+                </div>
+                  
+                 <div class="datos">
+                    <p class="datos__titulo">DATOS DE VENTA</p>
+                    <div class="datosIngreso">
+                        <label class="labelInput">FECHA:</label>
+                        <input type="date" readonly name="fecha" id="fecha" required>
+                   </div>
+                   
+                    <div class="datosIngreso">
+                   <label class="labelInput" >MEDIO DE PAGO:</label>
+                   <select name="medioDePago" name="medioDePago" required>
+                    <option value="efectivo">efectivo</option>
+                    <option value="transferencia">transferencia</option>
+                   </select>
+                   </div>
+
+                   <div class="datosIngreso">
+                   <label class="labelInput">IVA PORCENTAJE:</label>
+                   <input type="text" name="iva" id="iva" readonly required>
+                   </div>
+                   
+                   <div class="datosIngreso">
+                   <label class="labelInput">VALOR TOTAL:</label>
+                   <input type="text" readonly id="valorTotal" name="valorTotal" required>
+                   </div>
+
+                    
+                   
+
+                </div>
+
+
+
+                </div>
+
+                 <div class="botones ">
+                <button class="boton boton--generarPdf"  type="submit"><p class="boton__texto">GENERAR PDF</p></button>
+                
+            </div>
+
+            </form>

@@ -10,6 +10,7 @@ const formu = document.querySelector(".login"); //Se seleccionana el formulario
 const cedula = document.querySelector("#cedula")
 const password = document.querySelector("#contrasena")
 
+const botonEnviar = document.querySelector('#botonIngresar')
 
 //Validar que el campo cedula es valido y que no ingreso letras
 cedula.addEventListener("keyup",ValidarCedula)
@@ -21,7 +22,13 @@ password.addEventListener("keydown",ValidarPassword)
 cedula.addEventListener("keyup",ValidarEspacios)
 password.addEventListener("keyup",ValidarEspacios)
 
+const rol = "admin"
 
+if(rol == "usuario"){
+   botonEnviar.href = "#inventario"
+}else{
+  botonEnviar.href = "#usuarios"
+}
 
 formu.addEventListener("submit",(e)=>{
      
