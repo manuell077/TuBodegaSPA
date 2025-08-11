@@ -54,6 +54,7 @@ inputAbonado.required = true;
 inputAbonado.name = "cantidadAbonado";
 inputAbonado.id = "abonado"
 inputAbonado.value = 0
+
 abonado.appendChild(inputAbonado);
 carta.appendChild(abonado);
 
@@ -250,7 +251,7 @@ formularioVentas.addEventListener("submit",(e)=>{
 
 
    cliente.addEventListener("keydown",ValidarLetras)
-   abonado.addEventListener("keyup",ValidarNumeros) 
+   abonado.addEventListener("keydown",ValidarNumeros) 
 
 
 

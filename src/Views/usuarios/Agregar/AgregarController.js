@@ -1,5 +1,5 @@
 import {post} from "../../../Helpers/Request/PostRegistarme.js" //Se importa el metodo post del archivo barril
-import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPassword, ValidarRepeticion, ValidarCorreo, ValidarNumeros, ValidarDireccion,ValidarCedula, ValidarTelefono, ValidarSeleccioandor} from "../../../Helpers/Validacion/index.js"
+import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPassword, ValidarRepeticion, ValidarCorreo, ValidarNumeros, ValidarDireccion,ValidarCedula, ValidarTelefono, ValidarEspaciosUsuarios} from "../../../Helpers/Validacion/index.js"
 
 
 export const agregarUsuariosController = () =>{
@@ -40,13 +40,13 @@ export const agregarUsuariosController = () =>{
     
     
     //Validacion para no exitan espacios en blanco 
-    nombre.addEventListener("keyup",ValidarEspacios)
-    password.addEventListener("keyup",ValidarEspacios)
-    Repeatpassword.addEventListener("keyup",ValidarEspacios)
-    correo.addEventListener("keyup",ValidarEspacios)
-    cedula.addEventListener("keyup",ValidarEspacios)
-    telefono.addEventListener("keyup",ValidarEspacios)
-    direccion.addEventListener("keyup",ValidarEspacios)
+    nombre.addEventListener("keyup",ValidarEspaciosUsuarios)
+    password.addEventListener("keyup",ValidarEspaciosUsuarios)
+    Repeatpassword.addEventListener("keyup",ValidarEspaciosUsuarios)
+    correo.addEventListener("keyup",ValidarEspaciosUsuarios)
+    cedula.addEventListener("keyup",ValidarEspaciosUsuarios)
+    telefono.addEventListener("keyup",ValidarEspaciosUsuarios)
+    direccion.addEventListener("keyup",ValidarEspaciosUsuarios)
     
     
     

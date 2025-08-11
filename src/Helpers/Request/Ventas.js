@@ -23,7 +23,7 @@ export const Post = (event,objeto) =>{
 
 export const ObtenerUsuarios =  (select , valorSeleccionado) =>{
 
-    fetch("http://localhost:8080/Tu_Bodega/api/usuarios").then(response => response.json()).then(data =>{
+    fetch("http://localhost:8080/Tu_Bodega/api/usuarios/rol2").then(response => response.json()).then(data =>{
          
         data.forEach(element => {
         
@@ -47,7 +47,7 @@ export const ObtenerUsuarios =  (select , valorSeleccionado) =>{
 
 export const ObtenerProductos = async (select,idSeleccionado) =>{
 
-    await fetch("http://localhost:8080/Tu_Bodega/api/productos").then(response => response.json()).then(data =>{
+    await fetch("http://localhost:8080/Tu_Bodega/api/productos/estado1").then(response => response.json()).then(data =>{
          
         data.forEach(element => {
         

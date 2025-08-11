@@ -5,7 +5,7 @@ import { post } from "../../Helpers/Request/factura"
 import { obtenerFacturaCompleta } from "../../Helpers/Request/factura"
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
-
+import { ValidarEspaciosUsuarios , ValidarNumeros,ValidarCorreo} from "../../Helpers/Validacion/Validaciones"
 
 export const facturaController = async() =>{
        
@@ -15,7 +15,20 @@ export const facturaController = async() =>{
     const iva = document.querySelector("#iva")
     const valorTotal = document.querySelector("#valorTotal")
     const pdf = document.querySelector(".generarPdf")
+    const cedula = document.querySelector("#cedula")
+    const telefono = document.querySelector("#telefono")
+    const correo = document.querySelector("#correo")
+    const direccion = document.querySelector("#direccion")
+
+    cedula.addEventListener("keyup",ValidarEspaciosUsuarios)
+    cedula.addEventListener("keydown" , ValidarNumeros)
+    direccion.addEventListener("keyup",ValidarEspaciosUsuarios)
+    telefono.addEventListener("keyup",ValidarEspaciosUsuarios)
+    telefono.addEventListener("keydown",ValidarNumeros)
+    correo.addEventListener("keyup",ValidarEspaciosUsuarios)
+    correo.addEventListener("keydown",ValidarCorreo)
     
+
 
     pedidos.forEach(element => {
         const opcion = document.createElement("option")
@@ -117,6 +130,8 @@ export const facturaController = async() =>{
         }
 
     })
+    
+
 
 }
 
