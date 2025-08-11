@@ -1,5 +1,6 @@
 import {post} from "../../Helpers/Request/PostRegistarme.js" //Se importa el metodo post del archivo barril
 import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPassword, ValidarRepeticion, ValidarCorreo, ValidarNumeros, ValidarDireccion,ValidarCedula, ValidarTelefono, ValidarSeleccioandor} from "../../Helpers/Validacion/index.js"
+import Swal from 'sweetalert2';
 
 export const registroController = () =>{
 
@@ -64,7 +65,12 @@ formu.addEventListener("submit", (e) =>  {
      
 
   }else{
-    alert("❌Tienes que completar todos los campos correctamente")
+    Swal.fire({
+  icon: 'error',
+  title: 'Error',
+  text: 'Tienes que completar todos los campos',
+  confirmButtonText: 'Aceptar'
+   });
   }
   
 

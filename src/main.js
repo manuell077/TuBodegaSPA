@@ -7,20 +7,29 @@ const app = document.querySelector("#app");
 const gridContainer = document.querySelector('.grid-container')
 const sidebar = document.querySelector('.sidebar')
 
+const usuario = document.querySelector(".perfil__texto")
+
 
 const cargarVistasPrivadas = async () =>{
           
-    const rol = "admin"
+    const rol = localStorage.getItem('rol')
+    
 
-    if(rol == "usuario"){
+
+    if(rol == 2){
        const response  = await fetch ('./src/Componentes/sidebar.html')
        const  sidebarHtml = await response.text()
        sidebar.innerHTML = sidebarHtml
+        
+      const usuario = document.querySelector(".perfil__texto");
+      usuario.textContent = "EMPLEADO";
        
     }else{
        const response  = await fetch ('./src/Componentes/sidebarAdmin.html')
        const  sidebarHtml = await response.text()
        sidebar.innerHTML = sidebarHtml
+       const usuario = document.querySelector(".perfil__texto")
+       usuario.textContent = "ADMIN"
        
     }
 
@@ -33,7 +42,8 @@ const cargar = () =>{
     
 
    const [rutasEncontradas,parametros]  = recorrerRutas(routers,hash)
-  
+   
+
    console.log(rutasEncontradas.private) 
   
     if(rutasEncontradas.private == true){

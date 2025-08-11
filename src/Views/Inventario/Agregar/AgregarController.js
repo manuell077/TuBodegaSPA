@@ -1,22 +1,72 @@
-import {ValidarLetras,ValidarNumeros,ValidarEspacios} from "../../../Helpers/Validacion/index.js"
-
+import {ValidarLetras,ValidarNumeros,ValidarEspaciosInventario ,ValidarInventarioAgregar} from "../../../Helpers/Validacion/index.js"
+import Swal from 'sweetalert2';
 export const AgregarController = () =>{
       
     const formulario = document.querySelector("#addProducto")
+    const inputImagen = document.querySelector('#imagen');
+    const inputNombre = document.querySelector('#nombre');
+    const inputPeso = document.querySelector('#peso');
+    const inputCantidad = document.querySelector('#cantidad');
+    const inputPrecio = document.querySelector('#precio');
     
-    formulario.addEventListener("submit",(e) =>{
+    formulario.addEventListener("submit",async(e) =>{
         e.preventDefault()
+     
+        let objeto = ValidarInventarioAgregar(e)
+       
+       if(objeto != false){
 
-        const formData  = new FormData(formulario)
+       const formData = new FormData(formulario);
 
-      fetch("http://localhost:8080/Tu_Bodega/api/productos", {
-      method: "POST",
-      body: formData
-    }).then(res => res.text())
-      .then(data => alert("Respuesta: " + data))
-      .catch(err => console.error("Error:", err));
+        try {
+            const res = await fetch("http://localhost:8080/Tu_Bodega/api/productos", {
+                method: "POST",
+                body: formData
+            });
+             const data = await res.text();
+            // Aquí validamos el código de respuesta
+            if (!res.ok) {
+                throw new Error(data);
+            }
 
+            
 
-    })
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: 'Se agregó producto',
+                confirmButtonText: 'Aceptar'
+            });
+
+        } catch (err) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: "Ha sucedido un error: " + err.message,
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: "Tienes que completar todos los campos",
+            confirmButtonText: 'Aceptar'
+        });
+    }
+
+    inputNombre.addEventListener("keydown",ValidarLetras)
+    inputPeso.addEventListener("keydown",ValidarNumeros)
+    inputCantidad.addEventListener("keydown",ValidarNumeros)
+    inputPrecio.addEventListener("keydown",ValidarNumeros)
+  
+    inputImagen.addEventListener("keyup",ValidarEspaciosInventario)
+    inputNombre.addEventListener("keyup",ValidarEspaciosInventario)
+    inputPeso.addEventListener("keyup",ValidarEspaciosInventario)
+    inputCantidad.addEventListener("keyup",ValidarEspaciosInventario)
+    inputPrecio.addEventListener("keyup",ValidarEspaciosInventario)
     
-}
+
+
+    
+    })}

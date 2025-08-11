@@ -1,5 +1,7 @@
 import { GetID,put } from "../../../Helpers/Request/GetProductos"
 import { ValidarLetras , ValidarNumeros , ValidarEspacios, ValidarEspaciosInventario, ValidarInventario} from "../../../Helpers/Validacion/index.js"
+import Swal from 'sweetalert2';
+
 
 export const ModificarController = async (queryParams = null) =>{
   
@@ -112,9 +114,16 @@ formulario.addEventListener("submit", (e)=>{
        
      put(id,objeto)
 
+     
+
     }else{
 
-      alert("Los campos no pueden quedar vacios")
+      Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: "Los campos no pueden quedar vacios ",
+                  confirmButtonText: 'Aceptar'
+              });
     }
 
 })

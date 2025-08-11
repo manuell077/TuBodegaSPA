@@ -1,5 +1,5 @@
 import {post} from "../../Helpers/Request/PostLogin.js" //Se importa del metodo post
-
+import Swal from 'sweetalert2';
 import {ValidarEspacios,ValidarCedula,ValidarPassword, ValidarLogin} from "../../Helpers/Validacion/index.js"
 
 
@@ -22,25 +22,32 @@ password.addEventListener("keydown",ValidarPassword)
 cedula.addEventListener("keyup",ValidarEspacios)
 password.addEventListener("keyup",ValidarEspacios)
 
-const rol = "admin"
 
-if(rol == "usuario"){
-   botonEnviar.href = "#inventario"
-}else{
-  botonEnviar.href = "#usuarios"
-}
 
 formu.addEventListener("submit",(e)=>{
      
     
     
     let obejto = ValidarLogin(e)
+     
+     console.log(obejto)
 
     if(obejto != false ){
         
         post(e,obejto)
+        
+       
+
+    
+
+
     }else{
-         alert("❌Completa los campos correctamente")
+        Swal.fire({
+                      icon: 'error',
+                      title: 'Error',
+                      text:  "Tienes que completar todos los campos",
+                      confirmButtonText: 'Aceptar'
+                       })
     }
 })
 
