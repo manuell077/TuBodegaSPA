@@ -21,29 +21,23 @@ export const Post = (event,objeto) =>{
 }
 
 
-export const ObtenerUsuarios =  (select , valorSeleccionado) =>{
+export const ObtenerUsuarios =  (select) =>{
 
-    fetch("http://localhost:8080/Tu_Bodega/api/usuarios").then(response => response.json()).then(data =>{
-         
-        data.forEach(element => {
         
-          console.log(element)
-        let opcion = document.createElement("option")
-         opcion.value = element.cedula
-         opcion.textContent = element.cedula
-         if(element.cedula === valorSeleccionado){
-            
-            opcion.selected = true
-         }
-         
+         let nombreUsuario = localStorage.getItem('nombre')
+         let cedula = localStorage.getItem('cedula')
+
+         let opcion = document.createElement("option")
+         opcion.value =  cedula
+         opcion.textContent = "Nombre: " + nombreUsuario + " Cedula: " +  cedula
+         opcion.selected = true
          select.append(opcion)
-        });
-
-})
-
-
 
 }
+
+
+
+
 
 export const ObtenerProductos = async (select,idSeleccionado) =>{
 
@@ -71,9 +65,9 @@ export const ObtenerProductos = async (select,idSeleccionado) =>{
 }
 
 
-export const ObtenerVentas = () =>{
+export const ObtenerVentas = (fkUsuario) =>{
    
-    return fetch('http://localhost:8080/Tu_Bodega/api/ventas').then(response => response.json());
+    return fetch(`http://localhost:8080/Tu_Bodega/api/ventas/usuario/${fkUsuario}`).then(response => response.json());
 
 }
 
@@ -104,10 +98,10 @@ export const Delete = (id) =>{
   })
   .then(response => {
     if (response.ok) {
-      console.log('Venta eliminada correctamente');
-      // Puedes recargar o actualizar la vista aquí si deseas
+      
+      alert("✅  La eliminacion se ha relizado correctamente")
     } else {
-      console.error('Error al eliminar venta');
+      alert("❌  No se puede eliminar la venta")
     }
   })
   .catch(error => {

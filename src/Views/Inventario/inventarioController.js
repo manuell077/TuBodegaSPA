@@ -76,6 +76,7 @@ export const inventarioController =  async() =>{
 
      Delete(id)
      location.reload()
+     
   })
 
  });

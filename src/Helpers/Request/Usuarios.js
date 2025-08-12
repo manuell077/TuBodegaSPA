@@ -1,6 +1,6 @@
-export const ObtenerTodosUsuarios = () =>{
+export const ObtenerTodosUsuarios = (fkUsuario) =>{
    
-    return fetch('http://localhost:8080/Tu_Bodega/api/usuarios').then(response => response.json());
+    return fetch(`http://localhost:8080/Tu_Bodega/api/usuarios/excepto/${fkUsuario}`).then(response => response.json());
 
 }
 

@@ -229,13 +229,7 @@ export const modificarController = async(queryParams = null) =>{
     selectorUsuario.required = true; 
     selectorUsuario.name = "fkUsuarios"; 
     selectorUsuario.id = "usuarioSelector";
-    const opcionUsuario = document.createElement('option');
-    opcionUsuario.textContent = "Selecciona un usuario"
-    opcionUsuario.disabled = true;     
-    opcionUsuario.hidden = true;
-    opcionUsuario.value = "";       
-    opcionUsuario.selected = true;  
-    ObtenerUsuarios(selectorUsuario,contenido[0].fkUsuarios)
+    ObtenerUsuarios(selectorUsuario)
     
     
     
@@ -246,7 +240,7 @@ export const modificarController = async(queryParams = null) =>{
     saldoTotal.textContent = 'Saldo Total: $0.00'; // puedes reemplazarlo por un valor dinámico
     carta.appendChild(saldoTotal);
     
-    selectorUsuario.append(opcionUsuario)
+    
     usuario.appendChild(selectorUsuario)
     
     carta.appendChild(usuario)

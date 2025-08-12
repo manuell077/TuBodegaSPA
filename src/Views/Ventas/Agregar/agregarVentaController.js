@@ -147,19 +147,13 @@ carta.appendChild(fechaHora);
 
 const  usuario = document.createElement('p');
 usuario.className = 'carta__parrafo';
-usuario.textContent = 'Usuario: ';
+usuario.textContent = 'Empleado: ';
 const selectorUsuario = document.createElement('select')
 selectorUsuario.className = 'cantidadProductos__selector';
 selectorUsuario.required = true; 
 selectorUsuario.name = "fkUsuarios"; 
 selectorUsuario.id = "usuarioSelector";
-const opcionUsuario = document.createElement('option');
-opcionUsuario.textContent = "Selecciona un usuario"
-opcionUsuario.disabled = true;     
-opcionUsuario.hidden = true;
-opcionUsuario.value = "";       
-opcionUsuario.selected = true;  
-ObtenerUsuarios(selectorUsuario,0)
+ObtenerUsuarios(selectorUsuario)
 
 
 
@@ -170,7 +164,7 @@ saldoTotal.id = 'saldoTotal'
 saldoTotal.textContent = 'Saldo Total: $0.00'; // puedes reemplazarlo por un valor dinámico
 carta.appendChild(saldoTotal);
 
-selectorUsuario.append(opcionUsuario)
+
 usuario.appendChild(selectorUsuario)
 
 carta.appendChild(usuario)

@@ -75,9 +75,9 @@ export function Delete(id){
   });
 }
 
-export const ObtenerVentas = async (select) =>{
+export const ObtenerVentasSinPedido = async (select,id) =>{
 
-    await fetch("http://localhost:8080/Tu_Bodega/api/ventas").then(response => response.json()).then(data =>{
+    await fetch(`http://localhost:8080/Tu_Bodega/api/ventas/sin-pedido/${id}`).then(response => response.json()).then(data =>{
          
         data.forEach(element => {
         

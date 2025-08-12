@@ -7,7 +7,7 @@ import { ValidarPedidos } from '../../Helpers/Validacion';
 import {post} from '../../Helpers/Request/Pedidios'
 import { getPedidosNoTemrinados } from '../../Helpers/Request/Pedidios';
 import { getPedidosTerminados } from '../../Helpers/Request/Pedidios';
-import { ObtenerVentas } from '../../Helpers/Request/Pedidios';
+import { ObtenerVentasSinPedido} from '../../Helpers/Request/Pedidios';
 
 export const pedidosController = () =>{
      
@@ -57,7 +57,8 @@ export const pedidosController = () =>{
     dateClick: function (info) {
        const modal = document.querySelector('.modalOverlay');
        const selectorVentas = document.querySelector('#ventaAsociada')
-       ObtenerVentas(selectorVentas)
+       const id =  localStorage.getItem('cedula')
+       ObtenerVentasSinPedido(selectorVentas,id)
        modal.style.display = 'flex'; // Muestra el fondo y el formulario centrado
        const formulario = document.querySelector('.formularioPedido')
        const fecha = document.querySelector('#fechaEntrega')

@@ -17,6 +17,8 @@ const sidebar = document.querySelector('.sidebar')
             console.log(jsonData);
              
              localStorage.setItem('rol',jsonData.rol)
+             localStorage.setItem('nombre',jsonData.nombre)
+             localStorage.setItem('cedula',jsonData.cedula)
 
             if (jsonData.rol == 2) {
                 window.location.hash = "#inventario";

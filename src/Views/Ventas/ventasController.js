@@ -5,8 +5,9 @@ import { ValidarEspacios, ValidarLetras } from "../../Helpers/Validacion/Validac
 export const ventasController = async() =>{
   
 
-  const contenedorVentas = document.querySelector(".agregarCards")  
-  const ventasObtenidas = await ObtenerVentas()
+  const contenedorVentas = document.querySelector(".agregarCards") 
+  const cedulUsuario = localStorage.getItem('cedula') 
+  const ventasObtenidas = await ObtenerVentas(cedulUsuario)
   
   console.log(ventasObtenidas)
 

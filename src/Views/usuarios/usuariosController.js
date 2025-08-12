@@ -3,9 +3,9 @@ import { Delete } from "../../Helpers/Request/Usuarios";
 
 export const usuariosController = async() =>{
 
-    
+    const cedula = localStorage.getItem('cedula')
      
-    const usuarios = await ObtenerTodosUsuarios()
+    const usuarios = await ObtenerTodosUsuarios(cedula)
     
     const container = document.querySelector('.usuarios-container')
 
@@ -16,13 +16,24 @@ export const usuariosController = async() =>{
 
             const info = document.createElement("div");
             info.classList.add("usuario-info");
+            
+            
+            let rolReal = ""
+            
+            if(usuario.rol == 2){
+
+                rolReal = "EMPLEADO"
+            }else{
+               rolReal = "ADMINISTRADOR"
+            }
+
 
             const nombre = document.createElement("p");
             nombre.innerHTML = `<strong>Nombre:</strong> ${usuario.nombre}`;
             const cedula = document.createElement("p");
             cedula.innerHTML = `<strong>Cédula:</strong> ${usuario.cedula}`;
             const rol = document.createElement("p");
-            rol.innerHTML = `<strong>Rol:</strong> ${usuario.nombreRol}`;
+            rol.innerHTML = `<strong>Rol:</strong> ${rolReal}`;
 
             info.appendChild(nombre);
             info.appendChild(cedula);

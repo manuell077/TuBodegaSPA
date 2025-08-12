@@ -41,11 +41,17 @@ export function Delete(id){
     method: 'DELETE',
   })
   .then(response => {
+
+    console.log(response)
     if (response.ok) {
-      console.log('Producto eliminado correctamente');
+      alert('✅ La eliminación se ha realizado correctamente');
       // Puedes recargar o actualizar la vista aquí si deseas
-    } else {
-      console.error('Error al eliminar el producto');
+    } else if(response.status == 400){
+
+      alert('❌ No se puede eliminar un producto cuando tiene una venta asociada');
+    }else{
+      alert('⚠️ Error inesperado al intentar eliminar el producto');
+
     }
   })
   .catch(error => {
