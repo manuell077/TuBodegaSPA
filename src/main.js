@@ -23,6 +23,9 @@ const cargarVistasPrivadas = async () =>{
         
       const usuario = document.querySelector(".perfil__texto");
       usuario.textContent = "EMPLEADO";
+      usuario.addEventListener("click", () => {
+        location.hash = "#login"; // Cambia el hash
+    });
        
     }else{
        const response  = await fetch ('./src/Componentes/sidebarAdmin.html')
@@ -30,6 +33,9 @@ const cargarVistasPrivadas = async () =>{
        sidebar.innerHTML = sidebarHtml
        const usuario = document.querySelector(".perfil__texto")
        usuario.textContent = "ADMIN"
+       usuario.addEventListener("click", () => {
+        location.hash = "#login"; // Cambia el hash
+    });
        
     }
 

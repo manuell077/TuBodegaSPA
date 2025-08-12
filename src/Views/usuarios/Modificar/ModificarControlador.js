@@ -1,5 +1,5 @@
 import { ObtenerUsuariosPorId } from "../../../Helpers/Request/Usuarios"
-import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPassword,  ValidarCorreo, ValidarNumeros, ValidarDireccion,ValidarCedula, ValidarTelefono} from "../../../Helpers/Validacion/index.js"
+import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPassword,  ValidarCorreo, ValidarNumeros, ValidarDireccion,ValidarCedula, ValidarTelefono, ValidarEspaciosUsuarios} from "../../../Helpers/Validacion/index.js"
 import { Put } from "../../../Helpers/Request/Usuarios.js"
 export const modificarUsuariosControlador = async(queryparams = null) =>{
      
@@ -32,18 +32,18 @@ export const modificarUsuariosControlador = async(queryparams = null) =>{
          direccionInput.addEventListener("keydown",ValidarDireccion)
 
          //Validacion para no exitan espacios en blanco 
-             nombre.addEventListener("keyup",ValidarEspacios)
-             password.addEventListener("keyup",ValidarEspacios)
-             correoElectronicoInput.addEventListener("keyup",ValidarEspacios)
-             cedulaInput.addEventListener("keyup",ValidarEspacios)
-             telefonoInput.addEventListener("keyup",ValidarEspacios)
-             direccionInput.addEventListener("keyup",ValidarEspacios)
+             nombre.addEventListener("keyup",ValidarEspaciosUsuarios)
+             password.addEventListener("keyup",ValidarEspaciosUsuarios)
+             correoElectronicoInput.addEventListener("keyup",ValidarEspaciosUsuarios)
+             cedulaInput.addEventListener("keyup",ValidarEspaciosUsuarios)
+             telefonoInput.addEventListener("keyup",ValidarEspaciosUsuarios)
+             direccionInput.addEventListener("keyup",ValidarEspaciosUsuarios)
 
 
      const usuariosPorId = await ObtenerUsuariosPorId(id)
 
     nombre.value = usuariosPorId.nombre;
-    password.value = usuariosPorId.password;
+    password.value = "*****"
     correoElectronicoInput.value = usuariosPorId.correo_electronico
     telefonoInput.value = usuariosPorId.telefono 
     cedulaInput.value = usuariosPorId.cedula
