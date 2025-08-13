@@ -626,7 +626,7 @@
 .factura{
     display: flex;
     justify-content: space-evenly;
-    height: 400px;
+    height: 480px;
     width: 90%;
     margin:40px auto;
     border-radius: 25px;
@@ -1165,6 +1165,31 @@
 
 .boton--generarPdf{
     cursor: pointer;
+}
+
+.mensajeError--usuarios{
+    margin-top: 25px;
+    color: var(--colorPrograma);
+}
+
+.mensajeError--nitCedula{
+    margin-top: 25px;
+    color: var(--colorPrograma);
+}
+
+.mensajeError--telefonoFactura{
+    margin-top: 25px;
+    color: var(--colorPrograma);
+}
+
+.mensajeError--correoFactura{
+    margin-top: 25px;
+    color: var(--colorPrograma);
+}
+
+.mensajeError--factura{
+    margin-top: 25px;
+    color: var(--colorPrograma);
 }
 
 .mensajeError--usuarios{

@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 export const ObtenerTodosUsuarios = (fkUsuario) =>{
    
     return fetch(`http://localhost:8080/Tu_Bodega/api/usuarios/excepto/${fkUsuario}`).then(response => response.json());
@@ -19,9 +20,19 @@ export const Put = (id,data) =>{
 
     }).then(res => res.text().then(texto=>{ //Se convierte en texto la respuesta que nos trae el servidor y al ser una promesa la resolvemos con then 
       if (res.ok) {
-        alert("✅ Se ha realizado la actualizacion correctamente"); //Si el servidor trae una respuesta de tipo "ok"
+        Swal.fire({
+                  icon: 'success',
+                  title: '¡Éxito!',
+                  text: 'Se ha realizado el registro correctamente',
+                  confirmButtonText: 'Aceptar'
+                   }); //Si el servidor trae una respuesta de tipo "ok"
     } else {
-        alert("❌ Ha ocurrido un error: " + texto); //Si devuelve cualquier otra respuesta como lo es error 500 o 404 entonces tirara un alert de error 
+        Swal.fire({
+                          icon: 'error',
+                          title: 'Error',
+                          text:  texto,
+                          confirmButtonText: 'Aceptar'
+                           }); //Si devuelve cualquier otra respuesta como lo es error 500 o 404 entonces tirara un alert de error 
     }
 
     })).catch(err => console.error("Error:", err)); //Se  resuelve si el servidor trae una respuesta de tipo texto y despues se imprime lo que se obtiene por consola 

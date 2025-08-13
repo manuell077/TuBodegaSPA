@@ -5,7 +5,7 @@ import { post } from "../../Helpers/Request/factura"
 import { obtenerFacturaCompleta } from "../../Helpers/Request/factura"
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
-import { ValidarEspaciosUsuarios , ValidarNumeros,ValidarCorreo} from "../../Helpers/Validacion/Validaciones"
+import { ValidarEspaciosUsuarios , ValidarNumeros,ValidarCorreoFactura,ValidarNitoCedula , ValidarTelefonoFactura} from "../../Helpers/Validacion/Validaciones"
 
 export const facturaController = async() =>{
        
@@ -19,14 +19,21 @@ export const facturaController = async() =>{
     const telefono = document.querySelector("#telefono")
     const correo = document.querySelector("#correo")
     const direccion = document.querySelector("#direccion")
-
-    cedula.addEventListener("keyup",ValidarEspaciosUsuarios)
+    
     cedula.addEventListener("keydown" , ValidarNumeros)
+    cedula.addEventListener("keyup",ValidarEspaciosUsuarios)
+    cedula.addEventListener("blur",()=>{ValidarNitoCedula(cedula)})
+    
     direccion.addEventListener("keyup",ValidarEspaciosUsuarios)
+
     telefono.addEventListener("keyup",ValidarEspaciosUsuarios)
+    telefono.addEventListener("blur",()=>{ValidarTelefonoFactura(telefono)})
+
     telefono.addEventListener("keydown",ValidarNumeros)
+
     correo.addEventListener("keyup",ValidarEspaciosUsuarios)
-    correo.addEventListener("keydown",ValidarCorreo)
+    correo.addEventListener("blur",()=>{ValidarCorreoFactura(correo)})
+    
     
 
 
@@ -49,7 +56,7 @@ export const facturaController = async() =>{
      
     const valorVenta = await traerValorVenta(pedidoSelect.value)
     
-    sacarValorTotal(iva.value,valorVenta[0].valor,valorTotal)
+   const valorTotalFactura = sacarValorTotal(iva.value,valorVenta[0].valor,valorTotal)
     
 
     pedidoSelect.addEventListener('change',async(event)=>{
@@ -61,6 +68,8 @@ export const facturaController = async() =>{
 
     pdf.addEventListener('submit',async(e)=>{
         
+        e.preventDefault()
+
         let objeto = ValidarFactura(e)
          
         let data = {}
@@ -119,11 +128,13 @@ export const facturaController = async() =>{
     let yFinal = doc.lastAutoTable.finalY + 10;
     doc.text(`IVA: $${factura.iva}`, 10, yFinal);
     yFinal += 5;
-    doc.text(`Total: $${factura.valorTotal}`, 10, yFinal);
+    doc.text(`Total: $${valorTotal.value}`, 10, yFinal);
 
     // Descargar
     doc.save(`factura_${factura.id_factura}.pdf`);
 
+      
+    location.reload()
 
         }else{
            alert("Tienes que completar todos los campos")

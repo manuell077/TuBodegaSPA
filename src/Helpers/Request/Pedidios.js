@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 export function post(event,data){ //Recibe como parametros el evento y el formulario
 
     event.preventDefault() //Evitara que se envie el formulario 
@@ -61,18 +63,24 @@ export function Delete(id){
 
     fetch(`http://localhost:8080/Tu_Bodega/api/pedidos/${id}`, {
     method: 'DELETE',
-  })
-  .then(response => {
-    if (response.ok) {
-      console.log('Producto eliminado correctamente');
-      // Puedes recargar o actualizar la vista aquí si deseas
+  }).then(res => res.text().then(texto=>{ //Se convierte en texto la respuesta que nos trae el servidor y al ser una promesa la resolvemos con then 
+      if (res.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: '¡Éxito!',
+          text: 'Se ha realizado la eliminacion correctamente',
+          confirmButtonText: 'Aceptar'
+           }); //Si el servidor trae una respuesta de tipo "ok"
     } else {
-      console.error('Error al eliminar el producto');
+        Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text:  texto,
+                  confirmButtonText: 'Aceptar'
+                   }); //Si devuelve cualquier otra respuesta como lo es error 500 o 404 entonces tirara un alert de error 
     }
-  })
-  .catch(error => {
-    console.error('Error de red:', error);
-  });
+
+    })).catch(err => console.error("Error:", err))
 }
 
 export const ObtenerVentasSinPedido = async (select,id) =>{

@@ -1,5 +1,5 @@
 import { traerEmpresas } from "../../Helpers/Request/EMPRESA.JS";
-import { ValidarEmpresa } from "../../Helpers/Validacion/Validaciones";
+import { ValidarEmpresa, ValidarNumeros , ValidarLetras } from "../../Helpers/Validacion/Validaciones";
 import { put } from "../../Helpers/Request/empresa.js"
 
 export const empresaModificarController = async() =>{
@@ -16,13 +16,20 @@ let datos = await traerEmpresas()
     direccionInput.value = datos[0].direccion
     lineaAtencionInput.value = datos[0].lineaDeAtencion
     correoInput.value = datos[0].correoEmpresa
+     
+    nitInput.addEventListener("keydown",ValidarNumeros)
+    empresaInput.addEventListener("keydown",ValidarLetras)
+    lineaAtencionInput.addEventListener("keydown",ValidarNumeros)
+    
+    
+    
 
     formulario.addEventListener('submit',(e)=>{
         let objeto = ValidarEmpresa(e)
 
         if(objeto != false){
            
-            put(datos[0].nit,objeto)
+            put(nitInput.value,objeto)
          
         }else{
          

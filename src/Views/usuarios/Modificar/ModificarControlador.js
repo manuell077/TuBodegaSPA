@@ -1,5 +1,5 @@
 import { ObtenerUsuariosPorId } from "../../../Helpers/Request/Usuarios"
-import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPassword,  ValidarCorreo, ValidarNumeros, ValidarDireccion,ValidarCedula, ValidarTelefono, ValidarEspaciosUsuarios} from "../../../Helpers/Validacion/index.js"
+import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPasswordUsuarios,  ValidarCorreoUsuarios, ValidarNumeros, ValidarDireccion,ValidarCedulaUsuarios, ValidarTelefonoUsuarios, ValidarEspaciosUsuarios,ValidarRegistroActualizacion} from "../../../Helpers/Validacion/index.js"
 import { Put } from "../../../Helpers/Request/Usuarios.js"
 export const modificarUsuariosControlador = async(queryparams = null) =>{
      
@@ -17,23 +17,23 @@ export const modificarUsuariosControlador = async(queryparams = null) =>{
          //Validacion para que el usuario escriba solo letras 
          nombre.addEventListener("keydown",ValidarLetras)
          //Validacion donde el usuario solo va a escribir letras ,numeros y minimo van a ser 6 caracteres
-         password.addEventListener("keyup",ValidarPassword)
+         
          //Validacion donde se valida si cumple con una sintaxis de correo correcta
-         correoElectronicoInput.addEventListener("keydown",ValidarCorreo)
+         correoElectronicoInput.addEventListener("keydown",ValidarCorreoUsuarios)
          //Validacion para que solo ingrese digitos
          cedulaInput.addEventListener("keydown",ValidarNumeros)
          //Validacion para que ingrese una cedula de 8 a 10 digitos
-         cedulaInput.addEventListener("keyup",ValidarCedula)
+         cedulaInput.addEventListener("keyup",ValidarCedulaUsuarios)
          //Validacion que solo permite que se ingrese numeros  
          telefonoInput.addEventListener("keydown",ValidarNumeros)
          //Validacion que ingrese un numero valido 
-         telefonoInput.addEventListener("keyup",ValidarTelefono)
+         telefonoInput.addEventListener("keyup",ValidarTelefonoUsuarios)
          //Validacion de direccion 
          direccionInput.addEventListener("keydown",ValidarDireccion)
 
          //Validacion para no exitan espacios en blanco 
              nombre.addEventListener("keyup",ValidarEspaciosUsuarios)
-             password.addEventListener("keyup",ValidarEspaciosUsuarios)
+             
              correoElectronicoInput.addEventListener("keyup",ValidarEspaciosUsuarios)
              cedulaInput.addEventListener("keyup",ValidarEspaciosUsuarios)
              telefonoInput.addEventListener("keyup",ValidarEspaciosUsuarios)
@@ -43,7 +43,6 @@ export const modificarUsuariosControlador = async(queryparams = null) =>{
      const usuariosPorId = await ObtenerUsuariosPorId(id)
 
     nombre.value = usuariosPorId.nombre;
-    password.value = "*****"
     correoElectronicoInput.value = usuariosPorId.correo_electronico
     telefonoInput.value = usuariosPorId.telefono 
     cedulaInput.value = usuariosPorId.cedula
@@ -61,10 +60,16 @@ export const modificarUsuariosControlador = async(queryparams = null) =>{
     
     formularioActualizarUsuario.addEventListener('submit',(e)=>{
         e.preventDefault()
-        let objeto =  ValidarRegistro(e)
+        let objeto =  ValidarRegistroActualizacion(e)
         
             if(objeto != false){
              objeto["rol"] = rol.value  
+             if(password.value == ""){
+             objeto["password"] = "manuel270905"
+             }else{
+                objeto["password"] = password.value
+             }
+             console.log(objeto)
              Put(id,objeto)
         
             }else{

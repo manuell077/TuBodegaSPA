@@ -110,6 +110,110 @@ export function ValidarRegistro(e) {
   }
 }
 
+
+export function ValidarRegistroActualizacion(e) {
+         
+    let data = {};
+    e.preventDefault();
+    //Aca se cuentan todos los campos del formulario que son requeridos 
+    const campos = [...e.target].filter((elemento) =>{
+          
+          return elemento.hasAttribute('required') 
+    })
+    let password = ""
+    campos.forEach(campo =>{
+        
+        
+        switch(campo.name){
+          
+          //Segun el nombre de campo se valida con su respectiva funcion y si devuelve true se añade al objeto data  
+
+          case "nombre":
+            
+          if(campo.value){
+             
+            let nombreCampo = campo.getAttribute('name')
+            data[nombreCampo] = campo.value
+
+          }
+           break;
+
+          
+
+          case "repeatPassword":
+            
+               if(ValidarRepeticion(campo,password)){
+                console.log("Si me guarde")
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+                
+               }
+            
+          break;
+
+          case "correo_electronico":
+            
+               if(ValidarCorreo){
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+               
+               }
+            
+
+            break;
+
+            case "telefono":
+            
+               if(ValidarTelefono){
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+                
+               }
+            
+                          
+            break;
+
+            case "cedula":
+           
+            
+               if(ValidarCedula){
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+                
+               }
+            
+            break;
+
+            case "direccion":
+
+
+            if(campo.value){
+               
+                let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+                
+            }
+            break;
+             
+            
+
+          }
+    })
+    const cantidadObjeto = Object.keys(data).length //Aca obtenemos la longitud del objeto 
+    const cantidadCampos =  ContarCampos(e.target) //Aca contamos todos los campos que tenemos en el formulario 
+    
+   
+   Object.keys(data).forEach(elemento =>{ console.log( data[elemento])})
+
+  if(cantidadCampos === cantidadObjeto){  //Se evalua si tienen la misma cantidad que quiere decir que todos los campos ya fueron validados correctamente
+    delete  data["repeatPassword"]  //Eliminamos este campo porque no es necesrio en el objeto 
+    return data;
+  }else{
+    return false
+    
+  }
+}
+
 export function ValidarEspacios(e){
   
   //Se evalua si el valor que ingreso el usuario es vacio o no 
@@ -330,6 +434,121 @@ export function ValidarCorreo(e){
 
 }
 
+export function ValidarCorreoUsuarios(e){
+     
+  const correo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ //Expresion regular que valida la sintaxis correcta de un correo 
+  
+  //Si no existe se crea el mensaje de error y se retorna falso  
+  if(!correo.test(e.target.value)){
+     if(e.target.nextSibling){
+           
+          e.target.nextSibling.remove()
+        }
+
+        let error = document.createElement("span") 
+        error.classList.add("mensajeError","mensajeError--usuarios")
+        error.textContent = "❌Ingresa un correo valido" 
+        e.target.insertAdjacentElement("afterend",error) 
+
+    return false;
+
+  }else{
+     //Si llega  a existir se valida con true 
+    if(e.target.nextSibling){
+        e.target.nextSibling.remove()
+    }
+    return true;
+
+  }
+
+}
+
+export function ValidarTelefonoUsuarios(e){
+
+  const validacionCompleta = /^[0-9]{10}$/
+   //Aqui se evalua completamente 
+  if(!validacionCompleta.test(e.target.value)){
+        
+       if(e.target.nextSibling){
+          e.target.nextSibling.remove()
+        }
+
+    let error = document.createElement("span") 
+    error.classList.add("mensajeError","mensajeError--usuarios")
+    error.textContent = "❌Ingrese un numero valido" 
+    e.target.insertAdjacentElement("afterend",error)  //Se inserta debajo del input 
+   
+    return false
+
+  }else{
+
+     if(e.target.nextSibling){
+          e.target.nextSibling.remove()
+        }
+
+    return true    
+  }
+
+}
+
+export function ValidarCedulaUsuarios(e){
+  const validacionCompleta = /^[0-9]{8}$|^[0-9]{10}$/
+ 
+  //Aqui se evalua completamente 
+  if(!validacionCompleta.test(e.target.value)){
+       
+       if(e.target.nextSibling){
+          e.target.nextSibling.remove()
+        }
+    let error = document.createElement("span") 
+    error.classList.add("mensajeError","mensajeError--usuarios")
+    error.textContent = "❌Ingrese una cedula valida" 
+    e.target.insertAdjacentElement("afterend",error)  //Se inserta debajo del input 
+    return false
+  }else{
+
+     if(e.target.nextSibling){
+          e.target.nextSibling.remove()
+        }
+
+    return true    
+  }
+   
+}
+
+export function ValidarPasswordUsuarios(e){
+     
+     const password = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/ //Expresion regular de contraseña donde  "?=" indica que esta condicion se debe cumplir "." cualquier caracter y "*" significa cero o mas veces  
+
+     if(!password.test(e.target.value)){ //Si no se cumple la condicion creara un mensaje de error 
+        
+      //Si existe un elemento lo borrara  para que no se sobreescriba
+       if(e.target.nextSibling){
+          e.target.nextSibling.remove()
+
+        }
+        //Creara el mensaje de error 
+        let error = document.createElement("span") 
+        error.classList.add("mensajeError","mensajeError--usuarios")
+        error.textContent = "❌El campo contraseña debe tener 6 caracteres al menos una letra  y un numero" 
+        e.target.insertAdjacentElement("afterend",error)  //Se inserta debajo del input    
+                    
+        return false; // y retornara falso mientras se valida 
+     }else{
+         if(e.target.nextSibling){ //Aca se evalua de que en caso de que no exista otro mensaje de error 
+          e.target.nextSibling.remove()
+
+        }
+
+
+      return true;
+     }
+}
+
+
+
+
+
 export function ValidarCedula(e){
   const validacionCompleta = /^[0-9]{8}$|^[0-9]{10}$/
  
@@ -414,6 +633,12 @@ export function ValidarTelefono(e){
 
 }
 
+
+
+
+
+
+
 export function ValidarDireccion(e){
    
 
@@ -446,33 +671,7 @@ export  function ContarCampos(formulario){
 
 }
 
-export function ValidarNit(e){
-  //En esta funcion se valida que el usuario no ingrese letras y solo numeros y mande un mensaje de error mientras no se cumpla la condicion completa 
-  const validacionCompleta = /^[0-9]{5,10}-[0-9]$/
-  
-  //Aqui se evalua completamente 
-  if(!validacionCompleta.test(e.target.value)){
-       
-       if(e.target.nextSibling){
 
-          
-          e.target.nextSibling.remove()
-        }
-    let error = document.createElement("span") 
-    error.classList.add("mensajeError","mensajeError--telefono")
-    error.textContent = "❌Ingrese un nit valido" 
-    e.target.insertAdjacentElement("afterend",error)  //Se inserta debajo del input 
-
-    return false
-  }else{
-
-     if(e.target.nextSibling){
-          e.target.nextSibling.remove()
-        }
-
-    return true    
-  }
-}
 
 
 export function ValidarLogin(e){
@@ -540,7 +739,7 @@ export function ValidarEmpresa(e){
      //Segun el nombre de campo se valida con su respectiva funcion y si devuelve true se añade al objeto data  
           case "nit":
              
-               if(ValidarNit){
+               if(campo.value){
                  let nombreCampo = campo.getAttribute('name')
                  data[nombreCampo] = campo.value
                }
@@ -558,7 +757,7 @@ export function ValidarEmpresa(e){
 
             case "direccion":
 
-                 if(ValidarDireccion){
+                 if(campo.value){
                  let nombreCampo = campo.getAttribute('name')
                  data[nombreCampo] = campo.value
                }
@@ -566,7 +765,7 @@ export function ValidarEmpresa(e){
             
             case "lineaDeAtencion":
 
-                 if(ValidarTelefono){
+                 if(campo.value){
                  let nombreCampo = campo.getAttribute('name')
                  data[nombreCampo] = campo.value
                }
@@ -574,7 +773,7 @@ export function ValidarEmpresa(e){
              
             case "correoEmpresa":
 
-                 if(ValidarCorreo){
+                 if(campo.value){
                  let nombreCampo = campo.getAttribute('name')
                  data[nombreCampo] = campo.value
                }
@@ -968,110 +1167,52 @@ export function ValidarPedidosModificar(e){
 }
 
 export function ValidarFactura(e){
-    let data = {};
     e.preventDefault();
-    //Aca se cuentan todos los campos del formulario que son requeridos 
-    const campos = [...e.target].filter((elemento) =>{
-          
-          return elemento.hasAttribute('required')
-    })
-    
-    campos.forEach(campo=>{
-          
-      switch(campo.name){
-      //Segun el nombre de campo se valida con su respectiva funcion y si devuelve true se añade al objeto data  
-          
-            
-            case "cedula":
-             
-               if(campo.value){
-                 let nombreCampo = campo.getAttribute('name')
-                 data[nombreCampo] = campo.value
-               }
-            
-            break;
-           
-            case "direccion":
-             
-               if(campo.value){
-                 let nombreCampo = campo.getAttribute('name')
-                 data[nombreCampo] = campo.value 
-               }
-            
-            break;
+  let data = {};
+  let isValid = true;
 
-             case "telefono":
-             
-               if(campo.value){
-                 let nombreCampo = campo.getAttribute('name')
-                 data[nombreCampo] = campo.value 
-               }
-            
-            break;
+  // Obtener todos los campos requeridos
+  const campos = [...e.target].filter((elemento) => elemento.hasAttribute("required"));
 
-            case "fkPedido":
-             
-               if(campo.value){
-                 let nombreCampo = campo.getAttribute('name')
-                 data[nombreCampo] = campo.value 
-               }
-            
-            break;
+  // Iterar sobre los campos
+  campos.forEach((campo) => {
+    const nombreCampo = campo.getAttribute("name");
 
-            case "correo":
-             
-               if(campo.value){
-                 let nombreCampo = campo.getAttribute('name')
-                 data[nombreCampo] = campo.value 
-               }
-            
-            break;
+    // Verificar si el campo no está vacío
+    if (!campo.value) {
+      mostrarError(campo, "Este campo es obligatorio");
+      isValid = false;
+      return;
+    }
 
-            case "fecha":
-             
-               if(campo.value){
-                 let nombreCampo = campo.getAttribute('name')
-                 data[nombreCampo] = campo.value 
-               }
-            
-            break;
+    // Validaciones específicas según el nombre del campo
+    switch (campo.name) {
+      case "telefono":
+        if (!ValidarTelefonoFactura(campo)) {
+          isValid = false;
+          return;
+        }
+        break;
+      case "cedula":
+        if (!ValidarNitoCedula(campo)) {
+          isValid = false;
+          return;
+        }
+        break;
+      case "correo":
+        if (!ValidarCorreoFactura(campo)) {
+          isValid = false;
+          return;
+        }
+        break;
 
-            case "medioDePago":
-             
-               if(campo.value){
-                 let nombreCampo = campo.getAttribute('name')
-                 data[nombreCampo] = campo.value 
-               }
+        
             
-            break;
-
-            case "iva":
-             
-               if(campo.value){
-                 let nombreCampo = campo.getAttribute('name')
-                 data[nombreCampo] = campo.value 
-               }
-            
-            break;
-
-            case "valorTotal":
-             
-               if(campo.value){
-                 let nombreCampo = campo.getAttribute('name')
-                 data[nombreCampo] = campo.value 
-               }
-            
-            break;
+      }  
 
 
-            
-            
-
-
-      }
-
-    })
-    
+      data[nombreCampo] = campo.value;
+    });
 
     Object.keys(data).forEach(elemento => { console.log(elemento)})
 
@@ -1080,13 +1221,14 @@ export function ValidarFactura(e){
     
     console.log(cantidadObjeto)
 
-    if(cantidadCampos === cantidadObjeto){   //Se evalua si tienen la misma cantidad que quiere decir que todos los campos ya fueron validados correctamente
-    
+    if (isValid && Object.keys(data).length === ContarCampos(e.target)) {
+    console.log("Datos validados:", data);
     return data;
-   }else{
-    return false
-
+  } else {
+    console.log("Validación fallida");
+    return false;
   }
+
 }
 
 
@@ -1173,4 +1315,45 @@ export function ValidarInventarioAgregar(e){
     return false
 
   }
+}
+
+// Función auxiliar para agregar un mensaje de error
+function mostrarError(campo, mensaje) {
+  if (campo.nextSibling) {
+    campo.nextSibling.remove();
+  }
+  let error = document.createElement("span");
+  error.classList.add("mensajeError", `mensajeError--factura`);
+  error.textContent = `❌ ${mensaje}`;
+  campo.insertAdjacentElement("afterend", error);
+}
+
+// Validación específica para teléfono
+export function ValidarTelefonoFactura(campo) {
+  const validacionCompleta = /^[0-9]{10}$/;
+  if (!validacionCompleta.test(campo.value)) {
+    mostrarError(campo, "Ingrese un número válido de 10 dígitos");
+    return false;
+  }
+  return true;
+}
+
+// Validación específica para NIT o cédula
+export function ValidarNitoCedula(campo) {
+  const validacionCompleta = /^[0-9]{8,10}$/;
+  if (!validacionCompleta.test(campo.value)) {
+    mostrarError(campo, "Ingrese un NIT o cédula válido (8-10 dígitos)");
+    return false;
+  }
+  return true;
+}
+
+// Validación específica para correo
+export function ValidarCorreoFactura(campo) {
+  const correo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!correo.test(campo.value)) {
+    mostrarError(campo, "Ingrese un correo válido");
+    return false;
+  }
+  return true;
 }

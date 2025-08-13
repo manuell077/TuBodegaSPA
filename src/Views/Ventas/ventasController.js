@@ -79,7 +79,7 @@ export const ventasController = async() =>{
       let id =  idEliminar.replace("http://localhost:5173/id=" , "")
   
        Delete(id)
-       location.reload()
+       
     })
 
   // Agregamos todos los elementos al card

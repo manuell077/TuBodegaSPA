@@ -2,7 +2,7 @@ export const traerPedidos = () =>{
 
     
     
-     return fetch('http://localhost:8080/Tu_Bodega/api/pedidos').then(response => response.json());
+     return fetch('http://localhost:8080/Tu_Bodega/api/pedidos/sin-factura').then(response => response.json());
     
 
 }

@@ -91,7 +91,7 @@ export const listarController = async(queryParams = null) =>{
             let id =  idEliminar.replace("http://localhost:5173/id=" , "")
         
              Delete(id)
-             location.reload()
+             
       })
 
        // Fecha entrega
