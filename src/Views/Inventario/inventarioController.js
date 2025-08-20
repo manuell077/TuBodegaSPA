@@ -4,7 +4,12 @@ import {Get,Delete} from "../../Helpers/Request/GetProductos.js"
 export const inventarioController =  async() =>{
     
   const contenedor = document.querySelector(".agregarCards") 
+  const botonAgregar = document.querySelector(".botones")
+  
+
   const productos = await Get()
+
+  
 
   console.log(productos);
   
@@ -51,6 +56,8 @@ export const inventarioController =  async() =>{
   contenedorBotones.classList.add("botonesCarta")
   carta.appendChild(contenedorBotones)
    
+
+  if(localStorage.getItem("rol") != 1){
   const botonModificar = document.createElement("a")
   botonModificar.classList.add("botonesCarta__boton")
   botonModificar.textContent = "Modificar"
@@ -65,7 +72,7 @@ export const inventarioController =  async() =>{
   contenedorBotones.appendChild(botonEliminar)
 
   
-  contenedor.appendChild(carta)
+  
 
   botonEliminar.addEventListener("click",(e)=>{
     
@@ -79,7 +86,15 @@ export const inventarioController =  async() =>{
      
   })
 
+  
+}
+
+botonAgregar.style.display = "none";
+
+contenedor.appendChild(carta)
+
  });
+
   
 
 

@@ -417,6 +417,10 @@
     align-items: center;
 }
 
+.caja--admin{
+    margin-top: 30px;
+}
+
 .caja--seleccion{
     color: var(--colorPrograma);
     background-color: var(--colorBlanco);
@@ -439,6 +443,8 @@
 
 .main{
     grid-area: main;
+    overflow-x: auto;
+    
     
 }
 
@@ -493,8 +499,11 @@
 }
 
 .agregarCards{
+    width: 100%;
     display: flex;
     align-items: center;
+    
+    
 }
 
 
@@ -603,13 +612,15 @@
     width: 90%;
     height: 20px;
     margin-top: 10px;
+    font-size: 14px;
 }
 
 .carta--venta{
     height: 530px;
     max-height: 600px; /* ajusta según lo que necesites */
     overflow-y: auto;
-    width: 280px ;
+    width: 80px ;
+    min-width: 240px;
 }
 
 

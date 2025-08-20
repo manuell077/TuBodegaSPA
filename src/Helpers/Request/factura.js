@@ -38,3 +38,8 @@ export function obtenerFacturaCompleta  (id) {
 
     return fetch(`http://localhost:8080/Tu_Bodega/api/factura/${id}`).then(response => response.json());
 }
+
+export function obtenerDatosDeEmpleado(idPedido){
+
+    return fetch(`http://localhost:8080/Tu_Bodega/api/factura/empleado/${idPedido}`).then(response => response.json());
+}

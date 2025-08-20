@@ -26,7 +26,7 @@ export const ObtenerUsuarios = (select) => {
     fetch("http://localhost:8080/Tu_Bodega/api/usuarios/rol2")
         .then(response => response.json())
         .then(data => {
-            data.forEach(element => {
+            
                 let nombreUsuario = localStorage.getItem('nombre');
                 let cedula = localStorage.getItem('cedula');
 
@@ -35,7 +35,7 @@ export const ObtenerUsuarios = (select) => {
                 opcion.textContent = "Nombre: " + nombreUsuario + " Cedula: " + cedula;
                 opcion.selected = true;
                 select.append(opcion);
-            });
+            
         })
         .catch(error => {
             console.error("Error al obtener usuarios:", error);
@@ -76,6 +76,10 @@ export const ObtenerVentas = (fkUsuario) =>{
    
     return fetch(`http://localhost:8080/Tu_Bodega/api/ventas/usuario/${fkUsuario}`).then(response => response.json());
 
+}
+
+export const ObtenerTodasLasVentas = () =>{
+    return fetch(`http://localhost:8080/Tu_Bodega/api/ventas/todas`).then(response => response.json());
 }
 
 export const ObtenerVentasPorId = (id) =>{

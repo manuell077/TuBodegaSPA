@@ -11,7 +11,7 @@ import { ObtenerVentasSinPedido} from '../../Helpers/Request/Pedidios';
 
 export const pedidosController = () =>{
      
-    
+     const rol = localStorage.getItem("rol")
       const calendarEl = document.querySelector('.calendar');
       
 
@@ -55,6 +55,8 @@ export const pedidosController = () =>{
       }
     },
     dateClick: function (info) {
+      
+      if(rol != 1){
        const modal = document.querySelector('.modalOverlay');
        const selectorVentas = document.querySelector('#ventaAsociada')
        const id =  localStorage.getItem('cedula')
@@ -77,12 +79,10 @@ export const pedidosController = () =>{
                alert("Los campos no pueden quedar vacios")
           }
 
-
        })
 
-
-
     }
+  }
   });
 
   calendar.render();

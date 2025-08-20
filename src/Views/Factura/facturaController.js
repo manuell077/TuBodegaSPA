@@ -1,4 +1,4 @@
-import { traerPedidos } from "../../Helpers/Request/factura"
+import { obtenerDatosDeEmpleado, traerPedidos } from "../../Helpers/Request/factura"
 import { traerValorVenta } from "../../Helpers/Request/factura"
 import {ValidarFactura} from "../../Helpers/Validacion/Validaciones"
 import { post } from "../../Helpers/Request/factura"
@@ -10,6 +10,7 @@ import { ValidarEspaciosUsuarios , ValidarNumeros,ValidarCorreoFactura,ValidarNi
 export const facturaController = async() =>{
        
      const pedidos = await traerPedidos()
+     
     const pedidoSelect = document.querySelector("#pedido")
     const fecha = document.querySelector("#fecha")
     const iva = document.querySelector("#iva")
@@ -43,6 +44,22 @@ export const facturaController = async() =>{
         opcion.textContent = element.idPedido
         pedidoSelect.appendChild(opcion)
     });
+    const datosEmpleado = await obtenerDatosDeEmpleado(pedidoSelect.value)
+    console.log(datosEmpleado)
+    cedula.value = datosEmpleado.cedula
+    telefono.value = datosEmpleado.telefono
+    correo.value = datosEmpleado.correo_electronico
+    direccion.value = datosEmpleado.direccion
+    
+   pedidoSelect.addEventListener("change",async(e)=>{
+      const datosEmpleado = await obtenerDatosDeEmpleado(pedidoSelect.value)
+      cedula.value = datosEmpleado.cedula
+      telefono.value = datosEmpleado.telefono
+      correo.value = datosEmpleado.correo_electronico
+      direccion.value = datosEmpleado.direccion
+
+
+   })
 
     let hoy = new Date();
     let año = hoy.getFullYear();
@@ -141,6 +158,9 @@ export const facturaController = async() =>{
         }
 
     })
+
+
+    
     
 
 

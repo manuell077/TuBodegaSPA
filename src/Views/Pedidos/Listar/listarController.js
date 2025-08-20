@@ -7,7 +7,7 @@ export const listarController = async(queryParams = null) =>{
     
      const pedidos = await getPedidosPorFecha(fecha)
      const  contenedorPadre = document.querySelector(".agregarCards")
-     
+     const rol  = localStorage.getItem("rol")
 
      console.log(pedidos);
      
@@ -72,7 +72,9 @@ export const listarController = async(queryParams = null) =>{
        const contenedorBotones = document.createElement("div")
        contenedorBotones.classList.add("botonesCarta")
        carta.appendChild(contenedorBotones)
-   
+       
+       if(rol != 1){
+
        const botonModificar = document.createElement("a")
        botonModificar.classList.add("botonesCarta__boton")
        botonModificar.textContent = "Modificar"
@@ -84,6 +86,7 @@ export const listarController = async(queryParams = null) =>{
        botonEliminar.textContent = "Eliminar"
        botonEliminar.href = `id=${pedido.idPedido}`
         
+       contenedorBotones.appendChild(botonEliminar)
       botonEliminar.addEventListener("click",(e)=>{
         e.preventDefault()
         
@@ -93,14 +96,14 @@ export const listarController = async(queryParams = null) =>{
              Delete(id)
              
       })
-
+    }
        // Fecha entrega
       const fechaEntrega = document.createElement("p");
       fechaEntrega.classList.add("carta__parrafo");
       fechaEntrega.textContent = `Fecha entrega: ${pedido.fechaEntrega}`;
       carta.appendChild(fechaEntrega);
 
-       contenedorBotones.appendChild(botonEliminar)
+       
  
 
         

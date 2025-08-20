@@ -1,4 +1,4 @@
-import { ObtenerVentas } from "../../Helpers/Request/Ventas.js";
+import { ObtenerTodasLasVentas, ObtenerVentas } from "../../Helpers/Request/Ventas.js";
 import { Delete } from "../../Helpers/Request/Ventas.js";
 import { ValidarEspacios, ValidarLetras } from "../../Helpers/Validacion/Validaciones.js";
 
@@ -7,7 +7,17 @@ export const ventasController = async() =>{
 
   const contenedorVentas = document.querySelector(".agregarCards") 
   const cedulUsuario = localStorage.getItem('cedula') 
-  const ventasObtenidas = await ObtenerVentas(cedulUsuario)
+  const botonAgregar = document.querySelector(".botones") 
+
+  let ventasObtenidas = ""
+   
+  const rol = localStorage.getItem("rol")
+
+  if( rol != 1){
+   ventasObtenidas = await ObtenerVentas(cedulUsuario)
+  }else{
+    ventasObtenidas =  await ObtenerTodasLasVentas()
+  }
   
   console.log(ventasObtenidas)
 
@@ -54,11 +64,15 @@ export const ventasController = async() =>{
   hora.classList.add('carta__parrafo');
   hora.textContent = `Hora: ${venta.fechaHora}`;
 
+  const empleado = document.createElement('p');
+  empleado.classList.add('carta__parrafo');
+  empleado.textContent = `Empleado: ${venta.fkUsuarios}`;
+
 
   const contenedorBotones = document.createElement("div")
   contenedorBotones.classList.add("botonesCarta")
   
-   
+  if(rol !=1){ 
   const botonModificar = document.createElement("a")
   botonModificar.classList.add("botonesCarta__boton")
   botonModificar.textContent = "Modificar"
@@ -81,7 +95,11 @@ export const ventasController = async() =>{
        Delete(id)
        
     })
-
+   
+    
+  }else{
+    botonAgregar.style.display = "none"
+  }
   // Agregamos todos los elementos al card
   card.appendChild(titulo);
   card.appendChild(cliente);
@@ -89,6 +107,7 @@ export const ventasController = async() =>{
   card.appendChild(abonado);
   card.appendChild(cantidadContainer);
   card.appendChild(hora);
+  card.appendChild(empleado)
    card.appendChild(contenedorBotones)
   contenedorVentas.appendChild(card)
 
