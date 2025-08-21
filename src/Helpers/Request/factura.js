@@ -41,5 +41,5 @@ export function obtenerFacturaCompleta  (id) {
 
 export function obtenerDatosDeEmpleado(idPedido){
 
-    return fetch(`http://localhost:8080/Tu_Bodega/api/factura/empleado/${idPedido}`).then(response => response.json());
+    return fetch(`http://localhost:8080/Tu_Bodega/api/factura/empleado/${idPedido}`).then(response => response.json()).catch(error =>{console.log("Error no se ha encontrado los datos de este pedido")});
 }

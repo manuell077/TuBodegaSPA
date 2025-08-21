@@ -1181,6 +1181,7 @@ export function ValidarFactura(e){
     // Verificar si el campo no está vacío
     if (!campo.value) {
       mostrarError(campo, "Este campo es obligatorio");
+      console.log("Error el campo esta vavico campo")
       isValid = false;
       return;
     }

@@ -9,6 +9,8 @@ import { ValidarEspaciosUsuarios , ValidarNumeros,ValidarCorreoFactura,ValidarNi
 
 export const facturaController = async() =>{
        
+
+    
      const pedidos = await traerPedidos()
      
     const pedidoSelect = document.querySelector("#pedido")
@@ -44,22 +46,30 @@ export const facturaController = async() =>{
         opcion.textContent = element.idPedido
         pedidoSelect.appendChild(opcion)
     });
-    const datosEmpleado = await obtenerDatosDeEmpleado(pedidoSelect.value)
-    console.log(datosEmpleado)
-    cedula.value = datosEmpleado.cedula
-    telefono.value = datosEmpleado.telefono
-    correo.value = datosEmpleado.correo_electronico
-    direccion.value = datosEmpleado.direccion
     
+    
+    
+
+    
+      
    pedidoSelect.addEventListener("change",async(e)=>{
+    if(pedidoSelect.value ){  
+        console.log("Select tiene un valor")
       const datosEmpleado = await obtenerDatosDeEmpleado(pedidoSelect.value)
       cedula.value = datosEmpleado.cedula
       telefono.value = datosEmpleado.telefono
       correo.value = datosEmpleado.correo_electronico
       direccion.value = datosEmpleado.direccion
 
+      const valorVentaCambio =  await traerValorVenta(pedidoSelect.value)
+
+
+        sacarValorTotal(iva.value,valorVentaCambio[0].valor,valorTotal)
+     
+    }
 
    })
+  
 
     let hoy = new Date();
     let año = hoy.getFullYear();
@@ -71,17 +81,7 @@ export const facturaController = async() =>{
 
     iva.value = 19
      
-    const valorVenta = await traerValorVenta(pedidoSelect.value)
-    
-   const valorTotalFactura = sacarValorTotal(iva.value,valorVenta[0].valor,valorTotal)
-    
 
-    pedidoSelect.addEventListener('change',async(event)=>{
-        const valorVentaCambio =  await traerValorVenta(pedidoSelect.value)
-
-
-        sacarValorTotal(iva.value,valorVentaCambio[0].valor,valorTotal)
-    })
 
     pdf.addEventListener('submit',async(e)=>{
         
@@ -159,8 +159,7 @@ export const facturaController = async() =>{
 
     })
 
-
-    
+  
     
 
 

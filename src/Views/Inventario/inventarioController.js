@@ -89,7 +89,13 @@ export const inventarioController =  async() =>{
   
 }
 
+
+let rol = localStorage.getItem("rol")
+
+if(rol == 1){
+
 botonAgregar.style.display = "none";
+}
 
 contenedor.appendChild(carta)
 

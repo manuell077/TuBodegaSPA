@@ -8,27 +8,30 @@
                     <p class="datos__titulo">DATOS DEL EMISOR</p>
                     <div class="datosIngreso">
                         <label class="labelInput">PEDIDO:</label>
-                        <select class="datosIngreso__select" id="pedido"  name="fkPedido" required></select>
+                        <select class="datosIngreso__select" id="pedido"  name="fkPedido" required>
+                            <option value="" disabled selected>Selecciona una opcion</option>
+                        </select>
+                        
                    </div>
                    
                     <div class="datosIngreso">
                    <label class="labelInput" >CEDULA O NIT:</label>
-                   <input type="text" id="cedula" required name="cedula">
+                   <input type="text" id="cedula" required name="cedula" disabled>
                    </div>
 
                    <div class="datosIngreso">
                    <label class="labelInput">DIRECCION FISCAL:</label>
-                   <input type="text" id="direccion"  required name="direccion">
+                   <input type="text" id="direccion"  required name="direccion" disabled>
                    </div>
                    
                    <div class="datosIngreso">
                    <label class="labelInput">TELEFONO:</label>
-                   <input type="text" required id="telefono"  name="telefono">
+                   <input type="text" required id="telefono"  name="telefono" disabled>
                    </div>
 
                     <div class="datosIngreso">
                    <label class="labelInput">CORREO ELECTRONICO:</label>
-                   <input type="text" required  id="correo" name="correo">
+                   <input type="text" required  id="correo" name="correo" disabled>
                    </div>
                    
 
