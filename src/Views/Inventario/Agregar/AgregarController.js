@@ -9,6 +9,30 @@ export const AgregarController = () =>{
     const inputCantidad = document.querySelector('#cantidad');
     const inputPrecio = document.querySelector('#precio');
     
+    inputImagen.addEventListener('change',(e)=>{
+        const file  = this.file[0]
+        if(file && !file.type.startsWith('image/') ){
+           Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: "Tienes que seleccionar una imagen",
+                confirmButtonText: 'Aceptar'
+            });
+            this.value = ""
+        }
+    })
+
+    inputNombre.addEventListener("keydown",ValidarLetras)
+    inputPeso.addEventListener("keydown",ValidarNumeros)
+    inputCantidad.addEventListener("keydown",ValidarNumeros)
+    inputPrecio.addEventListener("keydown",ValidarNumeros)
+  
+    inputImagen.addEventListener("keyup",ValidarEspaciosInventario)
+    inputNombre.addEventListener("keyup",ValidarEspaciosInventario)
+    inputPeso.addEventListener("keyup",ValidarEspaciosInventario)
+    inputCantidad.addEventListener("keyup",ValidarEspaciosInventario)
+    inputPrecio.addEventListener("keyup",ValidarEspaciosInventario)
+
     formulario.addEventListener("submit",async(e) =>{
         e.preventDefault()
      
@@ -55,16 +79,7 @@ export const AgregarController = () =>{
         });
     }
 
-    inputNombre.addEventListener("keydown",ValidarLetras)
-    inputPeso.addEventListener("keydown",ValidarNumeros)
-    inputCantidad.addEventListener("keydown",ValidarNumeros)
-    inputPrecio.addEventListener("keydown",ValidarNumeros)
-  
-    inputImagen.addEventListener("keyup",ValidarEspaciosInventario)
-    inputNombre.addEventListener("keyup",ValidarEspaciosInventario)
-    inputPeso.addEventListener("keyup",ValidarEspaciosInventario)
-    inputCantidad.addEventListener("keyup",ValidarEspaciosInventario)
-    inputPrecio.addEventListener("keyup",ValidarEspaciosInventario)
+    
     
 
 
