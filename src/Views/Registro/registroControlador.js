@@ -1,8 +1,8 @@
-import {post} from "../../Helpers/Request/PostRegistarme.js" //Se importa el metodo post del archivo barril
+import {post,TraerMunicicpios} from "../../Helpers/Request/PostRegistarme.js" //Se importa el metodo post del archivo barril
 import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPassword, ValidarRepeticion, ValidarCorreo, ValidarNumeros, ValidarDireccion,ValidarCedula, ValidarTelefono, ValidarSeleccioandor} from "../../Helpers/Validacion/index.js"
 import Swal from 'sweetalert2';
 
-export const registroController = () =>{
+export const registroController = async() =>{
 
 const formu = document.querySelector(".registrarme") //Se selecciona el formulario 
 const nombre = document.querySelector("#nombre") //Se selecciona el input con el id nombre 
@@ -11,8 +11,7 @@ const Repeatpassword = document.querySelector("#repetirContrasena") //Se selecci
 const correo =  document.querySelector("#correoElectronico") //Se selecciona el input con el id de correo
 const telefono = document.querySelector("#telefono") //Se selecciona el input con el id del telefono
 const cedula = document.querySelector("#cedula") //Se selecciona el input con el id de la cedula
-const direccion = document.querySelector("#direccion") //Se selecciona el input con el id de la cedula
-const empresa = document.querySelector("#empresa")
+const municipioSelect = document.querySelector("#municipio")
 
 
 
@@ -32,8 +31,7 @@ cedula.addEventListener("keyup",ValidarCedula)
 telefono.addEventListener("keydown",ValidarNumeros)
 //Validacion que ingrese un numero valido 
 telefono.addEventListener("keyup",ValidarTelefono)
-//Validacion de direccion 
-direccion.addEventListener("keydown",ValidarDireccion)
+
 
 
 
@@ -47,8 +45,17 @@ Repeatpassword.addEventListener("keyup",ValidarEspacios)
 correo.addEventListener("keyup",ValidarEspacios)
 cedula.addEventListener("keyup",ValidarEspacios)
 telefono.addEventListener("keyup",ValidarEspacios)
-direccion.addEventListener("keyup",ValidarEspacios)
 
+
+
+const municicpios = await TraerMunicicpios()
+
+municicpios.forEach(element => {
+    const opcion = document.createElement("option")
+        opcion.value = element.idMunicipio
+        opcion.textContent = element.nombreMunicipio
+        municipioSelect.appendChild(opcion)
+});
 
 
 
@@ -61,6 +68,7 @@ formu.addEventListener("submit", (e) =>  {
     
   if(objeto != false){
     
+    console.log(objeto)
     post(e,objeto)
      
 

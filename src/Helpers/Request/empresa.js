@@ -1,32 +1,79 @@
 import Swal from 'sweetalert2';
-export const traerEmpresas = () =>{
 
-    return fetch('http://localhost:8080/Tu_Bodega/api/empresas').then(response => response.json());
-}
+export const traerEmpresas = async () => {
+    try {
+        const headers = {
+            'Accept': 'application/json'
+        };
+        const token = localStorage.getItem('token');
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
 
-export function put(id,data){
-     fetch(`http://localhost:8080/Tu_Bodega/api/empresas/${id}`, { //Se realiza el fetch 
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data) //Se serializa en un json 
+        const response = await fetch('http://localhost:8080/Tu_Bodega/api/empresas', {
+            method: 'GET',
+            headers: headers
+        });
 
-    }).then(res => res.text().then(texto=>{ //Se convierte en texto la respuesta que nos trae el servidor y al ser una promesa la resolvemos con then 
-      if (res.ok) {
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Error al obtener empresas');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Error al obtener empresas:", error);
         Swal.fire({
-          icon: 'success',
-          title: '¡Éxito!',
-          text: 'Se ha realizado el registro correctamente',
-          confirmButtonText: 'Aceptar'
-           });
-    } else {
-        Swal.fire({
-                  icon: 'error',
-                  title: 'Error',
-                  text:  texto,
-                  confirmButtonText: 'Aceptar'
-                   }); //Si devuelve cualquier otra respuesta como lo es error 500 o 404 entonces tirara un alert de error 
+            icon: 'error',
+            title: 'Error',
+            text: error.message || 'Error al conectar con el servidor',
+            confirmButtonText: 'Aceptar'
+        });
+        throw error;
     }
+};
 
-    })).catch(err => console.error("Error:", err)); //Se  resuelve si el servidor trae una respuesta de tipo texto y despues se imprime lo que se obtiene por consola 
-  
-}
+export const put = async (id, data) => {
+    try {
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        const token = localStorage.getItem('token');
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const res = await fetch(`http://localhost:8080/Tu_Bodega/api/empresas/${id}`, {
+            method: "PUT",
+            headers: headers,
+            body: JSON.stringify(data)
+        });
+
+        const texto = await res.text();
+        if (res.ok) {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: 'Se ha realizado la actualización correctamente',
+                confirmButtonText: 'Aceptar'
+            });
+        } else {
+            let errorMessage;
+            try {
+                const errorData = JSON.parse(texto);
+                errorMessage = errorData.error || texto;
+            } catch {
+                errorMessage = texto || 'Error en la solicitud';
+            }
+            throw new Error(errorMessage);
+        }
+    } catch (err) {
+        console.error("Error:", err);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: err.message || 'Error al conectar con el servidor',
+            confirmButtonText: 'Aceptar'
+        });
+    }
+};

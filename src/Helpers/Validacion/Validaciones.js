@@ -62,7 +62,7 @@ export function ValidarRegistro(e) {
             
                if(ValidarTelefono){
                 let nombreCampo = campo.getAttribute('name')
-                data[nombreCampo] = campo.value
+                data[nombreCampo] = parseInt(campo.value)
                 
                }
             
@@ -74,24 +74,40 @@ export function ValidarRegistro(e) {
             
                if(ValidarCedula){
                 let nombreCampo = campo.getAttribute('name')
-                data[nombreCampo] = campo.value
+                data[nombreCampo] = parseInt(campo.value)
                 
                }
             
             break;
-
-            case "direccion":
-
-
-            if(campo.value){
-               
-                let nombreCampo = campo.getAttribute('name')
-                data[nombreCampo] = campo.value
-                
-            }
-            break;
              
-            
+            case "calle":
+              if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+              }
+            break;
+
+            case "numero":
+              if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = parseInt(campo.value)
+              }
+            break;
+
+            case "barrio":
+              if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+              }
+            break;
+
+            case "fkMunicipio":
+             if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = parseInt(campo.value)
+              }
+            break;
+
 
           }
     })

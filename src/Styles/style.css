@@ -196,6 +196,10 @@
   flex-wrap: wrap;
 }
 
+
+
+
+
 .componente--login{
     margin-bottom: 10px;
 }
@@ -213,6 +217,23 @@
     margin-right: 10px;
 }
 
+.componente__label--titulo{
+    width: 110px;
+    text-align: end;
+    margin-left: 60px;
+}
+
+.componente__label--direccion{
+    width: 40px;
+    margin: 12px;
+    text-align: end;
+    
+    
+    
+}
+
+
+
 
 .componente__entrada{
     
@@ -226,6 +247,11 @@
     font-size: 15px;
     padding: 10px;
 }
+
+.componente__entrada--direccion{
+    width: 100px;
+}
+
 
 
 .textos{
@@ -343,8 +369,9 @@
 
 .entrada--espacio{
     gap: 0;
-    height:60%; 
+    height:67%; 
 }
+
 .entrada--espacio .textos{
     gap: 30px;
 }

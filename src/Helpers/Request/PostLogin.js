@@ -7,20 +7,23 @@ const sidebar = document.querySelector('.sidebar')
     try {
         const res = await fetch(`http://localhost:8080/Tu_Bodega/api/usuarios/login`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json"},
             body: JSON.stringify(data)
         });
 
         const jsonData = await res.json(); // Esperar a convertir la respuesta en JSON
-
+        console.log(jsonData);
+        
         if (res.ok) {
-            console.log(jsonData);
-             
-             localStorage.setItem('rol',jsonData.rol)
-             localStorage.setItem('nombre',jsonData.nombre)
-             localStorage.setItem('cedula',jsonData.cedula)
+            
+             // Almacenar token y datos del usuario
+            localStorage.setItem('token', jsonData.token);
+            localStorage.setItem('refreshToken', jsonData.refreshToken);
+            localStorage.setItem('rol', jsonData.usuario.rol);
+            localStorage.setItem('nombre', jsonData.usuario.nombre);
+            localStorage.setItem('cedula', jsonData.usuario.cedula);
 
-            if (jsonData.rol == 2) {
+            if (jsonData.usuario.rol == 2) {
                 window.location.hash = "#inventario";
 
                 const response = await fetch('./src/Componentes/sidebar.html');

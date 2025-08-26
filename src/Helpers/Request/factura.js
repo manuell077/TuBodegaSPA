@@ -1,45 +1,213 @@
-export const traerPedidos = () =>{
+import Swal from 'sweetalert2';
 
-    
-    
-     return fetch('http://localhost:8080/Tu_Bodega/api/pedidos/sin-factura').then(response => response.json());
-    
+export const traerPedidos = async () => {
+    try {
+        const headers = {
+            'Accept': 'application/json'
+        };
+        const token = localStorage.getItem('token');
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
 
-}
+        const response = await fetch('http://localhost:8080/Tu_Bodega/api/pedidos/sin-factura', {
+            method: 'GET',
+            headers: headers
+        });
 
-export const traerValorVenta = (id) =>{
-     
-    return fetch(`http://localhost:8080/Tu_Bodega/api/pedidos/pedidoVenta/${id}`).then(response => response.json());
-}
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Error al obtener pedidos sin factura');
+        }
 
-export function post(event,data){ //Recibe como parametros el evento y el formulario
-
-    event.preventDefault() //Evitara que se envie el formulario 
-    
-    
-
-        fetch(`http://localhost:8080/Tu_Bodega/api/factura`, { //Se realiza el fetch 
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data) //Se serializa en un json 
-
-    }).then(res => res.text().then(texto=>{ //Se convierte en texto la respuesta que nos trae el servidor y al ser una promesa la resolvemos con then 
-      if (res.ok) {
-        alert("✅ Se ha realizado el registro correctamente"); //Si el servidor trae una respuesta de tipo "ok"
-    } else {
-        alert("❌ Ha ocurrido un error: " + texto); //Si devuelve cualquier otra respuesta como lo es error 500 o 404 entonces tirara un alert de error 
+        return await response.json();
+    } catch (error) {
+        console.error("Error al obtener pedidos sin factura:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message || 'Error al conectar con el servidor',
+            confirmButtonText: 'Aceptar'
+        });
+        throw error;
     }
+};
 
-    })).catch(err => console.error("Error:", err)); //Se  resuelve si el servidor trae una respuesta de tipo texto y despues se imprime lo que se obtiene por consola 
-  
-}
+export const traerMediosDePago = async () => {
+    try {
+        const headers = {
+            'Accept': 'application/json'
+        };
+        const token = localStorage.getItem('token');
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
 
-export function obtenerFacturaCompleta  (id) {
+        const response = await fetch('http://localhost:8080/Tu_Bodega/api/factura/MedioDePago', {
+            method: 'GET',
+            headers: headers
+        });
 
-    return fetch(`http://localhost:8080/Tu_Bodega/api/factura/${id}`).then(response => response.json());
-}
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Error al obtener medios de pago');
+        }
 
-export function obtenerDatosDeEmpleado(idPedido){
+        return await response.json();
+    } catch (error) {
+        console.error("Error al obtener medios de pago:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message || 'Error al conectar con el servidor',
+            confirmButtonText: 'Aceptar'
+        });
+        throw error;
+    }
+};
 
-    return fetch(`http://localhost:8080/Tu_Bodega/api/factura/empleado/${idPedido}`).then(response => response.json()).catch(error =>{console.log("Error no se ha encontrado los datos de este pedido")});
-}
+export const traerValorVenta = async (id) => {
+    try {
+        const headers = {
+            'Accept': 'application/json'
+        };
+        const token = localStorage.getItem('token');
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const response = await fetch(`http://localhost:8080/Tu_Bodega/api/pedidos/pedidoVenta/${id}`, {
+            method: 'GET',
+            headers: headers
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Error al obtener valor de venta');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Error al obtener valor de venta:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message || 'Error al conectar con el servidor',
+            confirmButtonText: 'Aceptar'
+        });
+        throw error;
+    }
+};
+
+export const post = async (event, data) => {
+    event.preventDefault();
+
+    try {
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        const token = localStorage.getItem('token');
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const res = await fetch(`http://localhost:8080/Tu_Bodega/api/factura`, {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(data)
+        });
+
+        const texto = await res.text();
+        if (res.ok) {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: 'Se ha registrado la factura correctamente',
+                confirmButtonText: 'Aceptar'
+            });
+        } else {
+            let errorMessage;
+            try {
+                const errorData = JSON.parse(texto);
+                errorMessage = errorData.error || texto;
+            } catch {
+                errorMessage = texto || 'Error en la solicitud';
+            }
+            throw new Error(errorMessage);
+        }
+    } catch (err) {
+        console.error("Error:", err);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: err.message || 'Error al conectar con el servidor',
+            confirmButtonText: 'Aceptar'
+        });
+    }
+};
+
+export const obtenerFacturaCompleta = async (id) => {
+    try {
+        const headers = {
+            'Accept': 'application/json'
+        };
+        const token = localStorage.getItem('token');
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const response = await fetch(`http://localhost:8080/Tu_Bodega/api/factura/${id}`, {
+            method: 'GET',
+            headers: headers
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Error al obtener la factura');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Error al obtener la factura:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message || 'Error al conectar con el servidor',
+            confirmButtonText: 'Aceptar'
+        });
+        throw error;
+    }
+};
+
+export const obtenerDatosDeEmpleado = async (idPedido) => {
+    try {
+        const headers = {
+            'Accept': 'application/json'
+        };
+        const token = localStorage.getItem('token');
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const response = await fetch(`http://localhost:8080/Tu_Bodega/api/factura/empleado/${idPedido}`, {
+            method: 'GET',
+            headers: headers
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Error al obtener datos del empleado');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Error al obtener datos del empleado:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message || 'Error al conectar con el servidor',
+            confirmButtonText: 'Aceptar'
+        });
+        throw error;
+    }
+};

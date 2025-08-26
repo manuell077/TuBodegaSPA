@@ -23,6 +23,7 @@ export function post(event,objeto){ //Recibe como parametros el evento y el form
     }
 
     })).catch(err =>{
+        console.log(err)
         Swal.fire({
           icon: 'error',
           title: 'Error',
@@ -32,4 +33,10 @@ export function post(event,objeto){ //Recibe como parametros el evento y el form
     })
           
 
+}
+
+export function TraerMunicicpios () {
+
+     return fetch('http://localhost:8080/Tu_Bodega/api/usuarios/municipios').then(response => response.json());
+         
 }

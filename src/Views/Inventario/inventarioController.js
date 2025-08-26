@@ -1,4 +1,4 @@
-import {Get,Delete} from "../../Helpers/Request/GetProductos.js"
+import {get} from "../../Helpers/Request/api.js"
 
 
 export const inventarioController =  async() =>{
@@ -7,8 +7,8 @@ export const inventarioController =  async() =>{
   const botonAgregar = document.querySelector(".botones")
   
 
-  const productos = await Get()
-
+  const productos = await get("productos")
+  
   
 
   console.log(productos);

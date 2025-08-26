@@ -5,7 +5,7 @@ import esLocale from '@fullcalendar/core/locales/es';
 import interactionPlugin from '@fullcalendar/interaction'; 
 import { ValidarPedidos } from '../../Helpers/Validacion';
 import {post} from '../../Helpers/Request/Pedidios'
-import { getPedidosNoTemrinados } from '../../Helpers/Request/Pedidios';
+import { getPedidosNoTerminados } from '../../Helpers/Request/Pedidios';
 import { getPedidosTerminados } from '../../Helpers/Request/Pedidios';
 import { ObtenerVentasSinPedido} from '../../Helpers/Request/Pedidios';
 
@@ -28,7 +28,7 @@ export const pedidosController = () =>{
     },
     events: async function(fetchInfo, successCallback, failureCallback) {
       try {
-        const data = await getPedidosNoTemrinados()
+        const data = await getPedidosNoTerminados()
         const dataTerminada = await getPedidosTerminados()
         console.log(data)
         console.log(dataTerminada)

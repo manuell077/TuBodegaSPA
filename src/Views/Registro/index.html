@@ -52,11 +52,27 @@
                 
          </div>
 
-        <div class="componente">
+        <div class="componente ">
 
-                <label for="direccion" class="componente__label">DIRECCION</label>
-                <input type="text" id="direccion" class="componente__entrada" name="direccion" autocomplete="off"  required>
+                <label for="direccion" class="componente__label componente__label--titulo">DIRECCION</label>
                 
+                <label for="calle" class="componente__label componente__label--direccion">Calle</label>
+                <input type="text" id="calle" class="componente__entrada componente__entrada--direccion" name="calle" autocomplete="off" required >
+
+                <label for="numero" class="componente__label componente__label--direccion">N°</label>
+                <input type="text" id="numero" class="componente__entrada componente__entrada--direccion" name="numero" autocomplete="off" required >
+
+                <label for="barrio" class="componente__label componente__label--direccion">Barrio</label>
+                <input type="text" id="barrio" class="componente__entrada componente__entrada--direccion " name="barrio" autocomplete="off" required >
+                
+         </div>
+
+         <div class="componente">
+              <label for="municipio" class="componente__label ">MUNICIPIO DE  RESIDENCIA</label>
+                 <select id="municipio" class="componente__entrada componente__entrada--select " name="fkMunicipio" required>
+                  <option value="" disabled selected></option>
+                  
+              </select>
          </div>
          
           

@@ -1,4 +1,4 @@
-import { obtenerDatosDeEmpleado, traerPedidos } from "../../Helpers/Request/factura"
+import { obtenerDatosDeEmpleado, traerPedidos , traerMediosDePago } from "../../Helpers/Request/factura"
 import { traerValorVenta } from "../../Helpers/Request/factura"
 import {ValidarFactura} from "../../Helpers/Validacion/Validaciones"
 import { post } from "../../Helpers/Request/factura"
@@ -12,6 +12,9 @@ export const facturaController = async() =>{
 
     
      const pedidos = await traerPedidos()
+     const mediosDePago = await traerMediosDePago()
+     
+    
      
     const pedidoSelect = document.querySelector("#pedido")
     const fecha = document.querySelector("#fecha")
@@ -22,6 +25,7 @@ export const facturaController = async() =>{
     const telefono = document.querySelector("#telefono")
     const correo = document.querySelector("#correo")
     const direccion = document.querySelector("#direccion")
+    const medioDePagoSelect = document.querySelector("#medioDePago")
     
     cedula.addEventListener("keydown" , ValidarNumeros)
     cedula.addEventListener("keyup",ValidarEspaciosUsuarios)
@@ -46,6 +50,16 @@ export const facturaController = async() =>{
         opcion.textContent = element.idPedido
         pedidoSelect.appendChild(opcion)
     });
+    
+    mediosDePago.forEach(element =>{
+         const opcion = document.createElement("option")
+        opcion.value = element.idMedioDePago
+        opcion.textContent = element.nombre
+        medioDePagoSelect.appendChild(opcion)
+
+    })
+  
+
     
     
     
