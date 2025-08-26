@@ -6,15 +6,33 @@
           <form id="addProducto" enctype="multipart/form-data" novalidate>  
 
            <div class="carta carta--añadir">
-                 <img src="/Images/añadir.png" class="carta__imagen carta__imagen--añadir">
-                 <input  class="carta__addImagen" type="file" name="imagen" id="imagen" required>
-                 <p class="carta__parrafo">NOMBRE:<input type="text" id="nombre" name="nombre" required></p>
-                 <p class="carta__parrafo">Peso: <input type="text" id="peso"  name="peso" required> </p>
-                 <div class="cantidad">
-                 <p class="cantidad__parrafo">Cantidad: </p>
-                 <input type="text" name="cantidad" id="cantidad" required>
-                 </div>
-                 <p class="carta__parrafo">Precio: <input type="text"  name="precio"  id="precio" required> </p>
+                 
+             <div class="componente componente--imagenes">
+                 <img src="/Images/añadir.png" class="componente__label componente__label--imagenes" >
+                 <input  class="componente__entrada componente__entrada--imagenes" type="file" name="imagen" id="imagen" accept="image/*" required>
+            </div>
+             
+            <div class="componente componente--cartas"> 
+                 <label class="componente__label componente__label--cartas">NOMBRE:</label>
+                 <input type="text" id="nombre" name="nombre" class="componente__entrada componente__entrada--cartas"   required>
+            </div>
+             
+            <div class="componente componente--cartas">
+                 <label class="componente__label componente__label--cartas">Peso:</label>
+                 <input type="text" id="peso"  name="peso" class="componente__entrada componente__entrada--cartas" required>
+            </div>
+             
+            <div class="componente componente--cartas">
+                 
+                 <label class="componente__label componente__label--cartas">Cantidad: </label>
+                 <input type="text" name="cantidad" id="cantidad" class="componente__entrada componente__entrada--cartas" required>
+              
+            </div>    
+            <div class="componente componente--cartas">
+
+                 <label class="componente__label componente__label--cartas">Precio: </label>
+                 <input type="text"  name="precio"  id="precio" class="componente__entrada componente__entrada--cartas"   required> 
+            </div>
             </div>
            <div class="botones">
             <button class="botones__link botones__link--agregar" id="agregarProducto" type="submit"><div class="boton"><p class="boton__texto">AGREGAR</p><img src="/Images/Agregar.png" class="boton__imagen"></div></button>

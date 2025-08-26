@@ -196,7 +196,19 @@
   flex-wrap: wrap;
 }
 
+.componente--cartas{
+    flex-wrap: nowrap;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+}
 
+.componente--imagenes{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    
+}
 
 
 
@@ -215,6 +227,15 @@
     width: 180px;
     text-align:center;
     margin-right: 10px;
+}
+.componente__label--imagenes{
+    width: 100%;
+    margin:10px auto ;
+    height: 120px;
+}
+
+.componente__label--cartas{
+    width: 120px;
 }
 
 .componente__label--titulo{
@@ -252,6 +273,16 @@
     width: 100px;
 }
 
+
+.componente__entrada--cartas{
+    height: 20px; 
+    width: 290px;
+}  
+
+.componente__entrada--imagenes{
+    width: 300px;
+    color: var(--colorBlanco);
+}
 
 
 .textos{
