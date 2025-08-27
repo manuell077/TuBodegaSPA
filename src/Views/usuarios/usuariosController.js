@@ -1,11 +1,12 @@
 import { ObtenerTodosUsuarios } from "../../Helpers/Request/Usuarios";
-import { Delete } from "../../Helpers/Request/Usuarios";
-
+import { eliminar ,get} from "../../Helpers/Request/api.js";
+import Swal from 'sweetalert2';
 export const usuariosController = async() =>{
 
     const cedula = localStorage.getItem('cedula')
      
-    const usuarios = await ObtenerTodosUsuarios(cedula)
+    console.log("Cedula" + cedula)
+    const usuarios = await get(`usuarios/excepto/${cedula}`)
     
     const container = document.querySelector('.usuarios-container')
 
@@ -47,15 +48,23 @@ export const usuariosController = async() =>{
             btnEliminar.classList.add("btn-eliminar");
             btnEliminar.href = `id=${usuario.cedula}`
 
-             btnEliminar.addEventListener("click",(e)=>{
+             btnEliminar.addEventListener("click",async(e)=>{
                 
                 e.preventDefault()
             
                 let idEliminar = btnEliminar.href 
                 let id =  idEliminar.replace("http://localhost:5173/id=" , "")
             
-                 Delete(id)
+                const eliminacion = await   eliminar(id)
                  
+                await Swal.fire({
+                                                                icon: 'success',
+                                                                title: '¡Éxito!',
+                                                                text: eliminacion.message,
+                                                                confirmButtonText: 'Aceptar'
+                                                            });
+                                                           
+                       location.reload()
               })
 
             const btnModificar = document.createElement("a");

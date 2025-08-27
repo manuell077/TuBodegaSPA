@@ -1,4 +1,4 @@
-import { GetID,put } from "../../../Helpers/Request/GetProductos"
+import { get,put } from "../../../Helpers/Request/api.js"
 import { ValidarLetras , ValidarNumeros , ValidarEspacios, ValidarEspaciosInventario, ValidarInventario} from "../../../Helpers/Validacion/index.js"
 import Swal from 'sweetalert2';
 
@@ -10,7 +10,7 @@ export const ModificarController = async (queryParams = null) =>{
   const formulario = document.querySelector("#ModificarProducto")
   
   const contenedor = document.querySelector(".agregarCards") 
-  const productos = await GetID(id) 
+  const productos = await get(`productos/${id}`) 
   
  const carta = document.createElement("div");
  carta.className = "carta carta--añadir";
@@ -104,7 +104,7 @@ inputPeso.addEventListener("keyup",ValidarEspaciosInventario)
 inputCantidad.addEventListener("keyup",ValidarEspaciosInventario)
 inputPrecio.addEventListener("keyup",ValidarEspaciosInventario)
 
-formulario.addEventListener("submit", (e)=>{
+formulario.addEventListener("submit",async (e)=>{
       
     
 
@@ -112,8 +112,21 @@ formulario.addEventListener("submit", (e)=>{
 
     if(objeto != false){
        
-     put(id,objeto)
-
+     
+      
+              
+              const respuesta = await put(`productos/${id}`,objeto)
+              // Si la eliminación es exitosa, muestra un mensaje de éxito
+              await Swal.fire({
+                  icon: 'success',
+                  title: 'Éxito',
+                  text: respuesta.message,
+                  confirmButtonText: 'Aceptar'
+              });
+              
+    
+          
+     
      
 
     }else{

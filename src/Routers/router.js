@@ -5,21 +5,7 @@ export const router = async (elemento) => {
     const hast = location.hash.slice(1);
     const [ruta,parametros] = recorrerRutas(routers, hast);
 
-    if(ruta.private){
-         
-        const token = localStorage.getItem('token');
-        if(!token){
-            console.log("No hay token")
-        Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: "La sesion ha expirado",
-                    confirmButtonText: 'Aceptar'
-        });
-        location.hash = "#login"
-        return 
-      }
-    }
+    
 
     await cargarVista(ruta.path, elemento )  
     await ruta.controller(parametros)

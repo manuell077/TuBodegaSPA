@@ -1,6 +1,6 @@
-import {post} from "../../../Helpers/Request/PostRegistarme.js" //Se importa el metodo post del archivo barril
+import {postAutenticado} from "../../../Helpers/Request/api.js" //Se importa el metodo post del archivo barril
 import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPassword, ValidarRepeticion, ValidarCorreo, ValidarNumeros, ValidarDireccion,ValidarCedula, ValidarTelefono, ValidarEspaciosUsuarios} from "../../../Helpers/Validacion/index.js"
-
+import Swal from 'sweetalert2';
 
 export const agregarUsuariosController = () =>{
     const formu = document.querySelector(".registrarme") //Se selecciona el formulario 
@@ -52,7 +52,7 @@ export const agregarUsuariosController = () =>{
     
     
     
-    formu.addEventListener("submit", (e) =>  {
+    formu.addEventListener("submit",async (e) =>  {
          
       e.preventDefault()
     
@@ -60,7 +60,14 @@ export const agregarUsuariosController = () =>{
         
       if(objeto != false){
         
-        post(e,objeto)
+       const respuesta = await postAutenticado(`usuarios/registro-admin`,objeto)
+       Swal.fire({
+        icon: 'success',
+        title: '¡Éxito!',
+        text: respuesta.message,
+        confirmButtonText: 'Aceptar'
+        });
+
          
     
       }else{

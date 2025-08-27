@@ -1,10 +1,11 @@
 import { ObtenerProductos} from "../../../Helpers/Request/Ventas.js";
 import { ObtenerUsuarios } from "../../../Helpers/Request/Ventas.js";
 import {ValidarNumeros, ValidarVentas} from "../../../Helpers/Validacion/Validaciones.js"
-import { Post } from "../../../Helpers/Request/Ventas.js";
+import { postAutenticado,get} from "../../../Helpers/Request/api.js";
 import { ValidarLetras , ValidarEspaciosVentas} from "../../../Helpers/Validacion/index.js";
+import Swal from 'sweetalert2';
 
-export const agregarVentaController  =  () =>{
+export const agregarVentaController  = async () =>{
 
 const contenedorCartas = document.querySelector(".agregarCards")
 const formularioVentas = document.querySelector(".formularioVentas")
@@ -81,7 +82,7 @@ btnAgregar.textContent = 'Agregar producto';
 
 
 
-btnAgregar.addEventListener("click", () => {
+btnAgregar.addEventListener("click", async() => {
 
   const productoCantidad = document.createElement('div')
   productoCantidad.classList.add('cantidadProductos')
@@ -94,7 +95,15 @@ btnAgregar.addEventListener("click", () => {
   opcion.hidden = true;
   opcion.value = "";       
   opcion.selected = true;  
-  ObtenerProductos(nuevoProducto)
+  const respuesta = await get(`productos/estado1`)
+  
+  respuesta.forEach(element => {
+            let opcion = document.createElement("option");
+            opcion.value = element.idProducto;
+            opcion.textContent = element.nombre;
+            opcion.setAttribute("data-precio", element.precio);
+            nuevoProducto.append(opcion);
+        });
   
   const cantidadDeProducto = document.createElement('input')
   cantidadDeProducto.type = 'number'
@@ -154,9 +163,19 @@ selectorUsuario.className = 'cantidadProductos__selector';
 selectorUsuario.required = true; 
 selectorUsuario.name = "fkUsuarios"; 
 selectorUsuario.id = "usuarioSelector";
-ObtenerUsuarios(selectorUsuario)
 
 
+
+
+        let nombreUsuario = localStorage.getItem('nombre');
+        let cedula = localStorage.getItem('cedula');
+
+        let opcion = document.createElement("option");
+        opcion.value = cedula;
+        opcion.textContent = "Nombre: " + nombreUsuario + " Cedula: " + cedula;
+        opcion.selected = true;
+        selectorUsuario.append(opcion);
+        
 
 // Saldo total como párrafo
 const saldoTotal = document.createElement('p');
@@ -177,7 +196,7 @@ contenedorCartas.appendChild(carta);
 
 
 
-formularioVentas.addEventListener("submit",(e)=>{
+formularioVentas.addEventListener("submit",async(e)=>{
     e.preventDefault()  
 
     const objeto = ValidarVentas(e)
@@ -193,7 +212,12 @@ formularioVentas.addEventListener("submit",(e)=>{
        
        
        if((selectsProductos.length - 1) == 0 ){
-         alert("Tienes que agregar por lo menos un producto")
+           Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: "Tienes que agregar por lo menos un producto",
+                        confirmButtonText: 'Aceptar'
+                    });
          return false   
 
        }else{
@@ -211,7 +235,12 @@ formularioVentas.addEventListener("submit",(e)=>{
            
 
           if(!select.value){
-            alert("Tienes que agregar los productos")
+            Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: "Tienes que agregar por lo menos un producto",
+                        confirmButtonText: 'Aceptar'
+                    });
             return false
 
           }
@@ -227,8 +256,15 @@ formularioVentas.addEventListener("submit",(e)=>{
           objeto["valor"] = 0
           objeto["saldoTotal"] = 0
           console.log(objeto)
-          Post(e,objeto)
 
+          const respuesta = await postAutenticado(`ventas`,objeto)
+           
+          Swal.fire({
+                          icon: 'success',
+                          title: '¡Éxito!',
+                          text: respuesta.message,
+                          confirmButtonText: 'Aceptar'
+                      });
           //Resetear valores
           formularioVentas.reset();
           productosContainer.innerHTML = "";
@@ -238,7 +274,12 @@ formularioVentas.addEventListener("submit",(e)=>{
 
 
     }else{
-      alert("Tienes que completar todos los campos")
+      Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: "Tienes que completar todos los campos",
+                        confirmButtonText: 'Aceptar'
+                    });
     }
 
 })

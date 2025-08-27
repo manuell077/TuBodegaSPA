@@ -4,10 +4,10 @@ import listPlugin from '@fullcalendar/list';
 import esLocale from '@fullcalendar/core/locales/es';
 import interactionPlugin from '@fullcalendar/interaction'; 
 import { ValidarPedidos } from '../../Helpers/Validacion';
-import {post} from '../../Helpers/Request/Pedidios'
-import { getPedidosNoTerminados } from '../../Helpers/Request/Pedidios';
-import { getPedidosTerminados } from '../../Helpers/Request/Pedidios';
+import {postAutenticado,get} from '../../Helpers/Request/api.js';
 import { ObtenerVentasSinPedido} from '../../Helpers/Request/Pedidios';
+import Swal from 'sweetalert2';
+
 
 export const pedidosController = () =>{
      
@@ -28,8 +28,8 @@ export const pedidosController = () =>{
     },
     events: async function(fetchInfo, successCallback, failureCallback) {
       try {
-        const data = await getPedidosNoTerminados()
-        const dataTerminada = await getPedidosTerminados()
+        const data = await get(`pedidos/no-terminados-por-fecha`)
+        const dataTerminada = await get(`pedidos/terminados-fecha`)
         console.log(data)
         console.log(dataTerminada)
         const eventos = data.map(item => ({
@@ -54,29 +54,51 @@ export const pedidosController = () =>{
         failureCallback(error);
       }
     },
-    dateClick: function (info) {
+    dateClick: async function (info) {
       
       if(rol != 1){
        const modal = document.querySelector('.modalOverlay');
        const selectorVentas = document.querySelector('#ventaAsociada')
        const id =  localStorage.getItem('cedula')
-       ObtenerVentasSinPedido(selectorVentas,id)
+       const ventas = await get(`ventas/sin-pedido/${id}`)
+
+        ventas.forEach(element => {
+          
+            let opcion = document.createElement("option");
+            opcion.value = element.idVenta;
+            opcion.textContent = "Venta " + element.idVenta;
+            selectorVentas.append(opcion);
+        
+        });
+
        modal.style.display = 'flex'; // Muestra el fondo y el formulario centrado
        const formulario = document.querySelector('.formularioPedido')
        const fecha = document.querySelector('#fechaEntrega')
        fecha.value = info.dateStr;
-       formulario.addEventListener("submit",(e)=>{
+       formulario.addEventListener("submit", async(e)=>{
          e.preventDefault()
 
          let objeto = ValidarPedidos(e)
 
          if(objeto != false){
                objeto["fecha"] = fecha.value 
-              post(e,objeto)
-         
+             const respuesta = await  postAutenticado("pedidos",objeto)
+              
+             await Swal.fire({
+                                       icon: 'success',
+                                       title: '¡Éxito!',
+                                       text: respuesta.message,
+                                       confirmButtonText: 'Aceptar'
+                                   });
+             location.reload()
              }else{
          
-               alert("Los campos no pueden quedar vacios")
+              Swal.fire({
+                                      icon: 'error',
+                                      title: 'Error',
+                                      text: "Los campos no pueden quedar vacios",
+                                      confirmButtonText: 'Aceptar'
+                                  });
           }
 
        })

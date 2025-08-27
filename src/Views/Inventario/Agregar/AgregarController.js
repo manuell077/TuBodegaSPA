@@ -1,4 +1,5 @@
 import {ValidarLetras,ValidarNumeros,ValidarEspaciosInventario ,ValidarInventarioAgregar} from "../../../Helpers/Validacion/index.js"
+import { post_imgs } from "../../../Helpers/Request/api.js";
 import Swal from 'sweetalert2';
 export const AgregarController = () =>{
       
@@ -9,18 +10,7 @@ export const AgregarController = () =>{
     const inputCantidad = document.querySelector('#cantidad');
     const inputPrecio = document.querySelector('#precio');
     
-    inputImagen.addEventListener('change',(e)=>{
-        const file  = this.file[0]
-        if(file && !file.type.startsWith('image/') ){
-           Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: "Tienes que seleccionar una imagen",
-                confirmButtonText: 'Aceptar'
-            });
-            this.value = ""
-        }
-    })
+    
 
     inputNombre.addEventListener("keydown",ValidarLetras)
     inputPeso.addEventListener("keydown",ValidarNumeros)
@@ -42,34 +32,16 @@ export const AgregarController = () =>{
 
        const formData = new FormData(formulario);
 
-        try {
-            const res = await fetch("http://localhost:8080/Tu_Bodega/api/productos", {
-                method: "POST",
-                body: formData
-            });
-             const data = await res.text();
-            // Aquí validamos el código de respuesta
-            if (!res.ok) {
-                throw new Error(data);
-            }
-
+        
+     const respuesta = await post_imgs(formData)
             
-
-            Swal.fire({
-                icon: 'success',
-                title: '¡Éxito!',
-                text: 'Se agregó producto',
-                confirmButtonText: 'Aceptar'
-            });
-
-        } catch (err) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: "Ha sucedido un error: " + err.message,
-                confirmButtonText: 'Aceptar'
-            });
-        }
+            await Swal.fire({
+      icon: "success",
+      title: "Producto registrado",
+      text: respuesta.message,
+      confirmButtonText: "Aceptar"
+    });
+       
     } else {
         Swal.fire({
             icon: 'error',

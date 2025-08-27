@@ -1,13 +1,13 @@
 import { getPedidosId } from "../../../Helpers/Request/Pedidios";
 import { ValidarPedidosModificar } from "../../../Helpers/Validacion/Validaciones";
-import {put} from "../../../Helpers/Request/Pedidios.js";
-
+import {put,get} from "../../../Helpers/Request/api.js";
+import Swal from 'sweetalert2';
 
 export const modificarPedidosController =async (queryParams = null) =>{
         
      const {id} = queryParams
          
-          const pedidos = await getPedidosId(id)
+          const pedidos = await get(`pedidos/modificar/${id}`)
           const  contenedorPadre = document.querySelector(".agregarCards")
           const botonModificar = document.querySelector(".modificarPedidos")
      
@@ -121,7 +121,7 @@ export const modificarPedidosController =async (queryParams = null) =>{
      
           });
 
-    botonModificar.addEventListener("submit",(e)=>{
+    botonModificar.addEventListener("submit",async(e)=>{
         
 
          e.preventDefault()
@@ -134,7 +134,16 @@ export const modificarPedidosController =async (queryParams = null) =>{
 
         if(objeto != false){
             
-           put(id,objeto)
+         const respuesta = await  put(`pedidos/${id}`,objeto)
+            
+         await Swal.fire({
+                                                icon: 'success',
+                                                title: '¡Éxito!',
+                                                text: respuesta.message,
+                                                confirmButtonText: 'Aceptar'
+                                            });
+
+
         }else{
             alert("Tienes que completar todos los campos")
         }

@@ -1,5 +1,5 @@
-import {get} from "../../Helpers/Request/api.js"
-
+import {get,eliminar} from "../../Helpers/Request/api.js"
+import Swal from 'sweetalert2';
 
 export const inventarioController =  async() =>{
     
@@ -74,15 +74,34 @@ export const inventarioController =  async() =>{
   
   
 
-  botonEliminar.addEventListener("click",(e)=>{
+  botonEliminar.addEventListener("click",async(e)=>{
     
     e.preventDefault()
 
     let idEliminar = botonEliminar.href 
     let id =  idEliminar.replace("http://localhost:5173/id=" , "")
 
-     Delete(id)
-     location.reload()
+    try {
+        const respuesta = await eliminar(`productos/${id}`);
+        
+        // Si la eliminación es exitosa, muestra un mensaje de éxito
+        await Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'El producto se eliminó correctamente',
+            confirmButtonText: 'Aceptar'
+        });
+        location.reload()
+
+        // Opcional: Redirigir o actualizar la página después de eliminar
+        // window.location.reload(); // Por ejemplo, recargar la página
+        // window.location.href = '/ruta'; // O redirigir a otra página
+    } catch (error) {
+        // El manejo de errores ya está en el método `eliminar`, así que no necesitas repetirlo aquí
+        // Pero puedes agregar un console.log adicional si quieres depurar
+        console.error('Error al intentar eliminar:', error);
+    }
+     
      
   })
 

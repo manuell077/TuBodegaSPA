@@ -1,9 +1,9 @@
 import { ObtenerProductos } from "../../../Helpers/Request/Ventas"
-import { ObtenerUsuarios } from "../../../Helpers/Request/Ventas"
-import { ObtenerVentasPorId } from "../../../Helpers/Request/Ventas"
-import {Put} from "../../../Helpers/Request/Ventas"
-import {ValidarEspaciosVentas, ValidarLetras, ValidarNumeros, ValidarVentas} from "../../../Helpers/Validacion/Validaciones"
 
+
+import {put,get} from "../../../Helpers/Request/api.js"
+import {ValidarEspaciosVentas, ValidarLetras, ValidarNumeros, ValidarVentas} from "../../../Helpers/Validacion/Validaciones"
+import Swal from 'sweetalert2';
 
 export const modificarController = async(queryParams = null) =>{
     
@@ -13,7 +13,7 @@ export const modificarController = async(queryParams = null) =>{
     
 
 
-    const contenido = await ObtenerVentasPorId(id)
+    const contenido = await get(`ventas/${id}`)
     
     
     
@@ -108,7 +108,15 @@ export const modificarController = async(queryParams = null) =>{
   
   
   // Rellenar el select con todos los productos
-  await ObtenerProductos(nuevoProducto, producto.idProducto);
+  const productos = await get(`productos/estado1`)
+    
+    productos.forEach(element => {
+              let opcion = document.createElement("option");
+              opcion.value = element.idProducto;
+              opcion.textContent = element.nombre;
+              opcion.setAttribute("data-precio", element.precio);
+              nuevoProducto.append(opcion);
+          });
 
   const cantidadDeProducto = document.createElement('input');
   cantidadDeProducto.type = 'number';
@@ -155,7 +163,7 @@ export const modificarController = async(queryParams = null) =>{
     
     
     
-    btnAgregar.addEventListener("click", () => {
+    btnAgregar.addEventListener("click", async() => {
     
       const productoCantidad = document.createElement('div')
       productoCantidad.classList.add('cantidadProductos')
@@ -168,7 +176,15 @@ export const modificarController = async(queryParams = null) =>{
       opcion.hidden = true;
       opcion.value = "";       
       opcion.selected = true;  
-      ObtenerProductos(nuevoProducto)
+      const respuesta = await get(`productos/estado1`)
+  
+  respuesta.forEach(element => {
+            let opcion = document.createElement("option");
+            opcion.value = element.idProducto;
+            opcion.textContent = element.nombre;
+            opcion.setAttribute("data-precio", element.precio);
+            nuevoProducto.append(opcion);
+        });
       
       const cantidadDeProducto = document.createElement('input')
       cantidadDeProducto.type = 'number'
@@ -229,7 +245,15 @@ export const modificarController = async(queryParams = null) =>{
     selectorUsuario.required = true; 
     selectorUsuario.name = "fkUsuarios"; 
     selectorUsuario.id = "usuarioSelector";
-    ObtenerUsuarios(selectorUsuario)
+    
+    let nombreUsuario = localStorage.getItem('nombre');
+        let cedula = localStorage.getItem('cedula');
+
+        let opcion = document.createElement("option");
+        opcion.value = cedula;
+        opcion.textContent = "Nombre: " + nombreUsuario + " Cedula: " + cedula;
+        opcion.selected = true;
+        selectorUsuario.append(opcion);
     
     
     
@@ -250,7 +274,7 @@ export const modificarController = async(queryParams = null) =>{
     
      SacarTotal();
 
-     formularioVentas.addEventListener("submit", (e)=>{
+     formularioVentas.addEventListener("submit", async(e)=>{
           
 
           e.preventDefault()
@@ -300,8 +324,14 @@ export const modificarController = async(queryParams = null) =>{
                 objeto["productos"] = productos
                 objeto["valor"] = 0
                 objeto["saldoTotal"] = 0
-                Put(id,objeto)
-      
+                const respuesta = await put(`ventas/${id}`,objeto)
+                Swal.fire({
+                                          icon: 'success',
+                                          title: '¡Éxito!',
+                                          text: respuesta.message,
+                                          confirmButtonText: 'Aceptar'
+                                      });
+
                 
              }
       

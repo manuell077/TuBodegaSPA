@@ -1,14 +1,17 @@
 import Swal from 'sweetalert2';
+import {jwtDecode} from 'jwt-decode';
  const isTokenExpired = () => {
     const token = localStorage.getItem('token');
-    if (!token) {console.log("Token expiro") 
+    if (!token) { console.log("El token no existe") 
         return true};
     try {
         const decoded = jwtDecode(token);
+        console.log("Token decodificado " + decoded);
         const currentTime = Date.now() / 1000;
-        console.log("Paso esto" + decoded.exp < currentTime);
+        console.log("Pase todo" + decoded.exp < currentTime)
         return decoded.exp < currentTime;
     } catch (e) {
+        console.error(e)
         return true;
     }
 };
@@ -72,7 +75,7 @@ const refreshAccessToken = async () => {
 
 export const getAuthHeaders = async () => {
     let token = localStorage.getItem('token');
-    console.log("Token" + token)
+   
     console.log("Expiro?"+ isTokenExpired())
     if (!token || isTokenExpired()) {
         console.log("Token expiro")
@@ -116,6 +119,44 @@ export const get = async (endpoint) => {
         
     }
         
+}
+
+export const post_imgs = async (formData) => {
+  let token = localStorage.getItem("token"); // Obtiene el token
+  if (!token || isTokenExpired()) {
+        console.log("Token expiro")
+        token = await refreshAccessToken();
+    }
+  const headers = token ? { 'Authorization': 'Bearer ' + token } : {}; // Prepara los headers
+  console.log(headers);
+
+  try {
+    const response = await fetch(`http://localhost:8080/Tu_Bodega/api/productos`, {
+      method: 'POST',
+      headers: headers,
+      body: formData
+    });
+
+    if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Error al enviar datos a ${endpoint}`);
+        }
+
+   
+
+    return await response.json();
+
+  } catch (error) {
+    console.error(error)
+    await Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: error.message || "Error al registrar el producto",
+      confirmButtonText: "Aceptar"
+    });
+
+    
+  }
 }
 
 export const postAutenticado = async (endpoint, info) => {

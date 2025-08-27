@@ -1,7 +1,7 @@
-import { ObtenerTodasLasVentas, ObtenerVentas } from "../../Helpers/Request/Ventas.js";
-import { Delete } from "../../Helpers/Request/Ventas.js";
+import { get } from "../../Helpers/Request/api.js";
+import { eliminar } from "../../Helpers/Request/api.js";
 import { ValidarEspacios, ValidarLetras } from "../../Helpers/Validacion/Validaciones.js";
-
+import Swal from 'sweetalert2';
 export const ventasController = async() =>{
   
 
@@ -14,9 +14,9 @@ export const ventasController = async() =>{
   const rol = localStorage.getItem("rol")
 
   if( rol != 1){
-   ventasObtenidas = await ObtenerVentas(cedulUsuario)
+   ventasObtenidas = await get(`ventas/usuario/${cedulUsuario}`)
   }else{
-    ventasObtenidas =  await ObtenerTodasLasVentas()
+    ventasObtenidas =  await get("ventas/todas")
   }
   
   console.log(ventasObtenidas)
@@ -85,15 +85,23 @@ export const ventasController = async() =>{
   botonEliminar.href = `id=${venta.idVenta}`
   contenedorBotones.appendChild(botonEliminar)
   
-  botonEliminar.addEventListener("click",(e)=>{
+  botonEliminar.addEventListener("click",async(e)=>{
       
       e.preventDefault()
   
       let idEliminar = botonEliminar.href 
       let id =  idEliminar.replace("http://localhost:5173/id=" , "")
   
-       Delete(id)
-       
+      const borrar =  await eliminar(`ventas/${id}`)
+
+       await Swal.fire({
+                                                icon: 'success',
+                                                title: '¡Éxito!',
+                                                text: borrar.message,
+                                                confirmButtonText: 'Aceptar'
+                                            });
+                                           
+       location.reload()
     })
    
     

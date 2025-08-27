@@ -1,11 +1,12 @@
 import { getPedidosPorFecha } from "../../../Helpers/Request/Pedidios"
-import { Delete } from "../../../Helpers/Request/Pedidios"
+import { eliminar,get} from "../../../Helpers/Request/api.js"
+import Swal from 'sweetalert2';
 
 export const listarController = async(queryParams = null) =>{
      
     const {fecha} = queryParams
     
-     const pedidos = await getPedidosPorFecha(fecha)
+     const pedidos = await get(`pedidos/por-fecha/${fecha}`)
      const  contenedorPadre = document.querySelector(".agregarCards")
      const rol  = localStorage.getItem("rol")
 
@@ -87,13 +88,22 @@ export const listarController = async(queryParams = null) =>{
        botonEliminar.href = `id=${pedido.idPedido}`
         
        contenedorBotones.appendChild(botonEliminar)
-      botonEliminar.addEventListener("click",(e)=>{
+      botonEliminar.addEventListener("click", async(e)=>{
         e.preventDefault()
         
             let idEliminar = botonEliminar.href 
             let id =  idEliminar.replace("http://localhost:5173/id=" , "")
         
-             Delete(id)
+            const eliminacion = await   eliminar(`pedidos/${id}`)
+            
+            await Swal.fire({
+                                                   icon: 'success',
+                                                   title: '¡Éxito!',
+                                                   text: eliminacion.message,
+                                                   confirmButtonText: 'Aceptar'
+                                               });
+                         location.reload()
+
              
       })
     }
