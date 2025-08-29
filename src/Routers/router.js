@@ -1,11 +1,25 @@
 import { routers } from "./routes.js"
+import { tienePermiso } from "../Helpers/Request/api.js";
 import Swal from 'sweetalert2';
 
 export const router = async (elemento) => {
     const hast = location.hash.slice(1);
     const [ruta,parametros] = recorrerRutas(routers, hast);
-
-    
+   
+    if(ruta.private){
+    if(!tienePermiso(ruta.can)){
+        console.log(ruta.can); 
+        console.log("No tiene permisos para estar aca")
+         await Swal.fire({
+            icon: 'error',
+            title: 'Acceso denegado',
+            text: 'Usted no tiene acceso a ese lugar',
+            confirmButtonText: 'Aceptar'
+      });
+      window.location.hash ="#login"
+      return null;
+    }
+}
 
     await cargarVista(ruta.path, elemento )  
     await ruta.controller(parametros)

@@ -1,5 +1,5 @@
 import {post,TraerMunicicpios} from "../../Helpers/Request/PostRegistarme.js" //Se importa el metodo post del archivo barril
-import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPassword, ValidarRepeticion, ValidarCorreo, ValidarNumeros, ValidarDireccion,ValidarCedula, ValidarTelefono, ValidarSeleccioandor} from "../../Helpers/Validacion/index.js"
+import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPassword, ValidarRepeticion, ValidarCorreo, ValidarNumeros, ValidarDireccion,ValidarCedula, ValidarTelefono, ValidarSeleccioandor,validarEspaciosDireccion} from "../../Helpers/Validacion/index.js"
 import Swal from 'sweetalert2';
 
 export const registroController = async() =>{
@@ -12,7 +12,9 @@ const correo =  document.querySelector("#correoElectronico") //Se selecciona el 
 const telefono = document.querySelector("#telefono") //Se selecciona el input con el id del telefono
 const cedula = document.querySelector("#cedula") //Se selecciona el input con el id de la cedula
 const municipioSelect = document.querySelector("#municipio")
-
+const calle = document.querySelector("#calle")
+const numero = document.querySelector("#numero")
+const barrio = document.querySelector("#barrio")  
 
 
 //Validacion para que el usuario escriba solo letras 
@@ -31,8 +33,10 @@ cedula.addEventListener("keyup",ValidarCedula)
 telefono.addEventListener("keydown",ValidarNumeros)
 //Validacion que ingrese un numero valido 
 telefono.addEventListener("keyup",ValidarTelefono)
-
-
+//validacion de calle para que solo ingrese numeros
+calle.addEventListener("keydown",ValidarNumeros)
+//validacion de barrio para que solo ingrese texto
+barrio.addEventListener("keydown",ValidarLetras)
 
 
 //Utilizo mas que todo el evento keyUp en vampos donde tengo que tener cantidades exactas por ejemplo en numero de telefono es 10 caracteres y en repetir la contraseña tiene que ser exactamente a la contraseña original
@@ -47,6 +51,9 @@ cedula.addEventListener("keyup",ValidarEspacios)
 telefono.addEventListener("keyup",ValidarEspacios)
 
 
+calle.addEventListener("keyup",(e)=>{validarEspaciosDireccion(calle,numero,barrio)})
+numero.addEventListener("keyup",(e)=>{validarEspaciosDireccion(calle,numero,barrio)})
+barrio.addEventListener("keyup",(e)=>{validarEspaciosDireccion(calle,numero,barrio)})
 
 const municicpios = await TraerMunicicpios()
 

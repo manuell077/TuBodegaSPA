@@ -256,7 +256,8 @@ formularioVentas.addEventListener("submit",async(e)=>{
           objeto["valor"] = 0
           objeto["saldoTotal"] = 0
           console.log(objeto)
-
+          
+          try{
           const respuesta = await postAutenticado(`ventas`,objeto)
            
           Swal.fire({
@@ -265,6 +266,10 @@ formularioVentas.addEventListener("submit",async(e)=>{
                           text: respuesta.message,
                           confirmButtonText: 'Aceptar'
                       });
+          }catch(e){
+
+            console.error(e)
+                    }           
           //Resetear valores
           formularioVentas.reset();
           productosContainer.innerHTML = "";

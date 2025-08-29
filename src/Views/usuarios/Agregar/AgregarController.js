@@ -1,8 +1,10 @@
-import {postAutenticado} from "../../../Helpers/Request/api.js" //Se importa el metodo post del archivo barril
+import {postAutenticado,get} from "../../../Helpers/Request/api.js" //Se importa el metodo post del archivo barril
 import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPassword, ValidarRepeticion, ValidarCorreo, ValidarNumeros, ValidarDireccion,ValidarCedula, ValidarTelefono, ValidarEspaciosUsuarios} from "../../../Helpers/Validacion/index.js"
 import Swal from 'sweetalert2';
 
-export const agregarUsuariosController = () =>{
+
+
+export const agregarUsuariosController = async () =>{
     const formu = document.querySelector(".registrarme") //Se selecciona el formulario 
     const nombre = document.querySelector("#nombre") //Se selecciona el input con el id nombre 
     const password = document.querySelector("#contrasena") //Se selecciona el input con el id de contraseña
@@ -10,8 +12,7 @@ export const agregarUsuariosController = () =>{
     const correo =  document.querySelector("#correoElectronico") //Se selecciona el input con el id de correo
     const telefono = document.querySelector("#telefono") //Se selecciona el input con el id del telefono
     const cedula = document.querySelector("#cedula") //Se selecciona el input con el id de la cedula
-    const direccion = document.querySelector("#direccion") //Se selecciona el input con el id de la cedula
-   
+    const municipio = document.querySelector("#municipio")
     
     
     
@@ -31,8 +32,6 @@ export const agregarUsuariosController = () =>{
     telefono.addEventListener("keydown",ValidarNumeros)
     //Validacion que ingrese un numero valido 
     telefono.addEventListener("keyup",ValidarTelefono)
-    //Validacion de direccion 
-    direccion.addEventListener("keydown",ValidarDireccion)
     
     
     
@@ -46,9 +45,16 @@ export const agregarUsuariosController = () =>{
     correo.addEventListener("keyup",ValidarEspaciosUsuarios)
     cedula.addEventListener("keyup",ValidarEspaciosUsuarios)
     telefono.addEventListener("keyup",ValidarEspaciosUsuarios)
-    direccion.addEventListener("keyup",ValidarEspaciosUsuarios)
     
+
+   const muni = await  get('usuarios/municipiosAutenticados')
     
+   muni.forEach(element => {
+    const opcion = document.createElement("option")
+        opcion.value = element.idMunicipio
+        opcion.textContent = element.nombreMunicipio
+        municipio.appendChild(opcion)
+});
     
     
     
@@ -59,19 +65,26 @@ export const agregarUsuariosController = () =>{
       let objeto =   ValidarRegistro(e)
         
       if(objeto != false){
-        
+        try{
        const respuesta = await postAutenticado(`usuarios/registro-admin`,objeto)
-       Swal.fire({
+       await Swal.fire({
         icon: 'success',
         title: '¡Éxito!',
-        text: respuesta.message,
+        text: "Usuario registrado correctamente",
         confirmButtonText: 'Aceptar'
         });
-
+      }catch(e){
+         console.log("Error")
+      }
          
     
       }else{
-        alert("❌Tienes que completar todos los campos correctamente")
+        await Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Tienes que completar todos los campos',
+          confirmButtonText: 'Aceptar'
+           });
       }
       
     

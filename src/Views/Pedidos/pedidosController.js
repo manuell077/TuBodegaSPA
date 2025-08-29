@@ -4,7 +4,7 @@ import listPlugin from '@fullcalendar/list';
 import esLocale from '@fullcalendar/core/locales/es';
 import interactionPlugin from '@fullcalendar/interaction'; 
 import { ValidarPedidos } from '../../Helpers/Validacion';
-import {postAutenticado,get} from '../../Helpers/Request/api.js';
+import {postAutenticado,get, tienePermiso} from '../../Helpers/Request/api.js';
 import { ObtenerVentasSinPedido} from '../../Helpers/Request/Pedidios';
 import Swal from 'sweetalert2';
 
@@ -56,7 +56,7 @@ export const pedidosController = () =>{
     },
     dateClick: async function (info) {
       
-      if(rol != 1){
+      
        const modal = document.querySelector('.modalOverlay');
        const selectorVentas = document.querySelector('#ventaAsociada')
        const id =  localStorage.getItem('cedula')
@@ -82,6 +82,7 @@ export const pedidosController = () =>{
 
          if(objeto != false){
                objeto["fecha"] = fecha.value 
+               try{
              const respuesta = await  postAutenticado("pedidos",objeto)
               
              await Swal.fire({
@@ -91,6 +92,9 @@ export const pedidosController = () =>{
                                        confirmButtonText: 'Aceptar'
                                    });
              location.reload()
+                                  }catch(e){
+                                    console.error(e)
+                                  }
              }else{
          
               Swal.fire({
@@ -103,6 +107,8 @@ export const pedidosController = () =>{
 
        })
 
+    if(!tienePermiso('pedidos.crear')){
+       modal.style.display = "none"
     }
   }
   });

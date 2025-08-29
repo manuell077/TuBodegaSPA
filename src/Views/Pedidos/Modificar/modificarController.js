@@ -133,7 +133,7 @@ export const modificarPedidosController =async (queryParams = null) =>{
          
 
         if(objeto != false){
-            
+            try{
          const respuesta = await  put(`pedidos/${id}`,objeto)
             
          await Swal.fire({
@@ -142,7 +142,9 @@ export const modificarPedidosController =async (queryParams = null) =>{
                                                 text: respuesta.message,
                                                 confirmButtonText: 'Aceptar'
                                             });
-
+                                        } catch(e){
+                                            console.error(e)
+                                        }
 
         }else{
             alert("Tienes que completar todos los campos")

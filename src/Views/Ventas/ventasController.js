@@ -1,4 +1,4 @@
-import { get } from "../../Helpers/Request/api.js";
+import { get,tienePermiso } from "../../Helpers/Request/api.js";
 import { eliminar } from "../../Helpers/Request/api.js";
 import { ValidarEspacios, ValidarLetras } from "../../Helpers/Validacion/Validaciones.js";
 import Swal from 'sweetalert2';
@@ -72,7 +72,7 @@ export const ventasController = async() =>{
   const contenedorBotones = document.createElement("div")
   contenedorBotones.classList.add("botonesCarta")
   
-  if(rol !=1){ 
+  
   const botonModificar = document.createElement("a")
   botonModificar.classList.add("botonesCarta__boton")
   botonModificar.textContent = "Modificar"
@@ -105,9 +105,7 @@ export const ventasController = async() =>{
     })
    
     
-  }else{
-    botonAgregar.style.display = "none"
-  }
+  
   // Agregamos todos los elementos al card
   card.appendChild(titulo);
   card.appendChild(cliente);
@@ -117,6 +115,19 @@ export const ventasController = async() =>{
   card.appendChild(hora);
   card.appendChild(empleado)
    card.appendChild(contenedorBotones)
+
+
+   if(!tienePermiso('ventas.crear')){
+         
+       botonAgregar.style.display = "none"
+     }
+   
+     if(!tienePermiso('ventas.modificar')){
+       botonModificar.style.display = "none"
+     }
+     if(!tienePermiso('ventas.eliminar')){
+       botonEliminar.style.display = "none"
+     }
   contenedorVentas.appendChild(card)
 
 })

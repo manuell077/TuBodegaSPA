@@ -2,17 +2,19 @@ import { obtenerDatosDeEmpleado, traerPedidos , traerMediosDePago } from "../../
 import { traerValorVenta } from "../../Helpers/Request/factura"
 import {ValidarFactura} from "../../Helpers/Validacion/Validaciones"
 import { post } from "../../Helpers/Request/factura"
+import { get,postAutenticado} from "../../Helpers/Request/api.js"
 import { obtenerFacturaCompleta } from "../../Helpers/Request/factura"
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import { ValidarEspaciosUsuarios , ValidarNumeros,ValidarCorreoFactura,ValidarNitoCedula , ValidarTelefonoFactura} from "../../Helpers/Validacion/Validaciones"
+import Swal from 'sweetalert2';
 
 export const facturaController = async() =>{
        
 
     
-     const pedidos = await traerPedidos()
-     const mediosDePago = await traerMediosDePago()
+     const pedidos = await get(`pedidos/sin-factura`)
+     const mediosDePago = await get(`factura/MedioDePago`)
      
     
      
@@ -69,13 +71,14 @@ export const facturaController = async() =>{
    pedidoSelect.addEventListener("change",async(e)=>{
     if(pedidoSelect.value ){  
         console.log("Select tiene un valor")
-      const datosEmpleado = await obtenerDatosDeEmpleado(pedidoSelect.value)
+      const datosEmpleado = await get(`factura/empleado/${pedidoSelect.value}`)
+      console.log(datosEmpleado)
       cedula.value = datosEmpleado.cedula
       telefono.value = datosEmpleado.telefono
       correo.value = datosEmpleado.correo_electronico
       direccion.value = datosEmpleado.direccion
 
-      const valorVentaCambio =  await traerValorVenta(pedidoSelect.value)
+      const valorVentaCambio =  await get(`pedidos/pedidoVenta/${pedidoSelect.value}`)
 
 
         sacarValorTotal(iva.value,valorVentaCambio[0].valor,valorTotal)
@@ -115,9 +118,12 @@ export const facturaController = async() =>{
           
 
         if(objeto != false){
-                
-           await post(e,data)
-           let facturaSeleccion = await obtenerFacturaCompleta(objeto.fkPedido)
+           try{     
+           await postAutenticado(`factura`,data)
+
+           
+           let facturaSeleccion = await get(`factura/${objeto.fkPedido}`)
+
            let factura = facturaSeleccion[0]
            console.log(factura)
 
@@ -125,20 +131,20 @@ export const facturaController = async() =>{
 
     // --- Encabezado Empresa ---
     doc.setFontSize(18);
-    doc.text(factura.nombreEmpresa, 105, 15, { align: "center" });
+    doc.text(factura.nombre_empresa, 105, 15, { align: "center" });
     doc.setFontSize(11);
     doc.text(`NIT: ${factura.nit}`, 10, 25);
-    doc.text(`Dirección: ${factura.direccionEmpresa}`, 10, 30);
-    doc.text(`Teléfono: ${factura.lineaDeAtencion}`, 10, 35);
-    doc.text(`Correo: ${factura.correoEmpresa}`, 10, 40);
+    doc.text(`Dirección: ${factura.direccion_empresa}`, 10, 30);
+    doc.text(`Teléfono: ${factura.linea_de_atencion}`, 10, 35);
+    doc.text(`Correo: ${factura.correo_empresa}`, 10, 40);
 
     // --- Datos Factura ---
     doc.setFontSize(14);
-    doc.text(`Factura #${factura.idFactura}`, 10, 50);
+    doc.text(`Factura #${factura.id_factura}`, 10, 50);
     doc.setFontSize(11);
-    doc.text(`Fecha: ${factura.fechaFactura}`, 10, 55);
-    doc.text(`Medio de pago: ${factura.medioPago}`, 10, 60);
-    doc.text(`Cliente: ${factura.nombreCliente}`, 10, 65);
+    doc.text(`Fecha: ${factura.fecha_factura}`, 10, 55);
+    doc.text(`Medio de pago: ${factura.nombre_medio_pago}`, 10, 60);
+    doc.text(`Cliente: ${factura.nombre_cliente}`, 10, 65);
 
     // --- Tabla Productos ---
     
@@ -147,10 +153,10 @@ export const facturaController = async() =>{
     head: [["Producto", "Cantidad", "Precio", "Subtotal"]],
     body: [
       [
-        factura.nombreProducto,
-        factura.cantidadProducto,
+        factura.nombre_producto,
+        factura.cantidad_producto,
         `$${factura.precio}`,
-        `$${factura.precio * factura.cantidadProducto}`
+        `$${factura.precio * factura.cantidad_producto}`
       ]
     ]
   });
@@ -164,11 +170,31 @@ export const facturaController = async() =>{
     // Descargar
     doc.save(`factura_${factura.id_factura}.pdf`);
 
-      
-    location.reload()
+      await Swal.fire({
+                                           icon: 'success',
+                                           title: '¡Éxito!',
+                                           text: 'Factura generada',
+                                           confirmButtonText: 'Aceptar'
+                                           });
+    
+           }catch(e){
+            console.log(e)
+              Swal.fire({
+                          icon: 'error',
+                          title: 'Error',
+                          text: 'Error al conectar con el servidor',
+                          confirmButtonText: 'Aceptar'
+                      });
+           }
+           
 
         }else{
-           alert("Tienes que completar todos los campos")
+           await  Swal.fire({
+                                       icon: 'error',
+                                       title: 'Error',
+                                       text: 'Tienes que completar todos los campos',
+                                       confirmButtonText: 'Aceptar'
+                                        });
         }
 
     })

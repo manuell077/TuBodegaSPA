@@ -1,5 +1,5 @@
 import { getPedidosPorFecha } from "../../../Helpers/Request/Pedidios"
-import { eliminar,get} from "../../../Helpers/Request/api.js"
+import { eliminar,get,tienePermiso} from "../../../Helpers/Request/api.js"
 import Swal from 'sweetalert2';
 
 export const listarController = async(queryParams = null) =>{
@@ -74,7 +74,7 @@ export const listarController = async(queryParams = null) =>{
        contenedorBotones.classList.add("botonesCarta")
        carta.appendChild(contenedorBotones)
        
-       if(rol != 1){
+       
 
        const botonModificar = document.createElement("a")
        botonModificar.classList.add("botonesCarta__boton")
@@ -106,7 +106,16 @@ export const listarController = async(queryParams = null) =>{
 
              
       })
-    }
+
+      
+      
+        if(!tienePermiso('pedidos.modificar')){
+          botonModificar.style.display = "none"
+        }
+        if(!tienePermiso('pedidos.eliminar')){
+          botonEliminar.style.display = "none"
+        }
+    
        // Fecha entrega
       const fechaEntrega = document.createElement("p");
       fechaEntrega.classList.add("carta__parrafo");

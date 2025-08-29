@@ -1,6 +1,7 @@
-import { ObtenerUsuariosPorId } from "../../../Helpers/Request/Usuarios"
+import { get,put } from "../../../Helpers/Request/api.js"
 import {ValidarRegistro, ValidarLetras,ValidarEspacios, ValidarPasswordUsuarios,  ValidarCorreoUsuarios, ValidarNumeros, ValidarDireccion,ValidarCedulaUsuarios, ValidarTelefonoUsuarios, ValidarEspaciosUsuarios,ValidarRegistroActualizacion} from "../../../Helpers/Validacion/index.js"
 import { Put } from "../../../Helpers/Request/Usuarios.js"
+import Swal from 'sweetalert2';
 export const modificarUsuariosControlador = async(queryparams = null) =>{
      
     const {id} = queryparams
@@ -10,9 +11,13 @@ export const modificarUsuariosControlador = async(queryparams = null) =>{
      const correoElectronicoInput = document.querySelector("#correoElectronico");
      const telefonoInput = document.querySelector("#telefono");
      const cedulaInput = document.querySelector("#cedula");
-     const direccionInput = document.querySelector("#direccion");
      const formularioActualizarUsuario = document.querySelector(".formularioActualizarUsuario") 
      const rol = document.querySelector("#rol") 
+     const calle = document.querySelector("#calle")
+     const numero = document.querySelector("#numero")
+     const barrio = document.querySelector("#barrio")
+     const municipio = document.querySelector("#municipio")
+
 
          //Validacion para que el usuario escriba solo letras 
          nombre.addEventListener("keydown",ValidarLetras)
@@ -28,8 +33,7 @@ export const modificarUsuariosControlador = async(queryparams = null) =>{
          telefonoInput.addEventListener("keydown",ValidarNumeros)
          //Validacion que ingrese un numero valido 
          telefonoInput.addEventListener("keyup",ValidarTelefonoUsuarios)
-         //Validacion de direccion 
-         direccionInput.addEventListener("keydown",ValidarDireccion)
+         
 
          //Validacion para no exitan espacios en blanco 
              nombre.addEventListener("keyup",ValidarEspaciosUsuarios)
@@ -37,16 +41,33 @@ export const modificarUsuariosControlador = async(queryparams = null) =>{
              correoElectronicoInput.addEventListener("keyup",ValidarEspaciosUsuarios)
              cedulaInput.addEventListener("keyup",ValidarEspaciosUsuarios)
              telefonoInput.addEventListener("keyup",ValidarEspaciosUsuarios)
-             direccionInput.addEventListener("keyup",ValidarEspaciosUsuarios)
+             
 
 
-     const usuariosPorId = await ObtenerUsuariosPorId(id)
-
+     const usuariosPorId = await get(`usuarios/${id}`)
+    
+     console.log(usuariosPorId)
     nombre.value = usuariosPorId.nombre;
     correoElectronicoInput.value = usuariosPorId.correo_electronico
     telefonoInput.value = usuariosPorId.telefono 
     cedulaInput.value = usuariosPorId.cedula
-    direccionInput.value = usuariosPorId.direccion
+    calle.value = usuariosPorId.direccionCompleta.calle 
+    numero.value = usuariosPorId.direccionCompleta.numero
+    barrio.value = usuariosPorId.direccionCompleta.barrio
+     
+    const municipioSeleccionado = usuariosPorId.municipio.idMunicipio
+
+    const muni = await  get('usuarios/municipiosAutenticados')
+    
+   muni.forEach(element => {
+    const opcion = document.createElement("option")
+        opcion.value = element.idMunicipio
+        opcion.textContent = element.nombreMunicipio
+        if (element.idMunicipio === municipioSeleccionado) {
+        opcion.selected = true;
+    }
+        municipio.appendChild(opcion)
+});
     
     if(usuariosPorId.rol == 1){
        
@@ -58,9 +79,11 @@ export const modificarUsuariosControlador = async(queryparams = null) =>{
     }
 
     
-    formularioActualizarUsuario.addEventListener('submit',(e)=>{
+    formularioActualizarUsuario.addEventListener('submit',async(e)=>{
         e.preventDefault()
         let objeto =  ValidarRegistroActualizacion(e)
+         
+        console.log(objeto)
         
             if(objeto != false){
              objeto["rol"] = rol.value  
@@ -69,12 +92,25 @@ export const modificarUsuariosControlador = async(queryparams = null) =>{
              }else{
                 objeto["password"] = password.value
              }
-             console.log(objeto)
-             Put(id,objeto)
-        
+             
+             objeto["direccion"] = usuariosPorId.direccion
+             
+             const respuesta = await put(`usuarios/${id}`,objeto)
+             await Swal.fire({
+                     icon: 'success',
+                     title: '¡Éxito!',
+                     text: respuesta.message,
+                     confirmButtonText: 'Aceptar'
+                     });
+               location.reload
             }else{
         
-              alert("Los campos no pueden quedar vacios")
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Tienes que completar todos los campos',
+                confirmButtonText: 'Aceptar'
+                 });
             }
 
     })

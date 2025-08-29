@@ -1,12 +1,20 @@
-<a href="Perfil.html" class="link">
+<!-- Checkbox oculto que controla el menú -->
+<input type="checkbox" id="menu-toggle" hidden>
+
+<!-- Botón hamburguesa -->
+<label for="menu-toggle" class="hamburger">☰</label>
+
+<nav class="sidebar">
+<a href="#perfil" class="link">
 <div class="perfil">
 <img src="/Images/Perfil.png" class="perfil__imagen">
 <p class="perfil__texto">NOMBRE DE USUARIO</p>
 </div></a>
-            
+
+          
 <div class="caja"><a href="#inventario" class="caja__link">INVENTARIO</a></div>
 <div class="caja"><a href="#ventas" class="caja__link">VENTAS</a></div>
 <div class="caja"><a href="#pedidos" class="caja__link">PEDIDOS</a></div>
 <div class="caja"><a href="#deudores" class="caja__link">DEUDORES</a></div>
-            
+</nav>
 <script src="./controladorSidebars.js"></script>            

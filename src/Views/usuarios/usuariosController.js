@@ -7,7 +7,7 @@ export const usuariosController = async() =>{
      
     console.log("Cedula" + cedula)
     const usuarios = await get(`usuarios/excepto/${cedula}`)
-    
+    console.log(usuarios)
     const container = document.querySelector('.usuarios-container')
 
     usuarios.forEach((usuario, index) => {
@@ -55,12 +55,12 @@ export const usuariosController = async() =>{
                 let idEliminar = btnEliminar.href 
                 let id =  idEliminar.replace("http://localhost:5173/id=" , "")
             
-                const eliminacion = await   eliminar(id)
+                const eliminacion = await   eliminar(`usuarios/${id}`)
                  
                 await Swal.fire({
                                                                 icon: 'success',
                                                                 title: '¡Éxito!',
-                                                                text: eliminacion.message,
+                                                                text: eliminacion.mensaje,
                                                                 confirmButtonText: 'Aceptar'
                                                             });
                                                            

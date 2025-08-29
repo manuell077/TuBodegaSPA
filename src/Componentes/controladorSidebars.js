@@ -1,11 +1,12 @@
 export const controlador = () =>{
-    
-    console.log("Controlador")
+     
+    document.addEventListener("DOMContentLoaded",()=>{
+        const hamburger = document.getElementById("hamburger");
+        const sidebar = document.getElementById("sidebar");
 
-    const usuario = document.querySelector(".perfil__texto")
+        hamburger.addEventListener("click", () => {
+       sidebar.classList.toggle("active");
+      });
+    })
     
-    let Nombreusuario = localStorage.getItem('nombre')
-
-    usuario.textContent = Nombreusuario
-      
 }

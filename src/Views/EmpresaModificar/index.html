@@ -21,10 +21,27 @@
            </div>
 
             <div class="componente componente--empresa">
-                 <label for="direccion" class="componente__label componente__label--empresa">DIRECCION</label>
-                <input type="text" id="direccion" class="componente__entrada componente__entrada--empresa" name="direccion" required>  
+
+                <label for="direccion" class="componente__label componente__label--titulo">DIRECCION</label>
                 
-           </div>
+                <label for="calle" class="componente__label componente__label--direccion">Calle</label>
+                <input type="text" id="calle" class="componente__entrada componente__entrada--direccion" name="calle" autocomplete="off" required >
+
+                <label for="numero" class="componente__label componente__label--direccion">N°</label>
+                <input type="text" id="numero" class="componente__entrada componente__entrada--direccion" name="numero" autocomplete="off" required >
+
+                <label for="barrio" class="componente__label componente__label--direccion">Barrio</label>
+                <input type="text" id="barrio" class="componente__entrada componente__entrada--direccion " name="barrio" autocomplete="off" required >
+                
+         </div>
+
+         <div class="componente componente--empresa">
+              <label for="municipio" class="componente__label componente__label--empresa">MUNICIPIO DE  RESIDENCIA</label>
+                 <select id="municipio" class="componente__entrada componente__entrada--empresa " name="fkMunicipio" required>
+                  <option value="" disabled selected></option>
+                  
+              </select>
+         </div>
 
            <div class="componente componente--empresa">
                  <label for="lineaAtencion" class="componente__label componente__label--empresa">LINEA DE ATENCION</label>

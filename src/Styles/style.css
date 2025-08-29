@@ -212,6 +212,8 @@
 
 
 
+
+
 .componente--login{
     margin-bottom: 10px;
 }
@@ -432,6 +434,7 @@
 }
 
 .sidebar{
+    
     grid-area: sidebar;
     background-color: var(--colorPrograma);
     
@@ -877,6 +880,7 @@
     
     background-color: var(--colorBlanco);
     font-size: 60px;
+    cursor: pointer;
     
 }
 .flecha__imagen{
@@ -981,7 +985,9 @@
 }
 
 .componente__entrada--empresa{
-    width: 500px;
+    width: 100%;
+    height: 40px;
+    max-width: 250px;
 }
 
 .botones--empresa{
@@ -996,7 +1002,7 @@
     gap: 30px;
     padding: 10px;
     width: 700px;
-    height: 350px;
+    height: 480px;
     border-radius: 10px;
     
     display: flex;
@@ -1263,4 +1269,458 @@
 
 .mensajeError--usuarios{
     color: var(--colorPrograma);
+}
+
+.hamburger{
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--colorPrograma);
+  background: var(--colorBlanco);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+    
+    
+
+    /* Estilos para móviles */
+    @media (max-width: 768px) {
+    .hamburger { display: inline-block; }
+  .sidebar { display: none; }
+
+  /* Al marcar el checkbox, mostrar el menú */
+  #menu-toggle:checked ~ .sidebar {
+    display: block;
+  }
+    }
+
+/* Componentes */
+/* Componente reutilizable para botones */
+.boton-reutilizable {
+  background-color: var(--colorPrograma);
+  border-radius: 20px;
+  width: 300px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: var(--colorBlanco);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Tablets (≤ 1024px) */
+@media screen and (max-width: 1024px) {
+  .inicioSesion {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .presentacion,
+  .botones {
+    width: 100%;
+  }
+
+  .botones {
+    margin-top: 50px;
+  }
+
+  .presentacion {
+    padding: 0px;
+  }
+
+  .contenido__titulo {
+    font-size: 60px;
+  }
+
+  .contenido__parrafo {
+    font-size: 20px;
+    width: 80%;
+  }
+
+  .contenido__imagen {
+    width: 250px;
+  }
+
+  .boton-reutilizable {
+    width: 250px;
+    height: 60px;
+    font-size: 18px;
+  }
+
+  .inicio__parrafo {
+    font-size: 20px;
+  }
+}
+
+/* Móviles (≤ 768px) */
+@media screen and (max-width: 768px) {
+  .inicioSesion {
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .presentacion {
+    width: 100%;
+    padding: 20px 0; /* Padding vertical para la sección superior */
+    background-color: var(--colorPrograma);
+  }
+
+  .contenido {
+    gap: 20px; /* Reducir gap */
+    padding-bottom: 10px; /* Reducir espacio inferior */
+  }
+
+  .contenido__titulo {
+    font-size: 40px;
+    letter-spacing: 1px;
+  }
+
+  .contenido__parrafo {
+    font-size: 16px;
+    width: 90%;
+  }
+
+  .contenido__imagen {
+    width: 200px;
+  }
+
+  .botones {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px; /* Reducir margen superior */
+    background-color: #fff;
+  }
+
+  .inicio {
+    gap: 15px; /* Reducir gap entre elementos */
+  }
+
+  .boton-reutilizable {
+    width: 200px;
+    height: 50px;
+    font-size: 16px;
+  }
+
+  .inicio__parrafo {
+    font-size: 16px;
+  }
+}
+
+/* Móviles pequeños (≤ 480px) */
+@media screen and (max-width: 480px) {
+  .inicioSesion {
+    height: 100%;
+    padding: 0;
+    
+    justify-content: space-between; /* Alinear desde la parte superior */
+    align-items: center;
+  }
+
+  .presentacion {
+    width: 100%;
+    height: 50%;
+    padding: 10px 0; /* Padding mínimo */
+    background-color: var(--colorPrograma);
+  }
+
+  .contenido {
+    height: 100%;
+    gap: 40px; /* Gap mínimo */
+    padding-bottom: 0; /* Eliminar espacio inferior */
+  }
+
+  .contenido__titulo {
+    font-size: 30px;
+  }
+
+  .contenido__parrafo {
+    font-size: 16px;
+  }
+
+  .contenido__imagen {
+    width: 150px;
+  }
+
+  .botones {
+    width: 100%;
+    padding: 10px 0;
+    
+    margin-bottom: 180px; /* Eliminar margen superior */
+  }
+
+  .inicio {
+    gap: 10px;
+  }
+
+  .boton-reutilizable {
+    width: 180px;
+    height: 45px;
+    font-size: 14px;
+  }
+
+  .inicio__parrafo {
+    width: 250px;
+    font-size: 17px;
+    margin-bottom: 80px
+  }
+}
+
+/* Media Queries Login */
+
+/* Tablets (≤ 1024px) */
+@media screen and (max-width: 1024px) {
+    .login {
+        height: 100%;
+    }
+
+    .entrada__titulo {
+        font-size: 25px;
+    }
+
+    .componente__entrada {
+        width: 200px;
+    }
+
+    .enviar__boton {
+        width: 180px;
+        height: 45px;
+        font-size: 16px;
+    }
+
+    .entrada--login{
+        height: 30%;
+    }
+}
+
+/* Móviles (≤ 768px) */
+@media screen and (max-width: 768px) {
+    .login {
+        height: 100%;
+    }
+
+    .entrada__titulo {
+        font-size: 22px;
+    }
+
+    .componente__label {
+        width: 90px;
+        font-size: 16px;
+    }
+
+    .componente__entrada {
+        width: 180px;
+        height: 35px;
+        font-size: 15px;
+    }
+
+    .enviar {
+        margin-top: 20px;
+    }
+
+    .enviar__boton {
+        margin-top: 40px;
+        width: 160px;
+        height: 45px;
+        font-size: 16px;
+    }
+     
+    .entrada--login{
+        height: 30%;
+    }
+
+}
+
+/* Móviles pequeños (≤ 480px) */
+@media screen and (max-width: 480px) {
+    .login {
+        height: 100%;
+    }
+     
+    .componente--login{
+        width: 300px;
+    }
+
+
+    .entrada__titulo {
+        margin-top: 20px;
+        font-size: 40px; /* Mínimo legible */
+    }
+
+    .componente__label {
+        text-align: start;
+        width: 450px;
+        margin-bottom: 10px;
+        font-size: 14px; /* Mínimo legible */
+    }
+
+    .componente__entrada {
+        width: 450px; /* Mínimo ancho */
+        height: 35px;
+        font-size: 14px; /* Mínimo legible */
+    }
+
+    .enviar {
+        margin-top: 15px;
+    }
+
+    .enviar__boton {
+        margin-top: 90px;
+        width: 340px; /* Mínimo ancho */
+        height: 50px;
+        font-size: 14px; /* Mínimo legible */
+    }
+    .entrada--login{
+        height: 35%;
+    }
+}
+
+/* Media Queries for Registro Formulario */
+
+@media screen and (max-width: 1370px) {
+    .componente--direccion{
+        width: 700px;
+        justify-content:center;
+        
+    }
+    
+    .componente__label--titulo{
+        text-align: start;
+        margin-left: 0;
+    }
+}
+@media screen and (max-width: 1200px) {
+    
+    .componente{
+        
+        width: 100%;
+        justify-content: center;
+        
+    }
+
+    .componente__label{
+        font-size: 15px;
+        text-align: center;
+    }
+    .componente__entrada{
+        height: 32px;
+        font-size: 15px;
+    }
+
+    .componente__entrada--direccion{
+        max-width: 70px;
+    }
+}
+
+
+
+
+
+
+/* Tablets (≤ 1024px) */
+@media screen and (max-width: 1024px) {
+    .registrarme--usuario {
+        height: auto; /* Adjust height for smaller screens */
+    }
+
+    .registro {
+        font-size: 18px; /* Adjust font size */
+    }
+
+    .entrada--espacio {
+        gap: 10px; /* Adjust gap */
+        height: 75%;
+    }
+
+    .entrada__titulo--espacioAbajo {
+        
+        margin-bottom: 20px; /* Adjust margin */
+    }
+}
+
+/* Móviles (≤ 768px) */
+@media screen and (max-width: 768px) {
+    .registrarme--usuario {
+        height: auto; /* Adjust height for smaller screens */
+    }
+
+    .registro {
+        font-size: 16px; /* Adjust font size */
+    }
+
+    .componente--direccion{
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: nowrap;
+        margin-bottom: 15px;
+    }
+
+    .componente__label--direccion{
+       margin: 8px;
+    } 
+
+    .entrada__titulo--espacioAbajo {
+        margin-bottom: 15px; /* Adjust margin */
+    }
+
+    .entrada--espacio{
+        height: 75%;
+    }
+
+}
+
+/* Móviles pequeños (≤ 480px) */
+@media screen and (max-width: 480px) {
+    
+    .componente__entrada--select{
+        font-size: 10px;
+    }
+
+    .entrada--espacio{
+        height: 70%;
+    }
+
+    .entrada__titulo--espacioAbajo{
+        font-size: 25px;
+    }
+     
+   
+
+    .componente{
+        width: 70%;;
+        flex-wrap: nowrap;
+    }
+    .componente--direccion{
+        width:100%;
+        margin-bottom: 30px;
+    }
+
+    .registrarme--usuario {
+        height: auto; /* Adjust height for smaller screens */
+    }
+
+    .registro {
+        font-size: 14px; /* Adjust font size */
+    }
+
+    .entrada--espacio {
+        gap: 5px; /* Adjust gap */
+    }
+
+    .entrada__titulo--espacioAbajo {
+        margin-bottom: 10px; /* Adjust margin */
+    }
+}
+
+/* Móviles pequeños (≤ 480px) */
+@media screen and (max-width: 430px) {
+    
+
+    .componente--direccion{
+        width: 100%;
+    }
 }

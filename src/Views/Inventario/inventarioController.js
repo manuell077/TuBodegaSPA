@@ -1,4 +1,4 @@
-import {get,eliminar} from "../../Helpers/Request/api.js"
+import {get,eliminar,tienePermiso} from "../../Helpers/Request/api.js"
 import Swal from 'sweetalert2';
 
 export const inventarioController =  async() =>{
@@ -57,7 +57,6 @@ export const inventarioController =  async() =>{
   carta.appendChild(contenedorBotones)
    
 
-  if(localStorage.getItem("rol") != 1){
   const botonModificar = document.createElement("a")
   botonModificar.classList.add("botonesCarta__boton")
   botonModificar.textContent = "Modificar"
@@ -106,15 +105,21 @@ export const inventarioController =  async() =>{
   })
 
   
-}
+  if(!tienePermiso('productos.crear')){
+      
+    botonAgregar.style.display = "none"
+  }
+
+  if(!tienePermiso('productos.modificar')){
+    botonModificar.style.display = "none"
+  }
+  if(!tienePermiso('producto.eliminar')){
+    botonEliminar.style.display = "none"
+  }
 
 
-let rol = localStorage.getItem("rol")
 
-if(rol == 1){
 
-botonAgregar.style.display = "none";
-}
 
 contenedor.appendChild(carta)
 

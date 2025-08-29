@@ -274,4 +274,34 @@ export const eliminar = async (endpoint) => {
     }
 }
 
+export const convertirPermisosArray = (permisos) => {
+  // Convierte la cadena de permisos en un array de caracteres
+  permisos = permisos.split("");
+  // Variable auxiliar para construir la cadena limpia
+  let aux = "";
+  // Recorre cada carácter de la cadena de permisos
+  for (let n = 0; n < permisos.length; n++) {
+    // Si es el primer carácter, el último o un espacio, lo omite
+    if (permisos[n] == " ") continue
+    // Agrega el carácter a la variable auxiliar
+    aux += permisos[n];
+  }
+  // Divide la cadena auxiliar por comas para obtener el array de permisos
+  permisos = aux.split(",");
+  // Retorna el array de permisos
+  return permisos;
+}
+
+export const tienePermiso = (permiso) => {
+    console.log("permisos desde tiene permisos" + permiso)
+  // Obtiene la cadena de permisos del localStorage y la convierte en array
+  const permisos = convertirPermisosArray(localStorage.getItem('permisos'));
+  console.log(permisos)
+  // Busca si el permiso existe en el array de permisos
+  const existe = permisos.some(perm => perm == permiso);
+  // Retorna true si existe, false si no
+  console.log("Existe?" + existe)
+  return existe
+}
+
 

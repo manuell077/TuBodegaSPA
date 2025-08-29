@@ -16,7 +16,7 @@ import { agregarUsuariosController } from "../Views/usuarios/Agregar/AgregarCont
 import { modificarUsuariosControlador } from "../Views/usuarios/Modificar/ModificarControlador.js"
 import {facturaController} from "../Views/Factura/facturaController.js"
 import {empresaModificarController} from "../Views/EmpresaModificar/empresaController.js"
-
+import {perfilController} from "../Views/Perfil/perfilController.js"
 export const routers = {
      
 
@@ -24,7 +24,8 @@ export const routers = {
     bienvenida:{
         path: "bienvenida/index.html",
         controller: bienvenidaController,
-        private:false
+        private:false,
+        
         
     },
     
@@ -45,17 +46,20 @@ export const routers = {
         "/":{
         path: "Inventario/index.html",
         controller: inventarioController,
-        private: true
+        private: true,
+        can: "productos.index"
         },
         Agregar:{
         path: "Inventario/Agregar/index.html",
         controller: AgregarController,
-        private: true
+        private: true,
+        can:"productos.crear"
         },
         Modificar:{
         path: "Inventario/Modificar/index.html",
         controller: ModificarController,
-        private: true
+        private: true,
+        can:"productos.modificar"
         }
         
     },
@@ -63,34 +67,40 @@ export const routers = {
        "/":{
         path: "Ventas/index.html",
         controller: ventasController,
-        private: true
+        private: true,
+        can:"ventas.index"
         },
         Agregar:{
         path: "Ventas/Agregar/index.html",
         controller: agregarVentaController,
-        private: true
+        private: true,
+        can:"ventas.crear"
         },
         Modificar:{
         path: "Ventas/Modificar/index.html",
         controller: modificarController,
-        private: true
+        private: true,
+        can:"ventas.modificar"
         } 
     },
     pedidos:{
         "/":{
            path: "Pedidos/index.html",
            controller: pedidosController,
-           private: true  
+           private: true ,
+            can:"pedidos.index"
         },
         Listar:{
             path: "Pedidos/Listar/index.html",
             controller: listarController,
-            private: true 
+            private: true ,
+            can:"pedidos.index"
         },
         Modificar:{
             path: "Pedidos/Modificar/index.html",
             controller: modificarPedidosController,
-            private: true 
+            private: true ,
+            can:"pedidos.modificar"
         }
     
     },
@@ -98,7 +108,8 @@ export const routers = {
         "/":{
             path: "Deudores/index.html",
             controller: deudoresController,
-            private: true
+            private: true,
+            can:"deudores.index"
         }
     } , 
 
@@ -107,17 +118,21 @@ export const routers = {
         "/":{
             path: "usuarios/index.html",
             controller: usuariosController,
-            private: true
+            private: true,
+            can: "usuario.index"
         },
         Agregar:{
             path: "usuarios/Agregar/index.html",
             controller: agregarUsuariosController,
-            private: true
+            private: true,
+            can: "usuario.crear"
         },
         Modificar:{
             path: "usuarios/Modificar/index.html",
             controller: modificarUsuariosControlador , 
-            private: true 
+            private: true ,
+            can: "usuario.modificar"
+
         }
         
     },
@@ -125,14 +140,24 @@ export const routers = {
          "/":{
             path: "Factura/index.html",
             controller: facturaController,
-            private: true
+            private: true,
+            can:"factura.index"
+
          }
     },empresaModificar:{
 
         "/":{
            path: "EmpresaModificar/index.html",
             controller: empresaModificarController,
-            private: true 
+            private: true,
+            can:"empresa.index" 
+        }
+    },perfil:{
+        "/":{
+           path: "Perfil/index.html",
+            controller: perfilController,
+            private: true,
+            can:"perfil.index" 
         }
     }
     

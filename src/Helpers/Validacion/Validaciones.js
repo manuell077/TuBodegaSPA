@@ -200,15 +200,32 @@ export function ValidarRegistroActualizacion(e) {
             
             break;
 
-            case "direccion":
-
-
-            if(campo.value){
-               
-                let nombreCampo = campo.getAttribute('name')
+            case "calle":
+              if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
                 data[nombreCampo] = campo.value
-                
-            }
+              }
+            break;
+
+            case "numero":
+              if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = parseInt(campo.value)
+              }
+            break;
+
+            case "barrio":
+              if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = campo.value
+              }
+            break;
+
+            case "fkMunicipio":
+             if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = parseInt(campo.value)
+              }
             break;
              
             
@@ -229,6 +246,29 @@ export function ValidarRegistroActualizacion(e) {
     
   }
 }
+
+
+export function validarEspaciosDireccion(calle,numero,barrio){
+    if(!calle.value || !numero.value || !barrio.value){
+        //En caso de que exista un mensaje de error que lo borre 
+        if(barrio.nextSibling){
+            barrio.nextSibling.remove()
+        }
+
+        //Se crea el mensaje de error 
+        let error = document.createElement("span") 
+        error.classList.add("mensajeError")
+        error.textContent = `⛔Todos los campos de dirección deben completarse` 
+        barrio.insertAdjacentElement("afterend",error)  //Se inserta debajo del contenedor
+
+    }else{
+        if(barrio.nextSibling){
+            barrio.nextSibling.remove()
+        }
+    }
+}
+
+
 
 export function ValidarEspacios(e){
   
@@ -353,11 +393,15 @@ export function ValidarEspaciosUsuarios (e) {
 
 export function ValidarLetras(e){
      
+   const teclasPermitidas = [
+    " "
+  ];
 
     let tecla =   e.key  //Se recibe la tecla que se presiono 
+    console.log(tecla)
     const letras = /^[a-zA-Z]+$/ //Expresio nregular que evalua si es una letra 
 
-    if(!letras.test(tecla)){    //Aca se evalua s la tecla no cumple con la expresion regular 
+    if(!letras.test(tecla) && !teclasPermitidas.includes(tecla)){    //Aca se evalua s la tecla no cumple con la expresion regular 
       e.preventDefault() //Si no cumple no la dejara marcar en el input con el preventDefault que lo que hace es prevenir un comportamiento predeterminado de un evento
       
     }
@@ -567,7 +611,11 @@ export function ValidarPasswordUsuarios(e){
 
 export function ValidarCedula(e){
   const validacionCompleta = /^[0-9]{8}$|^[0-9]{10}$/
- 
+  
+   if (e.target.value.length > 10) {
+    e.target.value = e.target.value.slice(0, 10); 
+  }
+
   //Aqui se evalua completamente 
   if(!validacionCompleta.test(e.target.value)){
        
@@ -622,8 +670,15 @@ export function ValidarNumeros(e){
 }
 
 export function ValidarTelefono(e){
-
+  
   const validacionCompleta = /^[0-9]{10}$/
+    
+  // Si ya hay 10 caracteres, no dejar escribir más
+    if (e.target.value.length > 10) {
+    e.target.value = e.target.value.slice(0, 10); 
+  }
+
+
    //Aqui se evalua completamente 
   if(!validacionCompleta.test(e.target.value)){
         
@@ -771,13 +826,7 @@ export function ValidarEmpresa(e){
             
             break;
 
-            case "direccion":
-
-                 if(campo.value){
-                 let nombreCampo = campo.getAttribute('name')
-                 data[nombreCampo] = campo.value
-               }
-            break;
+            
             
             case "lineaDeAtencion":
 
@@ -794,9 +843,37 @@ export function ValidarEmpresa(e){
                  data[nombreCampo] = campo.value
                }
             break;
+           
+            case "calle":
 
+                 if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value
+               }
+            break;
 
+            case "numero":
 
+                 if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value
+               }
+            break;
+
+             case "barrio":
+
+                 if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                 data[nombreCampo] = campo.value
+               }
+            break;
+
+            case "fkMunicipio":
+             if(campo.value){
+                 let nombreCampo = campo.getAttribute('name')
+                data[nombreCampo] = parseInt(campo.value)
+              }
+            break;
 
       }
 

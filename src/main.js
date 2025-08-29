@@ -50,9 +50,9 @@ const cargar = () =>{
    const [rutasEncontradas,parametros]  = recorrerRutas(routers,hash)
    
 
-   console.log(rutasEncontradas.private) 
+   console.log("Hash" + hash) 
   
-    if(rutasEncontradas.private == true){
+    if(rutasEncontradas.private == true && hash != "perfil" ){
        
       gridContainer.classList.add('layout')
       sidebar.classList.add('paddinDiez')

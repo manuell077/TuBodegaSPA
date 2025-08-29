@@ -22,10 +22,12 @@ const sidebar = document.querySelector('.sidebar')
             localStorage.setItem('rol', jsonData.usuario.rol);
             localStorage.setItem('nombre', jsonData.usuario.nombre);
             localStorage.setItem('cedula', jsonData.usuario.cedula);
+            localStorage.setItem('permisos',jsonData.permisos)
 
             if (jsonData.usuario.rol == 2) {
+                console.log("Entro en inventario")
                 window.location.hash = "#inventario";
-
+                
                 const response = await fetch('./src/Componentes/sidebar.html');
                 const sidebarHtml = await response.text();
                 sidebar.innerHTML = sidebarHtml;
