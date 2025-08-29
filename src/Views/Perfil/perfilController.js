@@ -9,6 +9,10 @@ export const perfilController = async(queryParams = null) =>{
     const direccion = document.querySelector("#direccion") 
     const cedulaCampo = document.querySelector("#cedula")
     const salir = document.querySelector(".salir-link") 
+    const sidebar=document.querySelector(".sidebar");
+    const iconoHamburguesa=document.querySelector(".iconoHamburguesa");
+
+    iconoHamburguesa.classList.add("displayNone");
 
 
     link.addEventListener("click",(e)=>{
@@ -43,8 +47,11 @@ export const perfilController = async(queryParams = null) =>{
       // Borra todo el localStorage
       localStorage.clear();
 
+      sidebar.classList.add('sidebarEscondido');
+
       // Redirige al login o página principal
       window.location.hash = "#login";
+
 
       // Alerta de confirmación
       Swal.fire(

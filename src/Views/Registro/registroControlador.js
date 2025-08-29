@@ -16,6 +16,8 @@ const calle = document.querySelector("#calle")
 const numero = document.querySelector("#numero")
 const barrio = document.querySelector("#barrio")  
 
+const menuHmaburgueso = document.querySelector(".iconoHamburguesa")
+menuHmaburgueso.classList.add("displayNone")
 
 //Validacion para que el usuario escriba solo letras 
 nombre.addEventListener("keydown",ValidarLetras)

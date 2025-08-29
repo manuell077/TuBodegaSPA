@@ -22,7 +22,8 @@ password.addEventListener("keydown",ValidarPassword)
 cedula.addEventListener("keyup",ValidarEspacios)
 password.addEventListener("keyup",ValidarEspacios)
 
-
+const menuHmaburgueso = document.querySelector(".iconoHamburguesa")
+menuHmaburgueso.classList.add("displayNone")
 
 formu.addEventListener("submit",(e)=>{
      

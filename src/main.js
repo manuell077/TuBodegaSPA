@@ -6,6 +6,7 @@ import {routers} from './Routers/routes.js'
 const app = document.querySelector("#app"); 
 const gridContainer = document.querySelector('.grid-container')
 const sidebar = document.querySelector('.sidebar')
+const cheqSidebar=document.querySelector("#cheBurguer");
 
 const usuario = document.querySelector(".perfil__texto")
 
@@ -41,6 +42,8 @@ const cargarVistasPrivadas = async () =>{
 
 }
 
+// console.log(cheqSidebar);
+
 
 const cargar = () =>{
      
@@ -70,12 +73,24 @@ const cargar = () =>{
 }
 
 
+cheqSidebar.addEventListener('change',(event)=>{
+  if(event.target.checked){
+    sidebar.classList.add('sidebarEscondido');
+  }else{
+    // alert("se deschequeo")
+    // sidebar.classList.remove('left-0')
+  }
+});
+
+
 
 window.addEventListener('DOMContentLoaded', async () => {
+  document.querySelector(".iconoHamburguesa").classList.remove("displayNone")
   cargar()
 });
 
 window.addEventListener('hashchange', async () =>{
+  document.querySelector(".iconoHamburguesa").classList.remove("displayNone")
   cargar()
 })
 

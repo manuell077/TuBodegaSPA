@@ -8,5 +8,9 @@ export const controlador = () =>{
        sidebar.classList.toggle("active");
       });
     })
+
+    document.querySelector("#cheBurguer").che
+
+    
     
 }
