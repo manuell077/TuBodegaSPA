@@ -15,81 +15,105 @@ export const ModificarController = async (queryParams = null) =>{
  const carta = document.createElement("div");
  carta.className = "carta carta--añadir";
 
-// Imagen
-const img = document.createElement("img");
-img.src = `${productos[0].imagen}`;
-img.className = "carta__imagen carta__imagen--añadir";
-carta.appendChild(img);
+// === Componente Imagen ===
+const divImagen = document.createElement("div");
+divImagen.className = "componente componente--imagenes";
 
-// Input de imagen
+const img = document.createElement("img");
+img.src = `${productos[0].imagen}`; // ← viene del GET
+img.className = "componente__label componente__label--imagenes";
+divImagen.appendChild(img);
+
 const inputImagen = document.createElement("input");
 inputImagen.type = "file";
 inputImagen.name = "imagen";
 inputImagen.id = "imagen";
-inputImagen.className = "carta__addImagen";
-carta.appendChild(inputImagen);
+inputImagen.accept = "image/*";
+inputImagen.required = true;
+inputImagen.className = "componente__entrada componente__entrada--imagenes";
+divImagen.appendChild(inputImagen);
 
-// Nombre
-const pNombre = document.createElement("p");
-pNombre.className = "carta__parrafo";
-pNombre.textContent = "NOMBRE:";
+carta.appendChild(divImagen);
+
+// === Componente Nombre ===
+const divNombre = document.createElement("div");
+divNombre.className = "componente componente--cartas";
+
+const labelNombre = document.createElement("label");
+labelNombre.className = "componente__label componente__label--cartas";
+labelNombre.textContent = "NOMBRE:";
+divNombre.appendChild(labelNombre);
+
 const inputNombre = document.createElement("input");
 inputNombre.type = "text";
 inputNombre.id = "nombre";
 inputNombre.name = "nombre";
 inputNombre.required = true;
-inputNombre.value = productos[0].nombre
-pNombre.appendChild(inputNombre);
-carta.appendChild(pNombre);
+inputNombre.value = productos[0].nombre; // ← viene del GET
+inputNombre.className = "componente__entrada componente__entrada--cartas";
+divNombre.appendChild(inputNombre);
 
-// Peso
-const pPeso = document.createElement("p");
-pPeso.className = "carta__parrafo";
-pPeso.textContent = "Peso: ";
+carta.appendChild(divNombre);
+
+// === Componente Peso ===
+const divPeso = document.createElement("div");
+divPeso.className = "componente componente--cartas";
+
+const labelPeso = document.createElement("label");
+labelPeso.className = "componente__label componente__label--cartas";
+labelPeso.textContent = "Peso:";
+divPeso.appendChild(labelPeso);
+
 const inputPeso = document.createElement("input");
 inputPeso.type = "text";
 inputPeso.id = "peso";
 inputPeso.name = "peso";
-inputPeso.value = productos[0].peso
 inputPeso.required = true;
-pPeso.appendChild(inputPeso);
-carta.appendChild(pPeso);
+inputPeso.value = productos[0].peso; // ← viene del GET
+inputPeso.className = "componente__entrada componente__entrada--cartas";
+divPeso.appendChild(inputPeso);
 
-// Cantidad
+carta.appendChild(divPeso);
+
+// === Componente Cantidad ===
 const divCantidad = document.createElement("div");
-divCantidad.className = "cantidad";
+divCantidad.className = "componente componente--cartas";
 
-const pCantidad = document.createElement("p");
-pCantidad.className = "cantidad__parrafo";
-pCantidad.textContent = "Cantidad: ";
-divCantidad.appendChild(pCantidad);
+const labelCantidad = document.createElement("label");
+labelCantidad.className = "componente__label componente__label--cartas";
+labelCantidad.textContent = "Cantidad:";
+divCantidad.appendChild(labelCantidad);
 
 const inputCantidad = document.createElement("input");
 inputCantidad.type = "text";
-inputCantidad.name = "cantidadEnStock";
 inputCantidad.id = "cantidad";
-inputCantidad.value = productos[0].cantidadEnStock
+inputCantidad.name = "cantidad";
 inputCantidad.required = true;
+inputCantidad.value = productos[0].cantidadEnStock; // ← viene del GET
+inputCantidad.className = "componente__entrada componente__entrada--cartas";
 divCantidad.appendChild(inputCantidad);
 
 carta.appendChild(divCantidad);
 
-// Precio
-const pPrecio = document.createElement("p");
-pPrecio.className = "carta__parrafo";
-pPrecio.textContent = "Precio: ";
+// === Componente Precio ===
+const divPrecio = document.createElement("div");
+divPrecio.className = "componente componente--cartas";
+
+const labelPrecio = document.createElement("label");
+labelPrecio.className = "componente__label componente__label--cartas";
+labelPrecio.textContent = "Precio:";
+divPrecio.appendChild(labelPrecio);
+
 const inputPrecio = document.createElement("input");
 inputPrecio.type = "text";
-inputPrecio.name = "precio";
 inputPrecio.id = "precio";
-inputPrecio.value = productos[0].precio
+inputPrecio.name = "precio";
 inputPrecio.required = true;
-pPrecio.appendChild(inputPrecio);
-carta.appendChild(pPrecio);
+inputPrecio.value = productos[0].precio; // ← viene del GET
+inputPrecio.className = "componente__entrada componente__entrada--cartas";
+divPrecio.appendChild(inputPrecio);
 
-// Agregar al DOM 
-contenedor.appendChild(carta);
-cambiarImagen(inputImagen,img)
+carta.appendChild(divPrecio);
 
 
 //Validacion de nombres y numeros
@@ -103,6 +127,9 @@ inputNombre.addEventListener("keyup",ValidarEspaciosInventario)
 inputPeso.addEventListener("keyup",ValidarEspaciosInventario)
 inputCantidad.addEventListener("keyup",ValidarEspaciosInventario)
 inputPrecio.addEventListener("keyup",ValidarEspaciosInventario)
+
+cambiarImagen(inputImagen, img);
+contenedor.appendChild(carta);
 
 formulario.addEventListener("submit",async (e)=>{
       

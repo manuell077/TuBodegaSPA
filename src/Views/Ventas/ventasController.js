@@ -23,7 +23,7 @@ export const ventasController = async() =>{
 
   ventasObtenidas.forEach(venta =>{
   const card = document.createElement('div');
-  card.classList.add('carta', 'carta--venta');
+  card.classList.add('carta');
 
   const titulo = document.createElement('p');
   titulo.classList.add('carta__venta');

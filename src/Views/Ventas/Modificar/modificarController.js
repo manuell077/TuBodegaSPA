@@ -24,7 +24,7 @@ export const modificarController = async(queryParams = null) =>{
     
     // Crear la carta principal
     const carta = document.createElement('div');
-    carta.className = 'carta carta--venta';
+    carta.className = 'carta carta--añadir';
     
     // VENTA N°
     const titulo = document.createElement('p');
@@ -33,44 +33,64 @@ export const modificarController = async(queryParams = null) =>{
     carta.appendChild(titulo);
     
     // Cliente
-    const cliente = document.createElement('p');
-    cliente.className = 'carta__parrafo';
-    cliente.textContent = 'Cliente: ';
+    const clienteDiv = document.createElement('div');
+    clienteDiv.className = 'componente componente--cartas';
+
+    const clienteLabel = document.createElement('label');
+    clienteLabel.className = 'componente__label componente__label--cartas';
+    clienteLabel.textContent = 'Cliente: ';
+
     const inputCliente = document.createElement('input');
     inputCliente.type = 'text';
     inputCliente.required = true;
-    inputCliente.value = contenido[0].nombreCliente
+    inputCliente.value = contenido[0].nombreCliente;
     inputCliente.name = "nombreCliente";
-    cliente.appendChild(inputCliente);
-    carta.appendChild(cliente);
+    inputCliente.className = 'componente__entrada componente__entrada--cartas';
+
+    clienteDiv.appendChild(clienteLabel);
+    clienteDiv.appendChild(inputCliente);
+    carta.appendChild(clienteDiv);
     
     // Valor
-    const valor = document.createElement('p');
-    valor.className = 'carta__parrafo';
-    valor.textContent = 'Valor: ';
-    
+    const valorDiv = document.createElement('div');
+    valorDiv.className = 'componente componente--cartas';
+
+    const valorLabel = document.createElement('label');
+    valorLabel.className = 'componente__label componente__label--cartas';
+    valorLabel.textContent = 'Valor: ';
+
     const inputValor = document.createElement('input');
     inputValor.type = 'text';
     inputValor.name = "valor";
-    inputValor.id = "valor"
+    inputValor.id = "valor";
     inputValor.readOnly = true;
-    valor.appendChild(inputValor);
-    carta.appendChild(valor);
+    inputValor.className = 'componente__entrada componente__entrada--cartas';
+
+    valorDiv.appendChild(valorLabel);
+    valorDiv.appendChild(inputValor);
+    carta.appendChild(valorDiv);
     
     // Abonado
-    const abonado = document.createElement('p');
-    abonado.className = 'carta__parrafo';
-    abonado.textContent = 'Abonado: ';
+    const abonadoDiv = document.createElement('div');
+    abonadoDiv.className = 'componente componente--cartas';
+
+    const abonadoLabel = document.createElement('label');
+    abonadoLabel.className = 'componente__label componente__label--cartas';
+    abonadoLabel.textContent = 'Abonado: ';
+
     const inputAbonado = document.createElement('input');
     inputAbonado.type = 'text';
     inputAbonado.required = true;
     inputAbonado.name = "cantidadAbonado";
-    inputAbonado.id = "abonado"
-    inputAbonado.value = contenido[0].cantidadAbonado
-    abonado.appendChild(inputAbonado);
-    carta.appendChild(abonado);
-    
-    abonado.addEventListener("input",SacarSaldo)
+    inputAbonado.id = "abonado";
+    inputAbonado.value = contenido[0].cantidadAbonado;
+    inputAbonado.className = 'componente__entrada componente__entrada--cartas';
+
+    abonadoDiv.appendChild(abonadoLabel);
+    abonadoDiv.appendChild(inputAbonado);
+    carta.appendChild(abonadoDiv);
+
+    inputAbonado.addEventListener("input", SacarSaldo);
     
     // Contenedor productos
     const contenedorProductos = document.createElement('div');
@@ -89,10 +109,11 @@ export const modificarController = async(queryParams = null) =>{
 
     const productosVenta = contenido[0].productos
   
-   console.log(productosVenta);
+   
    
 
   for(const producto of productosVenta){
+
   const productoCantidad = document.createElement('div');
   productoCantidad.classList.add('cantidadProductos');
 
@@ -116,6 +137,9 @@ export const modificarController = async(queryParams = null) =>{
               opcion.textContent = element.nombre;
               opcion.setAttribute("data-precio", element.precio);
               nuevoProducto.append(opcion);
+              if(element.idProducto === producto.idProducto){
+                opcion.selected = true;
+              }
           });
 
   const cantidadDeProducto = document.createElement('input');
@@ -226,16 +250,23 @@ export const modificarController = async(queryParams = null) =>{
     carta.appendChild(contenedorProductos);
     
     // Fecha y hora
-    const fechaHora = document.createElement('p');
-    fechaHora.className = 'carta__parrafo';
-    fechaHora.textContent = 'Fecha: ';
+    const fechaDiv = document.createElement('div');
+    fechaDiv.className = 'componente componente--cartas';
+
+    const fechaLabel = document.createElement('label');
+    fechaLabel.className = 'componente__label componente__label--cartas';
+    fechaLabel.textContent = 'Fecha: ';
+
     const inputFecha = document.createElement('input');
     inputFecha.type = 'date';
     inputFecha.required = true;
     inputFecha.name = "fechaHora";
     inputFecha.value = contenido[0].fechaHora;
-    fechaHora.appendChild(inputFecha);
-    carta.appendChild(fechaHora);
+    inputFecha.className = 'componente__entrada componente__entrada--cartas';
+
+    fechaDiv.appendChild(fechaLabel);
+    fechaDiv.appendChild(inputFecha);
+    carta.appendChild(fechaDiv);
     
     const  usuario = document.createElement('p');
     usuario.className = 'carta__parrafo';
@@ -259,7 +290,7 @@ export const modificarController = async(queryParams = null) =>{
     
     // Saldo total como párrafo
     const saldoTotal = document.createElement('p');
-    saldoTotal.className = 'carta__parrafo';
+    saldoTotal.className = 'carta__parrafo carta__parrafo--saldoTotal';
     saldoTotal.id = 'saldoTotal'
     saldoTotal.textContent = 'Saldo Total: $0.00'; // puedes reemplazarlo por un valor dinámico
     carta.appendChild(saldoTotal);
@@ -291,36 +322,51 @@ export const modificarController = async(queryParams = null) =>{
              
              
              if((selectsProductos.length - 1) == 0 ){
-               alert("Tienes que agregar por lo menos un producto")
+               
+               
+               Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Tienes que agregar por lo menos un producto',
+                    confirmButtonText: 'Aceptar'
+                  });
                return false   
       
              }else{
                 
-              const selectsArray = Array.from(selectsProductos)
-              const contadorArray = Array.from(contadorNumeros)
-                
-              selectsArray.pop()
+              
               
       
-              selectsArray.forEach((select,i) =>{
+              const selectsArray = Array.from(selectsProductos);
+              const contadorArray = Array.from(contadorNumeros);
+              
+              selectsArray.pop();
                 
-                 
-                 
-                 
-      
-                if(!select.value){
-                  alert("Tienes que agregar los productos")
-                  return false
-      
+             
+
+              for (let i = 0; i < selectsArray.length; i++) {
+                let select = selectsArray[i];
+                
+                if (!select.value) {
+                  Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Tienes que agregar los productos',
+                    confirmButtonText: 'Aceptar'
+                  });
+                  return false; 
                 }
                  
+                console.log(select.value);
                 productos.push({
                   idProducto: select.value,
                   cantidad: contadorArray[i].value
+                  
                 })
                 
                 
-              })
+                
+              }
                 objeto["productos"] = productos
                 objeto["valor"] = 0
                 objeto["saldoTotal"] = 0
@@ -337,17 +383,22 @@ export const modificarController = async(queryParams = null) =>{
       
       
           }else{
-            alert("Tienes que completar todos los campos")
+           Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Tienes que completar todos los campos',
+                    confirmButtonText: 'Aceptar'
+                  });
           }
      })
    
      
-    abonado.addEventListener("keydown",ValidarNumeros)
-    cliente.addEventListener("keydown",ValidarLetras)
+    inputAbonado.addEventListener("keydown",ValidarNumeros)
+    inputCliente.addEventListener("keydown",ValidarLetras)
 
-    cliente.addEventListener("keyup",ValidarEspaciosVentas)
-    abonado.addEventListener("keyup",ValidarEspaciosVentas)
-    fechaHora.addEventListener("keyup",ValidarEspaciosVentas)
+    inputCliente.addEventListener("keyup",ValidarEspaciosVentas)
+    inputAbonado.addEventListener("keyup",ValidarEspaciosVentas)
+    inputFecha.addEventListener("keyup",ValidarEspaciosVentas)
     selectorUsuario.addEventListener("change",ValidarEspaciosVentas)
 }
 
@@ -364,13 +415,13 @@ const SacarTotal = () =>{
 
   productosSeleccionados.forEach(productoDiv => {
     const select = productoDiv.querySelector('.cantidadProductos__selector');
-    console.log(productosSeleccionados);
+    
     const cantidadInput = productoDiv.querySelector('.cantidadProductos__numero');
     
     
     const selectedOption = select.selectedOptions[0];
     
-    console.log(selectedOption)
+    
 
     const precio = parseFloat(selectedOption.dataset.precio); 
     const cantidad = parseInt(cantidadInput.value)
