@@ -270,7 +270,7 @@ export const modificarController = async(queryParams = null) =>{
     
     const  usuario = document.createElement('p');
     usuario.className = 'carta__parrafo';
-    usuario.textContent = 'Usuario: ';
+    usuario.textContent = 'Empleado: ';
     const selectorUsuario = document.createElement('select')
     selectorUsuario.className = 'cantidadProductos__selector';
     selectorUsuario.required = true; 

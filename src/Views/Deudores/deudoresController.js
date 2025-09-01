@@ -1,8 +1,8 @@
-import { ObtenerDeudores } from "../../Helpers/Request/Ventas";
+import { get } from "../../Helpers/Request/api.js";
 
 export const deudoresController = async() =>{
     // Datos de ejemplo
-const deudores = await ObtenerDeudores()
+const deudores = await get(`ventas/deudores`)
 
 const main = document.querySelector("#app")
 // Crear cada deudor

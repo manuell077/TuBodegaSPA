@@ -9,7 +9,7 @@ export const ModificarController = async (queryParams = null) =>{
   const agregar = false;
   const formulario = document.querySelector("#ModificarProducto")
   
-  const contenedor = document.querySelector(".agregarCards") 
+  const contenedor = document.querySelector(".formu") 
   const productos = await get(`productos/${id}`) 
   
  const carta = document.createElement("div");
@@ -129,7 +129,7 @@ inputCantidad.addEventListener("keyup",ValidarEspaciosInventario)
 inputPrecio.addEventListener("keyup",ValidarEspaciosInventario)
 
 cambiarImagen(inputImagen, img);
-contenedor.appendChild(carta);
+contenedor.append(carta)
 
 formulario.addEventListener("submit",async (e)=>{
       

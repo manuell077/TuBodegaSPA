@@ -534,6 +534,7 @@
     height: 530px;
     max-height: 600px;
     overflow-y: auto;
+    scrollbar-width: none;
     width: 80px ;
     min-width: 240px;
     box-shadow: 0px 10px 10px var(--colorGris);
@@ -563,7 +564,7 @@
 
 .carta--añadir{
     width: 300px;
-    height: 460px;
+    height: 500px;
 }
 
 .carta__addImagen{

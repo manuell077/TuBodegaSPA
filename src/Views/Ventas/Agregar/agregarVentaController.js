@@ -13,7 +13,7 @@ const productos = []
 
 // Crear la carta principal
 const carta = document.createElement('div');
-carta.className = 'carta carta--venta';
+carta.className = 'carta carta--añadir';
 
 // VENTA N°
 const titulo = document.createElement('p');
@@ -21,81 +21,101 @@ titulo.className = 'carta__venta';
 titulo.textContent = 'VENTA N°';
 carta.appendChild(titulo);
 
-// Cliente
-const cliente = document.createElement('p');
-cliente.className = 'carta__parrafo';
-cliente.textContent = 'Cliente: ';
-const inputCliente = document.createElement('input');
-inputCliente.type = 'text';
-inputCliente.required = true;
-inputCliente.name = "nombreCliente";
-cliente.appendChild(inputCliente);
-carta.appendChild(cliente);
+    // Cliente
+    const clienteDiv = document.createElement('div');
+    clienteDiv.className = 'componente componente--cartas';
 
-// Valor
-const valor = document.createElement('p');
-valor.className = 'carta__parrafo';
-valor.textContent = 'Valor: ';
+    const clienteLabel = document.createElement('label');
+    clienteLabel.className = 'componente__label componente__label--cartas';
+    clienteLabel.textContent = 'Cliente: ';
 
-const inputValor = document.createElement('input');
-inputValor.type = 'text';
-inputValor.name = "valor";
-inputValor.id = "valor"
-inputValor.readOnly = true;
-valor.appendChild(inputValor);
-carta.appendChild(valor);
+    const inputCliente = document.createElement('input');
+    inputCliente.type = 'text';
+    inputCliente.required = true;
+    inputCliente.name = "nombreCliente";
+    inputCliente.className = 'componente__entrada componente__entrada--cartas';
 
-// Abonado
-const abonado = document.createElement('p');
-abonado.className = 'carta__parrafo';
-abonado.textContent = 'Abonado: ';
-const inputAbonado = document.createElement('input');
-inputAbonado.type = 'text';
-inputAbonado.required = true;
-inputAbonado.name = "cantidadAbonado";
-inputAbonado.id = "abonado"
-inputAbonado.value = 0
+    clienteDiv.appendChild(clienteLabel);
+    clienteDiv.appendChild(inputCliente);
+    carta.appendChild(clienteDiv);
+    
+    // Valor
+    const valorDiv = document.createElement('div');
+    valorDiv.className = 'componente componente--cartas';
 
-abonado.appendChild(inputAbonado);
-carta.appendChild(abonado);
+    const valorLabel = document.createElement('label');
+    valorLabel.className = 'componente__label componente__label--cartas';
+    valorLabel.textContent = 'Valor: ';
 
-abonado.addEventListener("input",SacarSaldo)
+    const inputValor = document.createElement('input');
+    inputValor.type = 'text';
+    inputValor.name = "valor";
+    inputValor.id = "valor";
+    inputValor.readOnly = true;
+    inputValor.className = 'componente__entrada componente__entrada--cartas';
 
-// Contenedor productos
-const contenedorProductos = document.createElement('div');
-contenedorProductos.className = 'cantidad cantidad--productos';
+    valorDiv.appendChild(valorLabel);
+    valorDiv.appendChild(inputValor);
+    carta.appendChild(valorDiv);
+    
+    // Abonado
+    const abonadoDiv = document.createElement('div');
+    abonadoDiv.className = 'componente componente--cartas';
 
-const tituloProductos = document.createElement('p');
-tituloProductos.className = 'cantidad__parrafo';
-tituloProductos.textContent = 'Cantidad:';
-contenedorProductos.appendChild(tituloProductos);
+    const abonadoLabel = document.createElement('label');
+    abonadoLabel.className = 'componente__label componente__label--cartas';
+    abonadoLabel.textContent = 'Abonado: ';
 
-// Contenedor de inputs de productos
-const productosContainer = document.createElement('div');
-productosContainer.id = 'productosContainer';
-contenedorProductos.appendChild(productosContainer);
+    const inputAbonado = document.createElement('input');
+    inputAbonado.type = 'text';
+    inputAbonado.required = true;
+    inputAbonado.name = "cantidadAbonado";
+    inputAbonado.id = "abonado";
+    inputAbonado.className = 'componente__entrada componente__entrada--cartas';
 
-// Botón para agregar productos
-const btnAgregar = document.createElement('button');
-btnAgregar.type = 'button';
-btnAgregar.textContent = 'Agregar producto';
+    abonadoDiv.appendChild(abonadoLabel);
+    abonadoDiv.appendChild(inputAbonado);
+    carta.appendChild(abonadoDiv);
 
+    inputAbonado.addEventListener("input", SacarSaldo);
+    
+    // Contenedor productos
+    const contenedorProductos = document.createElement('div');
+    contenedorProductos.className = 'cantidad cantidad--productos';
+    
+    const tituloProductos = document.createElement('p');
+    tituloProductos.className = 'cantidad__parrafo';
+    tituloProductos.textContent = 'Cantidad:';
+    contenedorProductos.appendChild(tituloProductos);
+    
+    // Contenedor de inputs de productos
+    const productosContainer = document.createElement('div');
+    productosContainer.id = 'productosContainer';
+    contenedorProductos.appendChild(productosContainer);
+     
 
-
-btnAgregar.addEventListener("click", async() => {
-
-  const productoCantidad = document.createElement('div')
-  productoCantidad.classList.add('cantidadProductos')
-
-  const nuevoProducto = document.createElement('select');
-  nuevoProducto.className = 'cantidadProductos__selector';
-  const opcion = document.createElement('option');
-  opcion.textContent = "Selecciona un producto"
-  opcion.disabled = true;     
-  opcion.hidden = true;
-  opcion.value = "";       
-  opcion.selected = true;  
-  const respuesta = await get(`productos/estado1`)
+    
+    // Botón para agregar productos
+    const btnAgregar = document.createElement('button');
+    btnAgregar.type = 'button';
+    btnAgregar.textContent = 'Agregar producto';
+    
+    
+    
+    btnAgregar.addEventListener("click", async() => {
+    
+      const productoCantidad = document.createElement('div')
+      productoCantidad.classList.add('cantidadProductos')
+    
+      const nuevoProducto = document.createElement('select');
+      nuevoProducto.className = 'cantidadProductos__selector';
+      const opcion = document.createElement('option');
+      opcion.textContent = "Selecciona un producto"
+      opcion.disabled = true;     
+      opcion.hidden = true;
+      opcion.value = "";       
+      opcion.selected = true;  
+      const respuesta = await get(`productos/estado1`)
   
   respuesta.forEach(element => {
             let opcion = document.createElement("option");
@@ -104,70 +124,74 @@ btnAgregar.addEventListener("click", async() => {
             opcion.setAttribute("data-precio", element.precio);
             nuevoProducto.append(opcion);
         });
-  
-  const cantidadDeProducto = document.createElement('input')
-  cantidadDeProducto.type = 'number'
-  cantidadDeProducto.min = '1'
-  cantidadDeProducto.value = '1'
-  cantidadDeProducto.classList.add('cantidadProductos__numero')   
+      
+      const cantidadDeProducto = document.createElement('input')
+      cantidadDeProducto.type = 'number'
+      cantidadDeProducto.min = '1'
+      cantidadDeProducto.value = '1'
+      cantidadDeProducto.classList.add('cantidadProductos__numero')   
+    
+    
+      const btnEliminar = document.createElement('button');
+      btnEliminar.type = 'button';
+      btnEliminar.classList.add('cantidadProductos__btnEliminarProducto');
+    
+      const icono = document.createElement('img');
+      icono.src = '/Images/basura.png'; 
+      icono.alt = 'Eliminar';
+      icono.classList.add('imagenEliminar')
+    
+      
+      btnEliminar.addEventListener("click", () => {
+        productoCantidad.remove();
+        SacarTotal(); 
+      });
+       
+      btnEliminar.appendChild(icono)
+    
+      nuevoProducto.append(opcion)
+      productoCantidad.appendChild(nuevoProducto)
+      productoCantidad.appendChild(cantidadDeProducto)
+      productoCantidad.appendChild(btnEliminar)
+      productosContainer.appendChild(productoCantidad);
+      
+      
+      nuevoProducto.addEventListener("change",SacarTotal)
+      cantidadDeProducto.addEventListener("input",SacarTotal)
+      
+    });
+    
+    contenedorProductos.appendChild(btnAgregar);
+    carta.appendChild(contenedorProductos);
+    
+    // Fecha y hora
+    const fechaDiv = document.createElement('div');
+    fechaDiv.className = 'componente componente--cartas';
 
+    const fechaLabel = document.createElement('label');
+    fechaLabel.className = 'componente__label componente__label--cartas';
+    fechaLabel.textContent = 'Fecha: ';
 
-  const btnEliminar = document.createElement('button');
-  btnEliminar.type = 'button';
-  btnEliminar.classList.add('cantidadProductos__btnEliminarProducto');
+    const inputFecha = document.createElement('input');
+    inputFecha.type = 'date';
+    inputFecha.required = true;
+    inputFecha.name = "fechaHora";
+    inputFecha.className = 'componente__entrada componente__entrada--cartas';
 
-  const icono = document.createElement('img');
-  icono.src = '/Images/basura.png'; 
-  icono.alt = 'Eliminar';
-  icono.classList.add('imagenEliminar')
-
-  
-  btnEliminar.addEventListener("click", () => {
-    productoCantidad.remove();
-    SacarTotal(); 
-  });
-   
-  btnEliminar.appendChild(icono)
-
-  nuevoProducto.append(opcion)
-  productoCantidad.appendChild(nuevoProducto)
-  productoCantidad.appendChild(cantidadDeProducto)
-  productoCantidad.appendChild(btnEliminar)
-  productosContainer.appendChild(productoCantidad);
-  
-  
-  nuevoProducto.addEventListener("change",SacarTotal)
-  cantidadDeProducto.addEventListener("input",SacarTotal)
-  
-});
-
-contenedorProductos.appendChild(btnAgregar);
-carta.appendChild(contenedorProductos);
-
-// Fecha y hora
-const fechaHora = document.createElement('p');
-fechaHora.className = 'carta__parrafo';
-fechaHora.textContent = 'Fecha: ';
-const inputFecha = document.createElement('input');
-inputFecha.type = 'date';
-inputFecha.required = true;
-inputFecha.name = "fechaHora";
-fechaHora.appendChild(inputFecha);
-carta.appendChild(fechaHora);
-
-const  usuario = document.createElement('p');
-usuario.className = 'carta__parrafo';
-usuario.textContent = 'Empleado: ';
-const selectorUsuario = document.createElement('select')
-selectorUsuario.className = 'cantidadProductos__selector';
-selectorUsuario.required = true; 
-selectorUsuario.name = "fkUsuarios"; 
-selectorUsuario.id = "usuarioSelector";
-
-
-
-
-        let nombreUsuario = localStorage.getItem('nombre');
+    fechaDiv.appendChild(fechaLabel);
+    fechaDiv.appendChild(inputFecha);
+    carta.appendChild(fechaDiv);
+    
+    const  usuario = document.createElement('p');
+    usuario.className = 'carta__parrafo';
+    usuario.textContent = 'Empleado: ';
+    const selectorUsuario = document.createElement('select')
+    selectorUsuario.className = 'cantidadProductos__selector';
+    selectorUsuario.required = true; 
+    selectorUsuario.name = "fkUsuarios"; 
+    selectorUsuario.id = "usuarioSelector";
+    
+    let nombreUsuario = localStorage.getItem('nombre');
         let cedula = localStorage.getItem('cedula');
 
         let opcion = document.createElement("option");
@@ -175,23 +199,23 @@ selectorUsuario.id = "usuarioSelector";
         opcion.textContent = "Nombre: " + nombreUsuario + " Cedula: " + cedula;
         opcion.selected = true;
         selectorUsuario.append(opcion);
-        
-
-// Saldo total como párrafo
-const saldoTotal = document.createElement('p');
-saldoTotal.className = 'carta__parrafo';
-saldoTotal.id = 'saldoTotal'
-saldoTotal.textContent = 'Saldo Total: $0.00'; // puedes reemplazarlo por un valor dinámico
-carta.appendChild(saldoTotal);
-
-
-usuario.appendChild(selectorUsuario)
-
-carta.appendChild(usuario)
-
-// Agrega la carta al contenedor
-contenedorCartas.appendChild(carta);
-
+    
+    
+    
+    // Saldo total como párrafo
+    const saldoTotal = document.createElement('p');
+    saldoTotal.className = 'carta__parrafo carta__parrafo--saldoTotal';
+    saldoTotal.id = 'saldoTotal'
+    saldoTotal.textContent = 'Saldo Total: $0.00'; // puedes reemplazarlo por un valor dinámico
+    carta.appendChild(saldoTotal);
+    
+    
+    usuario.appendChild(selectorUsuario)
+    
+    carta.appendChild(usuario)
+    
+    // Agrega la carta al contenedor
+    contenedorCartas.appendChild(carta);
 
 
 
@@ -290,14 +314,14 @@ formularioVentas.addEventListener("submit",async(e)=>{
 })
 
 
-   cliente.addEventListener("keydown",ValidarLetras)
-   abonado.addEventListener("keydown",ValidarNumeros) 
+   inputCliente.addEventListener("keydown",ValidarLetras)
+   inputAbonado.addEventListener("keydown",ValidarNumeros) 
 
 
 
-   cliente.addEventListener("keyup",ValidarEspaciosVentas)
-   abonado.addEventListener("keyup",ValidarEspaciosVentas)
-   fechaHora.addEventListener("keyup",ValidarEspaciosVentas)
+   inputCliente.addEventListener("keyup",ValidarEspaciosVentas)
+   inputAbonado.addEventListener("keyup",ValidarEspaciosVentas)
+   inputFecha.addEventListener("keyup",ValidarEspaciosVentas)
    selectorUsuario.addEventListener("change",ValidarEspaciosVentas)
 
 }
