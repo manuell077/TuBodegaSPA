@@ -268,6 +268,26 @@ export function validarEspaciosDireccion(calle,numero,barrio){
     }
 }
 
+export function validarEspaciosDireccionUsuarios(calle,numero,barrio){
+    if(!calle.value || !numero.value || !barrio.value){
+        //En caso de que exista un mensaje de error que lo borre 
+        if(barrio.nextSibling){
+            barrio.nextSibling.remove()
+        }
+
+        //Se crea el mensaje de error 
+        let error = document.createElement("span") 
+        error.classList.add("mensajeError" , "mensajeError--usuarios")
+        error.textContent = `⛔Todos los campos de dirección deben completarse` 
+        barrio.insertAdjacentElement("afterend",error)  //Se inserta debajo del contenedor
+
+    }else{
+        if(barrio.nextSibling){
+            barrio.nextSibling.remove()
+        }
+    }
+}
+
 
 
 export function ValidarEspacios(e){
@@ -465,6 +485,34 @@ export function ValidarRepeticion(elemento,password){   //Recibe como parametros
 
 }
 
+export function ValidarRepeticionUsuarios(elemento,password){   //Recibe como parametros dos elementos el elemento en este caso hace referencia al input RepeatPassword y el password original     
+        
+      
+      //Si los valores no llegan a ser iguales entoncescrearara un mensaje de error y retornara falso 
+      if(elemento.value != password.value){
+        if(elemento.nextSibling){
+           
+          elemento.nextSibling.remove()
+        }
+        
+
+        let error = document.createElement("span") 
+        error.classList.add("mensajeError","mensajeError--usuarios")
+        error.textContent = "❌Las contraseñas no coinciden" 
+        elemento.insertAdjacentElement("afterend",error)  //Se inserta debajo del input 
+
+        return false
+      }else{
+        //EN caso contrario retornara true
+       if(elemento.nextSibling){
+          elemento.nextSibling.remove()
+        }
+      return true;
+      }
+
+}
+
+
 export function ValidarCorreo(e){
      
   const correo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ //Expresion regular que valida la sintaxis correcta de un correo 
@@ -579,7 +627,12 @@ export function ValidarCedulaUsuarios(e){
 export function ValidarPasswordUsuarios(e){
      
      const password = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/ //Expresion regular de contraseña donde  "?=" indica que esta condicion se debe cumplir "." cualquier caracter y "*" significa cero o mas veces  
+      
 
+     if(!e.target.value && e.target.nextSibling){
+       e.target.nextSibling.remove()
+       return false
+     }
      if(!password.test(e.target.value)){ //Si no se cumple la condicion creara un mensaje de error 
         
       //Si existe un elemento lo borrara  para que no se sobreescriba
@@ -1417,7 +1470,7 @@ function mostrarError(campo, mensaje) {
     campo.nextSibling.remove();
   }
   let error = document.createElement("span");
-  error.classList.add("mensajeError", `mensajeError--factura`);
+  error.classList.add("mensajeError");
   error.textContent = `❌ ${mensaje}`;
   campo.insertAdjacentElement("afterend", error);
 }
@@ -1451,3 +1504,4 @@ export function ValidarCorreoFactura(campo) {
   }
   return true;
 }
+

@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 
 export const agregarVentaController  = async () =>{
 
-const contenedorCartas = document.querySelector(".agregarCards")
+
 const formularioVentas = document.querySelector(".formularioVentas")
 const productos = []
 
@@ -215,7 +215,7 @@ carta.appendChild(titulo);
     carta.appendChild(usuario)
     
     // Agrega la carta al contenedor
-    contenedorCartas.appendChild(carta);
+    formularioVentas.prepend(carta);
 
 
 

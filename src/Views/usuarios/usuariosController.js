@@ -56,7 +56,7 @@ export const usuariosController = async() =>{
                 let id =  idEliminar.replace("http://localhost:5173/id=" , "")
             
                 const eliminacion = await   eliminar(`usuarios/${id}`)
-                 
+                 if(eliminacion.mensaje){
                 await Swal.fire({
                                                                 icon: 'success',
                                                                 title: '¡Éxito!',
@@ -64,7 +64,7 @@ export const usuariosController = async() =>{
                                                                 confirmButtonText: 'Aceptar'
                                                             });
                                                            
-                       location.reload()
+                       location.reload()}
               })
 
             const btnModificar = document.createElement("a");

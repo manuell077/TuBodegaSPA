@@ -1,5 +1,5 @@
 import { get } from "../../Helpers/Request/api.js";
-import { ValidarEmpresa, ValidarNumeros , ValidarLetras } from "../../Helpers/Validacion/Validaciones";
+import { ValidarEmpresa, ValidarNumeros , ValidarLetras, ValidarNitoCedula, ValidarTelefonoFactura, ValidarCorreoFactura } from "../../Helpers/Validacion/Validaciones";
 import { put } from "../../Helpers/Request/api.js"
 import Swal from 'sweetalert2';
 
@@ -25,16 +25,21 @@ console.log(datos)
     barrio.value = datos[0].dire.barrio
 
     const muni = await  get('usuarios/municipiosAutenticados')
-    
+    console.log(muni)
    muni.forEach(element => {
     const opcion = document.createElement("option")
         opcion.value = element.idMunicipio
         opcion.textContent = element.nombreMunicipio
-        if (element.idMunicipio === datos[0].dire.municipio.idMunicipio) {
+        if (element.idMunicipio == datos[0].dire.municipio.idMunicipio) {
         opcion.selected = true;
     }
         municipio.appendChild(opcion)
 });
+      
+
+    nitInput.addEventListener("blur",(e)=>{ValidarNitoCedula(nitInput)})
+    lineaAtencionInput.addEventListener("blur",(e)=>{ValidarTelefonoFactura(lineaAtencionInput)})
+    correoInput.addEventListener("blur",(e)=>{ValidarCorreoFactura(correoInput)})
 
     nitInput.addEventListener("keydown",ValidarNumeros)
     empresaInput.addEventListener("keydown",ValidarLetras)
@@ -50,9 +55,10 @@ console.log(datos)
             
            objeto["direccion"] = datos[0].direccion
            
-           try{
+           
            const respuesta =await  put(`empresas/${nitInput.value}`,objeto)
            
+           if(respuesta.mensaje){
            await Swal.fire({
                                 icon: 'success',
                                 title: '¡Éxito!',
@@ -60,10 +66,8 @@ console.log(datos)
                                 confirmButtonText: 'Aceptar'
                                 });
                           location.reload
-                            }catch(e){
-                                console.log(e);
-                                
-                            }              
+                            }
+                                        
         }else{
          
            await  Swal.fire({

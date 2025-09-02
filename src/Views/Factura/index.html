@@ -8,7 +8,7 @@
                     <p class="datos__titulo">DATOS DEL EMISOR</p>
                     <div class="datosIngreso">
                         <label class="labelInput">PEDIDO:</label>
-                        <select class="datosIngreso__select" id="pedido"  name="fkPedido" required>
+                        <select  id="pedido"  name="fkPedido" required class="datosIngreso__input">
                             <option value="" disabled selected>Selecciona una opcion</option>
                         </select>
                         
@@ -16,22 +16,22 @@
                    
                     <div class="datosIngreso">
                    <label class="labelInput" >CEDULA O NIT:</label>
-                   <input type="text" id="cedula" required name="cedula" disabled>
+                   <input type="text" id="cedula" required name="cedula" disabled class="datosIngreso__input">
                    </div>
 
                    <div class="datosIngreso">
                    <label class="labelInput">DIRECCION FISCAL:</label>
-                   <input type="text" id="direccion"  required name="direccion" disabled>
+                   <input type="text" id="direccion"  required name="direccion" disabled class="datosIngreso__input">
                    </div>
                    
                    <div class="datosIngreso">
                    <label class="labelInput">TELEFONO:</label>
-                   <input type="text" required id="telefono"  name="telefono" disabled>
+                   <input type="text" required id="telefono"  name="telefono" disabled class="datosIngreso__input">
                    </div>
 
                     <div class="datosIngreso">
                    <label class="labelInput">CORREO ELECTRONICO:</label>
-                   <input type="text" required  id="correo" name="correo" disabled>
+                   <input type="text" required  id="correo" name="correo" disabled class="datosIngreso__input">
                    </div>
                    
 
@@ -41,24 +41,24 @@
                     <p class="datos__titulo">DATOS DE VENTA</p>
                     <div class="datosIngreso">
                         <label class="labelInput">FECHA:</label>
-                        <input type="date" readonly name="fecha" id="fecha" required>
+                        <input type="date" readonly name="fecha" id="fecha" required disabled class="datosIngreso__input">
                    </div>
                    
                     <div class="datosIngreso">
                    <label class="labelInput" >MEDIO DE PAGO:</label>
-                   <select name="medioDePago" name="medioDePago" required id="medioDePago">
+                   <select name="medioDePago" name="medioDePago" required id="medioDePago" class="datosIngreso__input">
                     
                    </select>
                    </div>
 
                    <div class="datosIngreso">
                    <label class="labelInput">IVA PORCENTAJE:</label>
-                   <input type="text" name="iva" id="iva" readonly required>
+                   <input type="text" name="iva" id="iva" readonly required disabled class="datosIngreso__input">
                    </div>
                    
                    <div class="datosIngreso">
                    <label class="labelInput">VALOR TOTAL:</label>
-                   <input type="text" readonly id="valorTotal" name="valorTotal" required>
+                   <input type="text" readonly id="valorTotal" name="valorTotal" required disabled class="datosIngreso__input">
                    </div>
 
                     

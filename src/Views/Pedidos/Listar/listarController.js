@@ -22,7 +22,7 @@ export const listarController = async(queryParams = null) =>{
       // Imagen
       const imagen = document.createElement("img");
      imagen.src = "/Images/Rectangle 30.png";
-     imagen.classList.add("carta__imagen", "carta__imagen--añadir");
+     imagen.classList.add("carta__imagen", "carta__imagen--modificar");
      carta.appendChild(imagen);
 
       // Cliente
@@ -96,6 +96,7 @@ export const listarController = async(queryParams = null) =>{
         
             const eliminacion = await   eliminar(`pedidos/${id}`)
             
+            if(eliminacion.message){
             await Swal.fire({
                                                    icon: 'success',
                                                    title: '¡Éxito!',
@@ -103,7 +104,7 @@ export const listarController = async(queryParams = null) =>{
                                                    confirmButtonText: 'Aceptar'
                                                });
                          location.reload()
-
+            }
              
       })
 

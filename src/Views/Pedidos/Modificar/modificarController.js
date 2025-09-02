@@ -8,7 +8,7 @@ export const modificarPedidosController =async (queryParams = null) =>{
      const {id} = queryParams
          
           const pedidos = await get(`pedidos/modificar/${id}`)
-          const  contenedorPadre = document.querySelector(".agregarCards")
+          const  contenedorPadre = document.querySelector(".modificarPedidos")
           const botonModificar = document.querySelector(".modificarPedidos")
      
           console.log(pedidos);
@@ -18,12 +18,12 @@ export const modificarPedidosController =async (queryParams = null) =>{
              
              // Crear el contenedor principal
             const carta = document.createElement("div");
-            carta.classList.add("carta", "carta--detallePedido");
+            carta.classList.add("carta", "carta--añadir");
      
            // Imagen
            const imagen = document.createElement("img");
           imagen.src = "/Images/Rectangle 30.png";
-          imagen.classList.add("carta__imagen", "carta__imagen--añadir");
+          imagen.classList.add("carta__imagen", "carta__imagen--modificar");
           carta.appendChild(imagen);
      
            // Cliente
@@ -68,15 +68,18 @@ export const modificarPedidosController =async (queryParams = null) =>{
 
             
             // Estado
-            const estado = document.createElement("p");
-            estado.classList.add("carta__parrafo");
-            estado.textContent = `Terminado: `;
-            
+            const estadoDiv = document.createElement("div");
+            estadoDiv.classList.add("componente" , "componente--cartas");
+
+            const estadoLabel = document.createElement("label");
+            estadoLabel.classList.add("componente__label","componente__label--cartas");
+            estadoLabel.textContent = "Terminado:";
 
             const estadoSelect = document.createElement("select");
-            estadoSelect.name = "terminado"
-            estadoSelect.required = true
-            
+            estadoSelect.name = "terminado";
+            estadoSelect.required = true;
+            estadoSelect.classList.add("componente__entrada","componente__entrada--cartas");
+
             const opcionSi = document.createElement("option");
             opcionSi.value = "true";
             opcionSi.textContent = "Sí";
@@ -85,37 +88,39 @@ export const modificarPedidosController =async (queryParams = null) =>{
             opcionNo.value = "false";
             opcionNo.textContent = "No";
 
-            if(estadoPedido == "NO"){
-                opcionNo.selected = true;
-            }else{
-                opcionSi.selected = true
+            if (estadoPedido == "NO") {
+            opcionNo.selected = true;
+            } else {
+            opcionSi.selected = true;
             }
 
             estadoSelect.appendChild(opcionSi);
             estadoSelect.appendChild(opcionNo);
 
-            estado.appendChild(estadoSelect)
-            carta.appendChild(estado);
-     
-            
-     
-            // Fecha entrega
-           const fechaEntrega = document.createElement("p");
-           fechaEntrega.classList.add("carta__parrafo");
-           fechaEntrega.textContent = `Fecha entrega: `;
-           
+            estadoDiv.appendChild(estadoLabel);
+            estadoDiv.appendChild(estadoSelect);
+            carta.appendChild(estadoDiv);
 
-           const fechaInput = document.createElement("input");
-           fechaInput.type = "date";
-           fechaInput.name = "fecha"
-           fechaInput.required = true
-           fechaInput.value = pedido.fechaEntrega
-     
-            fechaEntrega.appendChild(fechaInput)
-      
-            carta.appendChild(fechaEntrega);
-             
-            contenedorPadre.appendChild(carta)
+            // Fecha entrega
+            const fechaDiv = document.createElement("div");
+            fechaDiv.classList.add("componente" , "componente--cartas");
+
+            const fechaLabel = document.createElement("label");
+            fechaLabel.classList.add("componente__label","componente__label--cartas");
+            fechaLabel.textContent = "Fecha entrega:";
+
+            const fechaInput = document.createElement("input");
+            fechaInput.type = "date";
+            fechaInput.name = "fecha";
+            fechaInput.required = true;
+            fechaInput.value = pedido.fechaEntrega;
+            fechaInput.classList.add("componente__entrada","componente__entrada--cartas");
+
+            fechaDiv.appendChild(fechaLabel);
+            fechaDiv.appendChild(fechaInput);
+            carta.appendChild(fechaDiv);
+
+            contenedorPadre.prepend(carta);
      
      
      
@@ -147,7 +152,12 @@ export const modificarPedidosController =async (queryParams = null) =>{
                                         }
 
         }else{
-            alert("Tienes que completar todos los campos")
+            await Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Tienes que completar todos los campos',
+                            confirmButtonText: 'Aceptar'
+                        });
         }
 
     })

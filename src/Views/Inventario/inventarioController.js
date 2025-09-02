@@ -83,6 +83,7 @@ export const inventarioController =  async() =>{
     try {
         const respuesta = await eliminar(`productos/${id}`);
         
+        if(respuesta.message){
         // Si la eliminación es exitosa, muestra un mensaje de éxito
         await Swal.fire({
             icon: 'success',
@@ -91,7 +92,7 @@ export const inventarioController =  async() =>{
             confirmButtonText: 'Aceptar'
         });
         location.reload()
-
+      }
         // Opcional: Redirigir o actualizar la página después de eliminar
         // window.location.reload(); // Por ejemplo, recargar la página
         // window.location.href = '/ruta'; // O redirigir a otra página

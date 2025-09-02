@@ -26,6 +26,7 @@
 }
 
 
+
 .paddinDiez{
     padding: 10px;
 }
@@ -47,7 +48,7 @@
     display: flex;
     
     
-    height: 100vh;
+   
     width: 100%;
 }
 
@@ -108,7 +109,7 @@
     height: 100%;
     text-align: center;
     display: flex;
-    
+    width: 100%;
     align-items: center;
     flex-direction: column;
     
@@ -200,6 +201,7 @@
   font-size: 20px;
   margin-bottom: 33px;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .componente--cartas{
@@ -244,7 +246,7 @@
 }
 
 .componente__label--cartas{
-    width: 120px;
+    max-width:  120px;
 }
 
 .componente__label--titulo{
@@ -284,9 +286,12 @@
 
 
 .componente__entrada--cartas{
-    height: 20px; 
+    height: 40px; 
     width: 290px;
+    
 }  
+
+
 
 .componente__entrada--imagenes{
     width: 300px;
@@ -357,6 +362,7 @@
    align-items: center;
    justify-content: center;
    gap: 60px;
+   margin-bottom: 40px;
 }
 
 .enviar__boton{
@@ -521,7 +527,7 @@
     
     text-align: center;
     color: var(--colorPrograma);
-    font-size: 60px ;
+    font-size: 50px ;
 
 }
 
@@ -720,6 +726,8 @@
   
 .factura{
     display: flex;
+    align-items: center;
+
     justify-content: space-evenly;
     height: 480px;
     width: 90%;
@@ -732,6 +740,12 @@
 .datosIngreso{
     display: flex;
     justify-content: space-evenly;
+}
+
+.datosIngreso__input{
+    width: 120px ;
+    border-radius: 5px;
+    color: var(--colorPrograma);
 }
 
 .labelInput{
@@ -985,6 +999,11 @@
 }
 
 
+.formularioActualizarUsuario{
+    overflow: hidden;
+}
+
+
 /*Estilos del formulario  empresa*/
 
 
@@ -1172,11 +1191,15 @@
 }
 
 
+
+
+
+
 /* Vista de usuarios administrador */
 
     .usuarios-container{
         margin: 0 auto;
-        width: 800px;
+        width: 80%;
         
     }    
  
@@ -1190,7 +1213,6 @@
         padding: 15px;
         border-radius: 10px;
         margin-top: 20px;
-        
         box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
@@ -1253,6 +1275,11 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+}
+
+
+.carta__imagen--modificar{
+    object-fit: contain;
 }
 
 /* Facturacion */
@@ -1394,8 +1421,20 @@
 @media screen and (max-width: 1024px) {
   .inicioSesion {
     flex-direction: column;
-    height: auto;
+    
   }
+
+  .factura{
+    flex-direction: column;
+    height: auto;
+    padding-bottom: 40px;
+  }
+
+  .datos__titulo{
+    margin-top: 20px;
+  }
+  
+  
 
   .presentacion,
   .botones {
@@ -1432,13 +1471,14 @@
   .inicio__parrafo {
     font-size: 20px;
   }
+  
 }
 
 /* Móviles (≤ 768px) */
 @media screen and (max-width: 768px) {
   .inicioSesion {
     flex-direction: column;
-    height: auto;
+    
     justify-content: center;
     align-items: center;
   }
@@ -1493,6 +1533,25 @@
 
 /* Móviles pequeños (≤ 480px) */
 @media screen and (max-width: 480px) {
+
+    .inicio__contenido{
+        width: 400px;
+        
+    }
+
+    
+    
+    .inicio__ingresar{
+        margin-top: 40px;
+    }
+
+   .usuarios-container{
+        max-height: 500px;
+        overflow-y: auto;
+        
+        
+    }   
+
   .inicioSesion {
     height: 100%;
     padding: 0;
@@ -1553,12 +1612,16 @@
     font-size: 17px;
     margin-bottom: 80px
   }
+
+  
 }
 
 /* Media Queries Login */
 
 /* Tablets (≤ 1024px) */
 @media screen and (max-width: 1024px) {
+    
+
     .login {
         height: 100%;
     }
@@ -1709,7 +1772,7 @@
         text-align: center;
     }
     .componente__entrada{
-        height: 32px;
+        height: 37px;
         font-size: 15px;
     }
 
@@ -1741,6 +1804,10 @@
     .entrada__titulo--espacioAbajo {
         
         margin-bottom: 20px; /* Adjust margin */
+    }
+
+    .datosIngreso{
+        width: 300px;
     }
 }
 
@@ -1791,6 +1858,13 @@
 
 /* Móviles pequeños (≤ 480px) */
 @media screen and (max-width: 480px) {
+
+
+    .usuario{
+        width: 80%;
+        height: 620px;
+        
+    }
     
     .componente__entrada--select{
         font-size: 10px;
@@ -1845,7 +1919,18 @@
     .entrada__titulo--espacioAbajo {
         margin-bottom: 10px; /* Adjust margin */
     }
-
+    
+    .calendar{
+        margin: 70px 20px;
+        gap: 10px;
+    }
+    
+    .fc-toolbar-title{
+        text-align: center;
+    }
+    .fc-toolbar-ltr{
+        gap: 20px;
+    }
 
 }
 

@@ -18,7 +18,7 @@ export const modificarController = async(queryParams = null) =>{
     
     
 
-    const contenedorCartas = document.querySelector(".agregarCards")
+    const contenedorCartas = document.querySelector(".formularioVentas")
     const formularioVentas = document.querySelector(".formularioVentas")
     const productos = []
     
@@ -301,7 +301,7 @@ export const modificarController = async(queryParams = null) =>{
     carta.appendChild(usuario)
     
     // Agrega la carta al contenedor
-    contenedorCartas.appendChild(carta);
+    contenedorCartas.prepend(carta);
     
      SacarTotal();
 
