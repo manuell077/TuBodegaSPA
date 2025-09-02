@@ -178,7 +178,7 @@ carta.appendChild(titulo);
     const fechaLabel = document.createElement('label');
     fechaLabel.className = 'componente__label componente__label--cartas';
     fechaLabel.textContent = 'Fecha: ';
-
+    
     const inputFecha = document.createElement('input');
     inputFecha.type = 'date';
     inputFecha.required = true;
@@ -188,7 +188,8 @@ carta.appendChild(titulo);
     fechaDiv.appendChild(fechaLabel);
     fechaDiv.appendChild(inputFecha);
     carta.appendChild(fechaDiv);
-    
+     
+    //Se crea el select del empleado 
     const  usuario = document.createElement('p');
     usuario.className = 'carta__parrafo';
     usuario.textContent = 'Empleado: ';
@@ -200,7 +201,8 @@ carta.appendChild(titulo);
     
     let nombreUsuario = localStorage.getItem('nombre');
         let cedula = localStorage.getItem('cedula');
-
+       
+        //Se concatena en un select el nombre y la cedula en un mismo select que se obtienen desde el local storage 
         let opcion = document.createElement("option");
         opcion.value = cedula;
         opcion.textContent = "Nombre: " + nombreUsuario + " Cedula: " + cedula;
@@ -225,7 +227,7 @@ carta.appendChild(titulo);
     formularioVentas.prepend(carta);
 
 
-
+//Formulario de ventas  para que se agregue la venta y se realice un post en la api 
 
 formularioVentas.addEventListener("submit",async(e)=>{
     e.preventDefault()  
@@ -235,7 +237,7 @@ formularioVentas.addEventListener("submit",async(e)=>{
     const productosContainer = document.querySelector(".cantidadProductos")
     const selectorUsuario = document.querySelector("#usuarioSelector")
 
-    if(objeto != false){
+    if(objeto != false){ //Si el objeto es diferente a false es decir es un objeto  
         
       const selectsProductos = document.querySelectorAll(".cantidadProductos__selector")
       const contadorNumeros = document.querySelectorAll(".cantidadProductos__numero") 
@@ -248,14 +250,16 @@ formularioVentas.addEventListener("submit",async(e)=>{
                         title: 'Error',
                         text: "Tienes que agregar por lo menos un producto",
                         confirmButtonText: 'Aceptar'
-                    });
-         return false   
+                    }); //Se muestra un mensaje de error si no hay productos
+         return false
 
        }else{
           
+        //Se convierten en array los selectores 
         const selectsArray = Array.from(selectsProductos)
         const contadorArray = Array.from(contadorNumeros)
           
+        //Se eliminar el ultimo dato del select de array 
         selectsArray.pop()
         
 
@@ -271,7 +275,7 @@ formularioVentas.addEventListener("submit",async(e)=>{
                         title: 'Error',
                         text: "Tienes que agregar por lo menos un producto",
                         confirmButtonText: 'Aceptar'
-                    });
+                    });//Mensaje de error que se muestra si no se agregan productos al select 
             return false
 
           }
@@ -332,7 +336,7 @@ formularioVentas.addEventListener("submit",async(e)=>{
    selectorUsuario.addEventListener("change",ValidarEspaciosVentas)
 
 }
-
+//Funcion que permite sacar el total de la venta obteniedo el valor de cada producto
 const SacarTotal = () =>{
    
    const productosSeleccionados = document.querySelectorAll('.cantidadProductos');
@@ -341,7 +345,8 @@ const SacarTotal = () =>{
    
 
    let total = 0;
-
+  
+   //Se recorren todos los productos y se realizan las operaciones
   productosSeleccionados.forEach(productoDiv => {
     const select = productoDiv.querySelector('.cantidadProductos__selector');
     const cantidadInput = productoDiv.querySelector('.cantidadProductos__numero');
@@ -356,21 +361,21 @@ const SacarTotal = () =>{
     total += precio * cantidad;
   });
    
-   valor.value = total;
+   valor.value = total;//Se envia al input valor 
    SacarSaldo()
 }
 
-
+//Se saca el salgo restando el valor abonado por el valor de la venta 
 const SacarSaldo = () =>{
     
    const  valor = document.querySelector('#valor')
    const  abonado = document.querySelector('#abonado')
    const  saldoTotal = document.querySelector("#saldoTotal")
 
-   let saldo = 0;
+   let saldo = 0;//Si inicializa el saldo en 0
    
-   saldo = valor.value - abonado.value
-   saldoTotal.textContent = `Saldo Total: $${saldo}`
+   saldo = valor.value - abonado.value //Se realiza la operacion de resta entre el valor y el abonado 
+   saldoTotal.textContent = `Saldo Total: $${saldo}` //Se escribe en la etiqueta <p> 
    
   
    

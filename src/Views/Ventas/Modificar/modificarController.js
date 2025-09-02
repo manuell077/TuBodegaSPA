@@ -17,7 +17,7 @@ export const modificarController = async(queryParams = null) =>{
     
     
     
-
+    //Se seleccionan los contenedores donde se van agregar las cards 
     const contenedorCartas = document.querySelector(".formularioVentas")
     const formularioVentas = document.querySelector(".formularioVentas")
     const productos = []
@@ -110,7 +110,7 @@ export const modificarController = async(queryParams = null) =>{
     const productosVenta = contenido[0].productos
   
    
-   
+   //Se recorren todos los productos que existan  
 
   for(const producto of productosVenta){
 
