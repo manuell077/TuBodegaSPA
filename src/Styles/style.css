@@ -639,6 +639,7 @@
 
 .cantidad--productos{
     display: block;
+    margin: 0 auto;
     
     
 }
@@ -651,9 +652,11 @@
     width: 45px;
     height: 45px;
     display: flex;
+    padding: 12px;
     justify-content: center;
     align-items: center;
     color: var(--colorPrograma);
+    margin: 0 auto;
 }
 
 
