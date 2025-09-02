@@ -29,7 +29,6 @@ inputImagen.type = "file";
 inputImagen.name = "imagen";
 inputImagen.id = "imagen";
 inputImagen.accept = "image/*";
-inputImagen.required = true;
 inputImagen.className = "componente__entrada componente__entrada--imagenes";
 divImagen.appendChild(inputImagen);
 
@@ -86,8 +85,8 @@ divCantidad.appendChild(labelCantidad);
 
 const inputCantidad = document.createElement("input");
 inputCantidad.type = "text";
-inputCantidad.id = "cantidad";
-inputCantidad.name = "cantidad";
+inputCantidad.id = "cantidadEnStock";
+inputCantidad.name = "cantidadEnStock";
 inputCantidad.required = true;
 inputCantidad.value = productos[0].cantidadEnStock; // ← viene del GET
 inputCantidad.className = "componente__entrada componente__entrada--cartas";
