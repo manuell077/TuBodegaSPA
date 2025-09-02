@@ -17,6 +17,7 @@
 
 
 .btn-agregarProducto{
+    margin-top: 15px;
     cursor: pointer;
     background-color: var(--colorBlanco);
     color: var(--colorPrograma);
@@ -1101,6 +1102,10 @@
     height: 20px;
     width: 50px;
     text-align: center;
+    background-color: var(--colorBlanco);
+    border: none;
+    border-radius: 3px;
+    color: var(--colorPrograma);
 }
 
 .botonesVenta{
