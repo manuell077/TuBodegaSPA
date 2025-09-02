@@ -184,6 +184,7 @@ export const modificarController = async(queryParams = null) =>{
     const btnAgregar = document.createElement('button');
     btnAgregar.type = 'button';
     btnAgregar.textContent = 'Agregar producto';
+    btnAgregar.classList.add('btn-agregarProductos')
     
     
     

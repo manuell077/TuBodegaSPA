@@ -1,3 +1,5 @@
+
+// Importación de funciones y librerías necesarias para la gestión de ventas
 import { ObtenerProductos} from "../../../Helpers/Request/Ventas.js";
 import { ObtenerUsuarios } from "../../../Helpers/Request/Ventas.js";
 import {ValidarNumeros, ValidarVentas} from "../../../Helpers/Validacion/Validaciones.js"
@@ -5,11 +7,14 @@ import { postAutenticado,get} from "../../../Helpers/Request/api.js";
 import { ValidarLetras , ValidarEspaciosVentas} from "../../../Helpers/Validacion/index.js";
 import Swal from 'sweetalert2';
 
+// Controlador principal para agregar una venta
 export const agregarVentaController  = async () =>{
 
 
-const formularioVentas = document.querySelector(".formularioVentas")
-const productos = []
+
+  // Selecciona el formulario de ventas y define el array de productos
+  const formularioVentas = document.querySelector(".formularioVentas")
+  const productos = []
 
 // Crear la carta principal
 const carta = document.createElement('div');
@@ -99,14 +104,15 @@ carta.appendChild(titulo);
     const btnAgregar = document.createElement('button');
     btnAgregar.type = 'button';
     btnAgregar.textContent = 'Agregar producto';
+    btnAgregar.classList.add('btn-agregarProducto')
     
     
-    
+    //Agregan el producto nuevo con un select 
     btnAgregar.addEventListener("click", async() => {
     
       const productoCantidad = document.createElement('div')
       productoCantidad.classList.add('cantidadProductos')
-    
+      //Se crea un nuevo producto 
       const nuevoProducto = document.createElement('select');
       nuevoProducto.className = 'cantidadProductos__selector';
       const opcion = document.createElement('option');
@@ -115,27 +121,28 @@ carta.appendChild(titulo);
       opcion.hidden = true;
       opcion.value = "";       
       opcion.selected = true;  
-      const respuesta = await get(`productos/estado1`)
+      const respuesta = await get(`productos/estado1`) //Se hace la peticion a la api
   
   respuesta.forEach(element => {
-            let opcion = document.createElement("option");
+            let opcion = document.createElement("option");//Se crea una opcion para añadirla al select
             opcion.value = element.idProducto;
             opcion.textContent = element.nombre;
-            opcion.setAttribute("data-precio", element.precio);
+            opcion.setAttribute("data-precio", element.precio);//Se le pone el data set de precio 
             nuevoProducto.append(opcion);
         });
       
+       //Donde se pone cantidaddel producto con un input de tipo numbre  
       const cantidadDeProducto = document.createElement('input')
       cantidadDeProducto.type = 'number'
       cantidadDeProducto.min = '1'
       cantidadDeProducto.value = '1'
-      cantidadDeProducto.classList.add('cantidadProductos__numero')   
+      cantidadDeProducto.classList.add('cantidadProductos__numero')  
     
-    
+     //Se crea un boton eliminar 
       const btnEliminar = document.createElement('button');
       btnEliminar.type = 'button';
       btnEliminar.classList.add('cantidadProductos__btnEliminarProducto');
-    
+     //Se le agrega al boton eliminar el icono de basura para eliminar 
       const icono = document.createElement('img');
       icono.src = '/Images/basura.png'; 
       icono.alt = 'Eliminar';
@@ -143,8 +150,8 @@ carta.appendChild(titulo);
     
       
       btnEliminar.addEventListener("click", () => {
-        productoCantidad.remove();
-        SacarTotal(); 
+        productoCantidad.remove();//Remueve al producto 
+        SacarTotal(); //Saca el total del daldo total
       });
        
       btnEliminar.appendChild(icono)

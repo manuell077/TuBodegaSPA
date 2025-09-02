@@ -16,6 +16,18 @@
 }
 
 
+.btn-agregarProducto{
+    cursor: pointer;
+    background-color: var(--colorBlanco);
+    color: var(--colorPrograma);
+    border: none;
+    padding: 1px;
+    border-radius: 3px;
+}
+
+
+
+
 .grid-container{
   display: grid;
   grid-template-areas:
@@ -46,7 +58,7 @@
 /*Parte de presentacion de tu bodega */
 .inicioSesion{
     display: flex;
-    
+    height: 100vh;
     
    
     width: 100%;
