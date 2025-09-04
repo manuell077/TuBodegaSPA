@@ -1915,7 +1915,10 @@
 
 /* Móviles pequeños (≤ 480px) */
 @media screen and (max-width: 480px) {
-
+    
+    .mensajeError--inventario{
+        bottom: -25px;
+    }
 
     .usuario {
         width: 90%;
@@ -1933,6 +1936,7 @@
 
     .componente--cartas {
         width: 100%;
+        margin-top: 20px;
     }
 
 

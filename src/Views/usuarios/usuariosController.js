@@ -57,14 +57,27 @@ export const usuariosController = async() =>{
             
                 const eliminacion = await   eliminar(`usuarios/${id}`)
                  if(eliminacion.mensaje){
-                await Swal.fire({
-                                                                icon: 'success',
-                                                                title: '¡Éxito!',
-                                                                text: eliminacion.mensaje,
-                                                                confirmButtonText: 'Aceptar'
-                                                            });
-                                                           
-                       location.reload()}
+                 Swal.fire({
+                     title: '¿Estás seguro?',
+                     text: "Eliminaras un usuario ",
+                     icon: 'warning',
+                     showCancelButton: true,
+                     confirmButtonColor: '#3085d6',
+                     cancelButtonColor: '#d33',
+                     confirmButtonText: 'Sí, eliminar',
+                     cancelButtonText: 'Cancelar'
+                   }).then((result) => {
+                     if (result.isConfirmed) {
+                    
+                 
+                       // Alerta de confirmación
+                       Swal.fire(
+                         'Eliminacion de usuario',
+                         'Has eliminado correctamente.',
+                         'success'
+                       )
+                     }
+                   })}
               })
 
             const btnModificar = document.createElement("a");
