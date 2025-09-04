@@ -1,78 +1,81 @@
-<h1 class="titulo">FACTURACION</h1>
-          
-       <form class="generarPdf" novalidate>
-            <div class="factura">
-                
+<h1 class="titulo titulo--naranja">FACTURACION</h1>
 
-                <div class="datos">
-                    <p class="datos__titulo">DATOS DEL EMISOR</p>
-                    <div class="datosIngreso">
-                        <label class="labelInput">PEDIDO:</label>
-                        <select  id="pedido"  name="fkPedido" required class="datosIngreso__input">
-                            <option value="" disabled selected>Selecciona una opcion</option>
-                        </select>
-                        
-                   </div>
-                   
-                    <div class="datosIngreso">
-                   <label class="labelInput" >CEDULA O NIT:</label>
-                   <input type="text" id="cedula" required name="cedula" disabled class="datosIngreso__input">
-                   </div>
-
-                   <div class="datosIngreso">
-                   <label class="labelInput">DIRECCION FISCAL:</label>
-                   <input type="text" id="direccion"  required name="direccion" disabled class="datosIngreso__input">
-                   </div>
-                   
-                   <div class="datosIngreso">
-                   <label class="labelInput">TELEFONO:</label>
-                   <input type="text" required id="telefono"  name="telefono" disabled class="datosIngreso__input">
-                   </div>
-
-                    <div class="datosIngreso">
-                   <label class="labelInput">CORREO ELECTRONICO:</label>
-                   <input type="text" required  id="correo" name="correo" disabled class="datosIngreso__input">
-                   </div>
-                   
-
-                </div>
-                  
-                 <div class="datos">
-                    <p class="datos__titulo">DATOS DE VENTA</p>
-                    <div class="datosIngreso">
-                        <label class="labelInput">FECHA:</label>
-                        <input type="date" readonly name="fecha" id="fecha" required disabled class="datosIngreso__input">
-                   </div>
-                   
-                    <div class="datosIngreso">
-                   <label class="labelInput" >MEDIO DE PAGO:</label>
-                   <select name="medioDePago" name="medioDePago" required id="medioDePago" class="datosIngreso__input">
-                    
-                   </select>
-                   </div>
-
-                   <div class="datosIngreso">
-                   <label class="labelInput">IVA PORCENTAJE:</label>
-                   <input type="text" name="iva" id="iva" readonly required disabled class="datosIngreso__input">
-                   </div>
-                   
-                   <div class="datosIngreso">
-                   <label class="labelInput">VALOR TOTAL:</label>
-                   <input type="text" readonly id="valorTotal" name="valorTotal" required disabled class="datosIngreso__input">
-                   </div>
-
-                    
-                   
-
-                </div>
+<form class="generarPdf" novalidate>
+    <div class="factura">
 
 
+        <div class="datos">
+            <h2 class="titulo titulo--naranja titulo--small">DATOS DEL EMISOR</h2>
 
-                </div>
+            <div class="componente componente--naranja">
+                <label class="componente__label">PEDIDO:</label>
+                <select id="pedido" name="fkPedido" required class="input">
+                    <option value="" disabled selected>Selecciona una opcion</option>
+                </select>
 
-                 <div class="botones ">
-                <button class="boton boton--generarPdf"  type="submit" formnovalidate><p class="boton__texto">GENERAR PDF</p></button>
-                
             </div>
 
-            </form>
+            <div class="componente componente--naranja">
+                <label class="componente__label">CEDULA O NIT:</label>
+                <input type="text" id="cedula" required name="cedula" disabled class="input">
+            </div>
+
+            <div class="componente componente--naranja">
+                <label class="componente__label">DIRECCION FISCAL:</label>
+                <input type="text" id="direccion" required name="direccion" disabled class="input">
+            </div>
+
+            <div class="componente componente--naranja">
+                <label class="componente__label">TELEFONO:</label>
+                <input type="text" required id="telefono" name="telefono" disabled class="input">
+            </div>
+
+            <div class="componente componente--naranja">
+                <label class="componente__label">CORREO ELECTRONICO:</label>
+                <input type="text" required id="correo" name="correo" disabled class="input">
+            </div>
+
+
+        </div>
+
+        <div class="datos">
+            <h2 class="titulo titulo--naranja titulo--small">DATOS DE VENTA</h2>
+            <div class="componente componente--naranja">
+                <label class="componente__label">FECHA:</label>
+                <input type="date" readonly name="fecha" id="fecha" required disabled class="input">
+            </div>
+
+            <div class="componente componente--naranja">
+                <label class="componente__label">MEDIO DE PAGO:</label>
+                <select name="medioDePago" name="medioDePago" required id="medioDePago" class="input">
+
+                </select>
+            </div>
+
+            <div class="componente componente--naranja">
+                <label class="componente__label">IVA PORCENTAJE:</label>
+                <input type="text" name="iva" id="iva" readonly required disabled class="input">
+            </div>
+
+            <div class="componente componente--naranja">
+                <label class="componente__label">VALOR TOTAL:</label>
+                <input type="text" readonly id="valorTotal" name="valorTotal" required disabled
+                    class="input">
+            </div>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <div class="botones ">
+        <button class="boton boton--generarPdf" type="submit" formnovalidate>GENERAR PDF
+        </button>
+
+    </div>
+
+</form>

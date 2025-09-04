@@ -1,69 +1,76 @@
-   <div class="inicioSesion">
-        
+<h1 class="titulo titulo--naranja">EMPRESA REGISTRADA</h1>
+
+
+<form class="registroEmpresa" novalidate>
+
+     <div class="inicio--empresa">
+          <div class="componente componente--naranja">
+               <label for="nit" class="componente__label">NIT</label>
+               <input type="text" id="nit" class="input" name="nit" required>
+          </div>
+
+          <div class="componente componente--naranja">
+               <label for="empresa" class="componente__label">NOMBRE
+                    EMPRESA</label>
+               <input type="text" id="empresa" class="input" name="nombreEmpresa" required>
+
+          </div>
+
+          <div class="componente componente--naranja">
+
+               <label for="direccion" class="componente__label componente__label--titulo">DIRECCION</label>
+
+               <div class="componente--direccion">
+
+                    <label for="calle" class="componente__label componente__label--min">Calle
+
+                         <input type="text" id="calle" class="input" name="calle" autocomplete="off" required>
+                    </label>
      
-     <div class="botones botones--empresa">
+                    <label for="numero" class="componente__label componente__label--min">N°
+
+                         <input type="text" id="numero" class="input" name="numero" autocomplete="off" required>
+                    </label>
+     
+                    <label for="barrio" class="componente__label componente__label--min">Barrio
+
+                         <input type="text" id="barrio" class="input " name="barrio" autocomplete="off" required>
+                    </label>
+               </div>
 
 
-        <form class="registroEmpresa" novalidate>
-        <div class="inicio inicio--empresa">
-         <p class="titulo">EMPRESA REGISTRADA</p>
+          </div>
 
-           <div class="inicio__contenido">
-           <div class="componente componente--empresa">
-                 <label for="nit" class="componente__label componente__label--empresa">NIT</label>
-                <input type="text" id="nit" class="componente__entrada componente__entrada--empresa" name="nit" required>     
-           </div>
-           
-           <div class="componente componente--empresa">
-                 <label for="empresa" class="componente__label componente__label--empresa">NOMBRE EMPRESA</label>
-                <input type="text" id="empresa" class="componente__entrada componente__entrada--empresa" name="nombreEmpresa" required>  
-                
-           </div>
+          <div class="componente componente--naranja">
+               <label for="municipio" class="componente__label">MUNICIPIO DE
+                    RESIDENCIA</label>
+               <select id="municipio" class="input " name="fkMunicipio" required>
+                    <option value="" disabled selected></option>
 
-            <div class="componente componente--empresa">
+               </select>
+          </div>
 
-                <label for="direccion" class="componente__label componente__label--titulo">DIRECCION</label>
-                
-                <label for="calle" class="componente__label componente__label--direccion">Calle</label>
-                <input type="text" id="calle" class="componente__entrada componente__entrada--direccion" name="calle" autocomplete="off" required >
+          <div class="componente componente--naranja">
+               <label for="lineaAtencion" class="componente__label">LINEA DE
+                    ATENCION</label>
+               <input type="text" id="lineaAtencion" class="input" name="lineaDeAtencion" required>
 
-                <label for="numero" class="componente__label componente__label--direccion">N°</label>
-                <input type="text" id="numero" class="componente__entrada componente__entrada--direccion" name="numero" autocomplete="off" required >
+          </div>
 
-                <label for="barrio" class="componente__label componente__label--direccion">Barrio</label>
-                <input type="text" id="barrio" class="componente__entrada componente__entrada--direccion " name="barrio" autocomplete="off" required >
-                
-         </div>
+          <div class="componente componente--naranja">
+               <label for="correo" class="componente__label">CORREO
+                    EMPRESA</label>
+               <input type="text" id="correo" class="input" name="correoEmpresa" required>
 
-         <div class="componente componente--empresa">
-              <label for="municipio" class="componente__label componente__label--empresa">MUNICIPIO DE  RESIDENCIA</label>
-                 <select id="municipio" class="componente__entrada componente__entrada--empresa " name="fkMunicipio" required>
-                  <option value="" disabled selected></option>
-                  
-              </select>
-         </div>
+          </div>
 
-           <div class="componente componente--empresa">
-                 <label for="lineaAtencion" class="componente__label componente__label--empresa">LINEA DE ATENCION</label>
-                <input type="text" id="lineaAtencion" class="componente__entrada componente__entrada--empresa" name="lineaDeAtencion" required>  
-                
-           </div>
-
-           <div class="componente componente--empresa">
-                 <label for="correo" class="componente__label componente__label--empresa">CORREO EMPRESA</label>
-                <input type="text" id="correo" class="componente__entrada componente__entrada--empresa" name="correoEmpresa" required>  
-                
-           </div>
-           </div>
-           
-
-
-
-       <button class="inicio__ingresar" type="submit"> ACTUALIZAR</button> 
-       
-        
-    </div>
-    </form>
      </div>
 
-    </div>
+
+
+
+
+     <div class="botones">
+          <button class="boton" type="submit"> ACTUALIZAR</button>
+     </div>
+</form>

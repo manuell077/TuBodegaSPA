@@ -1,41 +1,42 @@
 <main class="main">
 
-          <h1 class="titulo">INVENTARIO</h1>
+          <h1 class="titulo titulo--naranja">INVENTARIO</h1>
           <div class="agregarCards agregarCards--centradas">
           <!-- Nos sirve para crear un conjunto de claves-valor se usa principalmente para enviar datos como subir imagenes -->
           <form id="addProducto" enctype="multipart/form-data" novalidate>  
 
            <div class="carta carta--añadir">
                  
-             <div class="componente componente--imagenes">
-                 <img src="/Images/añadir.png" class="componente__label componente__label--imagenes" >
-                 <input  class="componente__entrada componente__entrada--imagenes" type="file" name="imagen" id="imagen" accept="image/*" required>
+             <div class="componente componente--cartas-imagen">
+                  <img src="/Images/añadir.png">
+                  <input  class="input--imagen" type="file" name="imagen" id="imagen" accept="image/*" required>
+                  <label for="imagen" class="imagen-label">Seleccione una imagen</label>
             </div>
              
             <div class="componente componente--cartas"> 
                  <label class="componente__label componente__label--cartas">NOMBRE:</label>
-                 <input type="text" id="nombre" name="nombre" class="componente__entrada componente__entrada--cartas"   required>
+                 <input type="text" id="nombre" name="nombre" class="input"   required>
             </div>
              
             <div class="componente componente--cartas">
                  <label class="componente__label componente__label--cartas">Peso:</label>
-                 <input type="text" id="peso"  name="peso" class="componente__entrada componente__entrada--cartas" required>
+                 <input type="text" id="peso"  name="peso" class="input" required>
             </div>
              
             <div class="componente componente--cartas">
                  
                  <label class="componente__label componente__label--cartas">Cantidad: </label>
-                 <input type="text" name="cantidad" id="cantidad" class="componente__entrada componente__entrada--cartas" required>
+                 <input type="text" name="cantidad" id="cantidad" class="input" required>
               
             </div>    
             <div class="componente componente--cartas">
 
                  <label class="componente__label componente__label--cartas">Precio: </label>
-                 <input type="text"  name="precio"  id="precio" class="componente__entrada componente__entrada--cartas"   required> 
+                 <input type="text"  name="precio"  id="precio" class="input"   required> 
             </div>
             </div>
            <div class="botones">
-            <button class="botones__link botones__link--agregar" id="agregarProducto" type="submit"><div class="boton"><p class="boton__texto">AGREGAR</p><img src="/Images/Agregar.png" class="boton__imagen"></div></button>
+            <button class="botones__link botones__link--agregar" id="agregarProducto" type="submit"><div class="boton">Agregar<img src="/Images/Agregar.png" class="boton__imagen"></div></button>
             </div>
             </div>
             

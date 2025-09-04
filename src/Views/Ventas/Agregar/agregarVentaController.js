@@ -1,14 +1,14 @@
 
 // Importación de funciones y librerías necesarias para la gestión de ventas
-import { ObtenerProductos} from "../../../Helpers/Request/Ventas.js";
+import { ObtenerProductos } from "../../../Helpers/Request/Ventas.js";
 import { ObtenerUsuarios } from "../../../Helpers/Request/Ventas.js";
-import {ValidarNumeros, ValidarVentas} from "../../../Helpers/Validacion/Validaciones.js"
-import { postAutenticado,get} from "../../../Helpers/Request/api.js";
-import { ValidarLetras , ValidarEspaciosVentas} from "../../../Helpers/Validacion/index.js";
+import { ValidarNumeros, ValidarVentas } from "../../../Helpers/Validacion/Validaciones.js"
+import { postAutenticado, get } from "../../../Helpers/Request/api.js";
+import { ValidarLetras, ValidarEspaciosVentas } from "../../../Helpers/Validacion/index.js";
 import Swal from 'sweetalert2';
 
 // Controlador principal para agregar una venta
-export const agregarVentaController  = async () =>{
+export const agregarVentaController = async () => {
 
 
 
@@ -16,369 +16,374 @@ export const agregarVentaController  = async () =>{
   const formularioVentas = document.querySelector(".formularioVentas")
   const productos = []
 
-// Crear la carta principal
-const carta = document.createElement('div');
-carta.className = 'carta carta--añadir';
+  // Crear la carta principal
+  const carta = document.createElement('div');
+  carta.className = 'carta carta--añadir';
 
-// VENTA N°
-const titulo = document.createElement('p');
-titulo.className = 'carta__venta';
-titulo.textContent = 'VENTA N°';
-carta.appendChild(titulo);
+  // VENTA N°
+  const titulo = document.createElement('p');
+  titulo.className = 'carta__venta';
+  titulo.textContent = 'VENTA N°';
+  carta.appendChild(titulo);
 
-    // Cliente
-    const clienteDiv = document.createElement('div');
-    clienteDiv.className = 'componente componente--cartas';
+  // Cliente
+  const clienteDiv = document.createElement('div');
+  clienteDiv.className = 'componente componente--cartas';
 
-    const clienteLabel = document.createElement('label');
-    clienteLabel.className = 'componente__label componente__label--cartas';
-    clienteLabel.textContent = 'Cliente: ';
+  const clienteLabel = document.createElement('label');
+  clienteLabel.className = 'componente__label componente__label--cartas';
+  clienteLabel.textContent = 'Cliente: ';
 
-    const inputCliente = document.createElement('input');
-    inputCliente.type = 'text';
-    inputCliente.required = true;
-    inputCliente.name = "nombreCliente";
-    inputCliente.className = 'componente__entrada componente__entrada--cartas';
+  const inputCliente = document.createElement('input');
+  inputCliente.type = 'text';
+  inputCliente.required = true;
+  inputCliente.name = "nombreCliente";
+  inputCliente.className = 'input';
 
-    clienteDiv.appendChild(clienteLabel);
-    clienteDiv.appendChild(inputCliente);
-    carta.appendChild(clienteDiv);
-    
-    // Valor
-    const valorDiv = document.createElement('div');
-    valorDiv.className = 'componente componente--cartas';
+  clienteDiv.appendChild(clienteLabel);
+  clienteDiv.appendChild(inputCliente);
+  carta.appendChild(clienteDiv);
 
-    const valorLabel = document.createElement('label');
-    valorLabel.className = 'componente__label componente__label--cartas';
-    valorLabel.textContent = 'Valor: ';
+  // Valor
+  const valorDiv = document.createElement('div');
+  valorDiv.className = 'componente componente--cartas';
 
-    const inputValor = document.createElement('input');
-    inputValor.type = 'text';
-    inputValor.name = "valor";
-    inputValor.id = "valor";
-    inputValor.readOnly = true;
-    inputValor.className = 'componente__entrada componente__entrada--cartas';
+  const valorLabel = document.createElement('label');
+  valorLabel.className = 'componente__label componente__label--cartas';
+  valorLabel.textContent = 'Valor: ';
 
-    valorDiv.appendChild(valorLabel);
-    valorDiv.appendChild(inputValor);
-    carta.appendChild(valorDiv);
-    
-    // Abonado
-    const abonadoDiv = document.createElement('div');
-    abonadoDiv.className = 'componente componente--cartas';
+  const inputValor = document.createElement('input');
+  inputValor.type = 'text';
+  inputValor.name = "valor";
+  inputValor.id = "valor";
+  inputValor.readOnly = true;
+  inputValor.className = 'input';
 
-    const abonadoLabel = document.createElement('label');
-    abonadoLabel.className = 'componente__label componente__label--cartas';
-    abonadoLabel.textContent = 'Abonado: ';
+  valorDiv.appendChild(valorLabel);
+  valorDiv.appendChild(inputValor);
+  carta.appendChild(valorDiv);
 
-    const inputAbonado = document.createElement('input');
-    inputAbonado.type = 'text';
-    inputAbonado.required = true;
-    inputAbonado.name = "cantidadAbonado";
-    inputAbonado.id = "abonado";
-    inputAbonado.className = 'componente__entrada componente__entrada--cartas';
+  // Abonado
+  const abonadoDiv = document.createElement('div');
+  abonadoDiv.className = 'componente componente--cartas';
 
-    abonadoDiv.appendChild(abonadoLabel);
-    abonadoDiv.appendChild(inputAbonado);
-    carta.appendChild(abonadoDiv);
+  const abonadoLabel = document.createElement('label');
+  abonadoLabel.className = 'componente__label componente__label--cartas';
+  abonadoLabel.textContent = 'Abonado: ';
 
-    inputAbonado.addEventListener("input", SacarSaldo);
-    
-    // Contenedor productos
-    const contenedorProductos = document.createElement('div');
-    contenedorProductos.className = 'cantidad cantidad--productos';
-    
-    const tituloProductos = document.createElement('p');
-    tituloProductos.className = 'cantidad__parrafo';
-    tituloProductos.textContent = 'Cantidad:';
-    contenedorProductos.appendChild(tituloProductos);
-    
-    // Contenedor de inputs de productos
-    const productosContainer = document.createElement('div');
-    productosContainer.id = 'productosContainer';
-    contenedorProductos.appendChild(productosContainer);
-     
+  const inputAbonado = document.createElement('input');
+  inputAbonado.type = 'text';
+  inputAbonado.required = true;
+  inputAbonado.name = "cantidadAbonado";
+  inputAbonado.id = "abonado";
+  inputAbonado.className = 'input';
 
-    
-    // Botón para agregar productos
-    const btnAgregar = document.createElement('button');
-    btnAgregar.type = 'button';
-    btnAgregar.textContent = 'Agregar producto';
-    btnAgregar.classList.add('btn-agregarProducto')
-    
-    
-    //Agregan el producto nuevo con un select 
-    btnAgregar.addEventListener("click", async() => {
-    
-      const productoCantidad = document.createElement('div')
-      productoCantidad.classList.add('cantidadProductos')
-      //Se crea un nuevo producto 
-      const nuevoProducto = document.createElement('select');
-      nuevoProducto.className = 'cantidadProductos__selector';
-      const opcion = document.createElement('option');
-      opcion.textContent = "Selecciona un producto"
-      opcion.disabled = true;     
-      opcion.hidden = true;
-      opcion.value = "";       
-      opcion.selected = true;  
-      const respuesta = await get(`productos/estado1`) //Se hace la peticion a la api
-  
-  respuesta.forEach(element => {
-            let opcion = document.createElement("option");//Se crea una opcion para añadirla al select
-            opcion.value = element.idProducto;
-            opcion.textContent = element.nombre;
-            opcion.setAttribute("data-precio", element.precio);//Se le pone el data set de precio 
-            nuevoProducto.append(opcion);
-        });
-      
-       //Donde se pone cantidaddel producto con un input de tipo numbre  
-      const cantidadDeProducto = document.createElement('input')
-      cantidadDeProducto.type = 'number'
-      cantidadDeProducto.min = '1'
-      cantidadDeProducto.value = '1'
-      cantidadDeProducto.classList.add('cantidadProductos__numero')  
-    
-     //Se crea un boton eliminar 
-      const btnEliminar = document.createElement('button');
-      btnEliminar.type = 'button';
-      btnEliminar.classList.add('cantidadProductos__btnEliminarProducto');
-     //Se le agrega al boton eliminar el icono de basura para eliminar 
-      const icono = document.createElement('img');
-      icono.src = '/Images/basura.png'; 
-      icono.alt = 'Eliminar';
-      icono.classList.add('imagenEliminar')
-    
-      
-      btnEliminar.addEventListener("click", () => {
-        productoCantidad.remove();//Remueve al producto 
-        SacarTotal(); //Saca el total del daldo total
-      });
-       
-      btnEliminar.appendChild(icono)
-    
-      nuevoProducto.append(opcion)
-      productoCantidad.appendChild(nuevoProducto)
-      productoCantidad.appendChild(cantidadDeProducto)
-      productoCantidad.appendChild(btnEliminar)
-      productosContainer.appendChild(productoCantidad);
-      
-      
-      nuevoProducto.addEventListener("change",SacarTotal)
-      cantidadDeProducto.addEventListener("input",SacarTotal)
-      
+  abonadoDiv.appendChild(abonadoLabel);
+  abonadoDiv.appendChild(inputAbonado);
+  carta.appendChild(abonadoDiv);
+
+  inputAbonado.addEventListener("input", SacarSaldo);
+
+  // Contenedor productos
+  const contenedorProductos = document.createElement('div');
+  contenedorProductos.className = 'cantidad cantidad--productos';
+
+  const tituloProductos = document.createElement('p');
+  tituloProductos.className = 'cantidad__parrafo';
+  tituloProductos.textContent = 'Cantidad:';
+  contenedorProductos.appendChild(tituloProductos);
+
+  // Contenedor de inputs de productos
+  const productosContainer = document.createElement('div');
+  productosContainer.id = 'productosContainer';
+  contenedorProductos.appendChild(productosContainer);
+
+
+
+  // Botón para agregar productos
+  const btnAgregar = document.createElement('button');
+  btnAgregar.type = 'button';
+  btnAgregar.textContent = 'Agregar producto';
+  btnAgregar.classList.add('btn-agregarProducto')
+
+
+  //Agregan el producto nuevo con un select 
+  btnAgregar.addEventListener("click", async () => {
+
+    const productoCantidad = document.createElement('div')
+    productoCantidad.classList.add('cantidadProductos')
+    //Se crea un nuevo producto 
+    const nuevoProducto = document.createElement('select');
+    nuevoProducto.className = 'cantidadProductos__selector input';
+    const opcion = document.createElement('option');
+    opcion.textContent = "Selecciona un producto"
+    opcion.disabled = true;
+    opcion.hidden = true;
+    opcion.value = "";
+    opcion.selected = true;
+    const respuesta = await get(`productos/estado1`) //Se hace la peticion a la api
+
+    respuesta.forEach(element => {
+      let opcion = document.createElement("option");//Se crea una opcion para añadirla al select
+      opcion.value = element.idProducto;
+      opcion.textContent = element.nombre;
+      opcion.setAttribute("data-precio", element.precio);//Se le pone el data set de precio 
+      nuevoProducto.append(opcion);
     });
-    
-    contenedorProductos.appendChild(btnAgregar);
-    carta.appendChild(contenedorProductos);
-    
-    // Fecha y hora
-    const fechaDiv = document.createElement('div');
-    fechaDiv.className = 'componente componente--cartas';
 
-    const fechaLabel = document.createElement('label');
-    fechaLabel.className = 'componente__label componente__label--cartas';
-    fechaLabel.textContent = 'Fecha: ';
-    
-    const inputFecha = document.createElement('input');
-    inputFecha.type = 'date';
-    inputFecha.required = true;
-    inputFecha.name = "fechaHora";
-    inputFecha.className = 'componente__entrada componente__entrada--cartas';
+    //Donde se pone cantidaddel producto con un input de tipo numbre  
+    const cantidadDeProducto = document.createElement('input')
+    cantidadDeProducto.type = 'number'
+    cantidadDeProducto.min = '1'
+    cantidadDeProducto.value = '1'
+    cantidadDeProducto.classList.add('cantidadProductos__numero')
+    cantidadDeProducto.classList.add('input')
 
-    fechaDiv.appendChild(fechaLabel);
-    fechaDiv.appendChild(inputFecha);
-    carta.appendChild(fechaDiv);
-     
-    //Se crea el select del empleado 
-    const  usuario = document.createElement('p');
-    usuario.className = 'carta__parrafo';
-    usuario.textContent = 'Empleado: ';
-    const selectorUsuario = document.createElement('select')
-    selectorUsuario.className = 'cantidadProductos__selector';
-    selectorUsuario.required = true; 
-    selectorUsuario.name = "fkUsuarios"; 
-    selectorUsuario.id = "usuarioSelector";
-    
-    let nombreUsuario = localStorage.getItem('nombre');
-        let cedula = localStorage.getItem('cedula');
-       
-        //Se concatena en un select el nombre y la cedula en un mismo select que se obtienen desde el local storage 
-        let opcion = document.createElement("option");
-        opcion.value = cedula;
-        opcion.textContent = "Nombre: " + nombreUsuario + " Cedula: " + cedula;
-        opcion.selected = true;
-        selectorUsuario.append(opcion);
-    
-    
-    
-    // Saldo total como párrafo
-    const saldoTotal = document.createElement('p');
-    saldoTotal.className = 'carta__parrafo carta__parrafo--saldoTotal';
-    saldoTotal.id = 'saldoTotal'
-    saldoTotal.textContent = 'Saldo Total: $0.00'; // puedes reemplazarlo por un valor dinámico
-    carta.appendChild(saldoTotal);
-    
-    
-    usuario.appendChild(selectorUsuario)
-    
-    carta.appendChild(usuario)
-    
-    // Agrega la carta al contenedor
-    formularioVentas.prepend(carta);
+    //Se crea un boton eliminar 
+    const btnEliminar = document.createElement('button');
+    btnEliminar.type = 'button';
+    btnEliminar.classList.add('cantidadProductos__btnEliminarProducto');
+    //Se le agrega al boton eliminar el icono de basura para eliminar 
+    const icono = document.createElement('img');
+    icono.src = '/Images/basura.png';
+    icono.alt = 'Eliminar';
+    icono.classList.add('imagenEliminar')
 
 
-//Formulario de ventas  para que se agregue la venta y se realice un post en la api 
+    btnEliminar.addEventListener("click", () => {
+      productoCantidad.remove();//Remueve al producto 
+      SacarTotal(); //Saca el total del daldo total
+    });
 
-formularioVentas.addEventListener("submit",async(e)=>{
-    e.preventDefault()  
+    btnEliminar.appendChild(icono)
+
+    nuevoProducto.append(opcion)
+    productoCantidad.appendChild(nuevoProducto)
+    productoCantidad.appendChild(cantidadDeProducto)
+    productoCantidad.appendChild(btnEliminar)
+    productosContainer.appendChild(productoCantidad);
+
+
+    nuevoProducto.addEventListener("change", SacarTotal)
+    cantidadDeProducto.addEventListener("input", SacarTotal)
+
+  });
+
+  contenedorProductos.appendChild(btnAgregar);
+  carta.appendChild(contenedorProductos);
+
+  // Fecha y hora
+  const fechaDiv = document.createElement('div');
+  fechaDiv.className = 'componente componente--cartas';
+
+  const fechaLabel = document.createElement('label');
+  fechaLabel.className = 'componente__label componente__label--cartas';
+  fechaLabel.textContent = 'Fecha: ';
+
+  const inputFecha = document.createElement('input');
+  inputFecha.type = 'date';
+  inputFecha.required = true;
+  inputFecha.name = "fechaHora";
+  inputFecha.className = 'input';
+
+  fechaDiv.appendChild(fechaLabel);
+  fechaDiv.appendChild(inputFecha);
+  carta.appendChild(fechaDiv);
+
+  //Se crea el select del empleado 
+  const usuario = document.createElement('div');
+  usuario.className = 'componente componente--cartas';
+  const usuarioLabel = document.createElement('label');
+  usuarioLabel.className = 'componente__label componente__label--cartas';
+
+  usuarioLabel.textContent = 'Empleado: ';
+  const selectorUsuario = document.createElement('select')
+  selectorUsuario.className = 'cantidadProductos__selector input';
+  selectorUsuario.required = true;
+  selectorUsuario.name = "fkUsuarios";
+  selectorUsuario.id = "usuarioSelector";
+
+  let nombreUsuario = localStorage.getItem('nombre');
+  let cedula = localStorage.getItem('cedula');
+
+  //Se concatena en un select el nombre y la cedula en un mismo select que se obtienen desde el local storage 
+  let opcion = document.createElement("option");
+  opcion.value = cedula;
+  opcion.textContent = "Nombre: " + nombreUsuario + " Cedula: " + cedula;
+  opcion.selected = true;
+  selectorUsuario.append(opcion);
+
+
+
+  // Saldo total como párrafo
+  const saldoTotal = document.createElement('p');
+  saldoTotal.className = 'carta__parrafo componente__label componente__label--cartas carta__parrafo--saldoTotal';
+  saldoTotal.id = 'saldoTotal'
+  saldoTotal.textContent = 'Saldo Total: $0.00'; // puedes reemplazarlo por un valor dinámico
+  carta.appendChild(saldoTotal);
+
+
+  usuario.appendChild(usuarioLabel)
+  usuario.appendChild(selectorUsuario)
+
+  carta.appendChild(usuario)
+
+  // Agrega la carta al contenedor
+  formularioVentas.prepend(carta);
+
+
+  //Formulario de ventas  para que se agregue la venta y se realice un post en la api 
+
+  formularioVentas.addEventListener("submit", async (e) => {
+    e.preventDefault()
 
     const objeto = ValidarVentas(e)
     const valorVenta = document.querySelector("#valor")
     const productosContainer = document.querySelector(".cantidadProductos")
     const selectorUsuario = document.querySelector("#usuarioSelector")
 
-    if(objeto != false){ //Si el objeto es diferente a false es decir es un objeto  
-        
+    if (objeto != false) { //Si el objeto es diferente a false es decir es un objeto  
+
       const selectsProductos = document.querySelectorAll(".cantidadProductos__selector")
-      const contadorNumeros = document.querySelectorAll(".cantidadProductos__numero") 
+      const contadorNumeros = document.querySelectorAll(".cantidadProductos__numero")
 
-       
-       
-       if((selectsProductos.length - 1) == 0 ){
-           Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: "Tienes que agregar por lo menos un producto",
-                        confirmButtonText: 'Aceptar'
-                    }); //Se muestra un mensaje de error si no hay productos
-         return false
 
-       }else{
-          
+
+      if ((selectsProductos.length - 1) == 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: "Tienes que agregar por lo menos un producto",
+          confirmButtonText: 'Aceptar'
+        }); //Se muestra un mensaje de error si no hay productos
+        return false
+
+      } else {
+
         //Se convierten en array los selectores 
         const selectsArray = Array.from(selectsProductos)
         const contadorArray = Array.from(contadorNumeros)
-          
+
         //Se eliminar el ultimo dato del select de array 
         selectsArray.pop()
-        
 
-        selectsArray.forEach((select,i) =>{
-          
-           
-           
-           
 
-          if(!select.value){
+        selectsArray.forEach((select, i) => {
+
+
+
+
+
+          if (!select.value) {
             Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: "Tienes que agregar por lo menos un producto",
-                        confirmButtonText: 'Aceptar'
-                    });//Mensaje de error que se muestra si no se agregan productos al select 
+              icon: 'error',
+              title: 'Error',
+              text: "Tienes que agregar por lo menos un producto",
+              confirmButtonText: 'Aceptar'
+            });//Mensaje de error que se muestra si no se agregan productos al select 
             return false
 
           }
-           
+
           productos.push({
             idProducto: select.value,
             cantidad: contadorArray[i].value
           })
           console.log("El valor " + i);
-          
+
         })
-          objeto["productos"] = productos
-          objeto["valor"] = 0
-          objeto["saldoTotal"] = 0
-          console.log(objeto)
-          
-          try{
-          const respuesta = await postAutenticado(`ventas`,objeto)
-           
+        objeto["productos"] = productos
+        objeto["valor"] = 0
+        objeto["saldoTotal"] = 0
+        console.log(objeto)
+
+        try {
+          const respuesta = await postAutenticado(`ventas`, objeto)
+
           Swal.fire({
-                          icon: 'success',
-                          title: '¡Éxito!',
-                          text: respuesta.message,
-                          confirmButtonText: 'Aceptar'
-                      });
-          }catch(e){
+            icon: 'success',
+            title: '¡Éxito!',
+            text: respuesta.message,
+            confirmButtonText: 'Aceptar'
+          });
+        } catch (e) {
 
-            console.error(e)
-                    }           
-          //Resetear valores
-          formularioVentas.reset();
-          productosContainer.innerHTML = "";
-          document.querySelector('#saldoTotal').textContent = "Saldo Total: $0.00";
-          selectorUsuario.selectedIndex = 0;
-       }
+          console.error(e)
+        }
+        //Resetear valores
+        formularioVentas.reset();
+        productosContainer.innerHTML = "";
+        document.querySelector('#saldoTotal').textContent = "Saldo Total: $0.00";
+        selectorUsuario.selectedIndex = 0;
+      }
 
 
-    }else{
+    } else {
       Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: "Tienes que completar todos los campos",
-                        confirmButtonText: 'Aceptar'
-                    });
+        icon: 'error',
+        title: 'Error',
+        text: "Tienes que completar todos los campos",
+        confirmButtonText: 'Aceptar'
+      });
     }
 
-})
+  })
 
 
-   inputCliente.addEventListener("keydown",ValidarLetras)
-   inputAbonado.addEventListener("keydown",ValidarNumeros) 
+  inputCliente.addEventListener("keydown", ValidarLetras)
+  inputAbonado.addEventListener("keydown", ValidarNumeros)
 
 
 
-   inputCliente.addEventListener("keyup",ValidarEspaciosVentas)
-   inputAbonado.addEventListener("keyup",ValidarEspaciosVentas)
-   inputFecha.addEventListener("keyup",ValidarEspaciosVentas)
-   selectorUsuario.addEventListener("change",ValidarEspaciosVentas)
+  inputCliente.addEventListener("keyup", ValidarEspaciosVentas)
+  inputAbonado.addEventListener("keyup", ValidarEspaciosVentas)
+  inputFecha.addEventListener("keyup", ValidarEspaciosVentas)
+  selectorUsuario.addEventListener("change", ValidarEspaciosVentas)
 
 }
 //Funcion que permite sacar el total de la venta obteniedo el valor de cada producto
-const SacarTotal = () =>{
-   
-   const productosSeleccionados = document.querySelectorAll('.cantidadProductos');
-   const valor = document.querySelector('#valor') 
-   
-   
+const SacarTotal = () => {
 
-   let total = 0;
-  
-   //Se recorren todos los productos y se realizan las operaciones
+  const productosSeleccionados = document.querySelectorAll('.cantidadProductos');
+  const valor = document.querySelector('#valor')
+
+
+
+  let total = 0;
+
+  //Se recorren todos los productos y se realizan las operaciones
   productosSeleccionados.forEach(productoDiv => {
     const select = productoDiv.querySelector('.cantidadProductos__selector');
     const cantidadInput = productoDiv.querySelector('.cantidadProductos__numero');
-    
-    
+
+
     const selectedOption = select.selectedOptions[0];
 
-    const precio = parseFloat(selectedOption.dataset.precio); 
+    const precio = parseFloat(selectedOption.dataset.precio);
     const cantidad = parseInt(cantidadInput.value)
 
 
     total += precio * cantidad;
   });
-   
-   valor.value = total;//Se envia al input valor 
-   SacarSaldo()
+
+  valor.value = total;//Se envia al input valor 
+  SacarSaldo()
 }
 
 //Se saca el salgo restando el valor abonado por el valor de la venta 
-const SacarSaldo = () =>{
-    
-   const  valor = document.querySelector('#valor')
-   const  abonado = document.querySelector('#abonado')
-   const  saldoTotal = document.querySelector("#saldoTotal")
+const SacarSaldo = () => {
 
-   let saldo = 0;//Si inicializa el saldo en 0
-   
-   saldo = valor.value - abonado.value //Se realiza la operacion de resta entre el valor y el abonado 
-   saldoTotal.textContent = `Saldo Total: $${saldo}` //Se escribe en la etiqueta <p> 
-   
-  
-   
+  const valor = document.querySelector('#valor')
+  const abonado = document.querySelector('#abonado')
+  const saldoTotal = document.querySelector("#saldoTotal")
+
+  let saldo = 0;//Si inicializa el saldo en 0
+
+  saldo = valor.value - abonado.value //Se realiza la operacion de resta entre el valor y el abonado 
+  saldoTotal.textContent = `Saldo Total: $${saldo}` //Se escribe en la etiqueta <p> 
+
+
+
 
 
 }

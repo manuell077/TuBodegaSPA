@@ -1,82 +1,95 @@
+<h1 class="titulo titulo--naranja">REGISTRAR USUARIO EN EL SISTEMA</h1>
+
 <form class="registrarme registrarme--usuario" novalidate>
-      
 
+
+
+    <div class="registrarUsuario">
+
+        <div class="componente componente--naranja">
+
+            <label for="usuario" class="componente__label">NOMBRE</label>
+            <input type="text" id="nombre" class="input" name="nombre" autocomplete="off" required>
+
+        </div>
+
+        <div class="componente componente--naranja">
+
+            <label for="contrasena" class="componente__label">CREAR CONTRASEÑA</label>
+            <input type="password" id="contrasena" class="input" name="password" autocomplete="off" required>
+
+        </div>
+
+        <div class="componente componente--naranja ">
+
+            <label for="repetirContrasena" class="componente__label">REPITE LA CONTRASEÑA</label>
+            <input type="password" id="repetirContrasena" class="input" name="repeatPassword" autocomplete="off"
+                required>
+
+        </div>
+
+        <div class="componente componente--naranja">
+
+            <label for="correoElectronico" class="componente__label">CORREO ELECTRONICO</label>
+            <input type="text" id="correoElectronico" class="input" name="correo_electronico" autocomplete="off"
+                required>
+
+        </div>
+
+        <div class="componente componente--naranja">
+
+            <label for="telefono" class="componente__label">TELEFONO</label>
+            <input type="text" id="telefono" class="input" name="telefono" autocomplete="off" required>
+
+        </div>
+
+        <div class="componente componente--naranja">
+
+            <label for="cedula" class="componente__label">CEDULA</label>
+            <input type="text" id="cedula" class="input" name="cedula" autocomplete="off" required>
+
+        </div>
+
+        <div class="componente componente--naranja componente--wrap">
+
+            <label for="direccion" class="componente__label componente__label--titulo">DIRECCION</label>
+
+
+            <div class="componente--direccion">
+
+                <label for="calle" class="componente__label componente__label--min">Calle
+
+                    <input type="text" id="calle" class="input" name="calle" autocomplete="off" required>
+                </label>
     
-        <div class="registrarUsuario">
-            <h1 class="titulo">REGISTRAR USUARIO EN EL SISTEMA</h1> 
-            
-            <div class="componente componente--usuarios">
+                <label for="numero" class="componente__label componente__label--min">N°
 
-                <label for="usuario" class="componente__label">NOMBRE</label>
-                <input type="text" id="nombre" class="componente__entrada" name="nombre" autocomplete="off"  required>
+                    <input type="text" id="numero" class="input" name="numero" autocomplete="off" required>
+                </label>
+    
+                <label for="barrio" class="componente__label componente__label--min">Barrio
 
+                    <input type="text" id="barrio" class="input " name="barrio" autocomplete="off" required>
+                </label>
             </div>
 
-            <div class="componente componente--usuarios">
+        </div>
 
-                <label for="contrasena" class="componente__label">CREAR CONTRASEÑA</label>
-                <input type="password" id="contrasena" class="componente__entrada" name="password"  autocomplete="off"  required>
+        <div class="componente componente--naranja">
+            <label for="municipio" class="componente__label ">MUNICIPIO DE RESIDENCIA</label>
+            <select id="municipio" class="input " name="fkMunicipio" required>
+                <option value="" disabled selected></option>
 
-            </div>
- 
-         <div class="componente componente--usuarios ">
+            </select>
+        </div>
 
-                <label for="repetirContrasena" class="componente__label">REPITE LA CONTRASEÑA</label>
-                <input type="password" id="repetirContrasena" class="componente__entrada" name="repeatPassword" autocomplete="off"  required>
-
-         </div>
-
-        <div class="componente componente--usuarios">
-
-                <label for="correoElectronico" class="componente__label">CORREO ELECTRONICO</label>
-                <input type="text" id="correoElectronico" class="componente__entrada" name="correo_electronico" autocomplete="off"  required>
-                
-         </div>
-
-        <div class="componente componente--usuarios">
-
-                <label for="telefono" class="componente__label">TELEFONO</label>
-                <input type="text" id="telefono" class="componente__entrada" name="telefono" autocomplete="off"  required>
-                
-         </div>
-
-        <div class="componente componente--usuarios">
-
-                 <label for="cedula" class="componente__label">CEDULA</label>
-                <input type="text" id="cedula" class="componente__entrada" name="cedula" autocomplete="off"  required>
-                
-         </div>
-
-        <div class="componente componente--usuarios">
-
-                <label for="direccion" class="componente__label componente__label--titulo">DIRECCION</label>
-                
-                <label for="calle" class="componente__label componente__label--direccion">Calle</label>
-                <input type="text" id="calle" class="componente__entrada componente__entrada--direccion" name="calle" autocomplete="off" required >
-
-                <label for="numero" class="componente__label componente__label--direccion">N°</label>
-                <input type="text" id="numero" class="componente__entrada componente__entrada--direccion" name="numero" autocomplete="off" required >
-
-                <label for="barrio" class="componente__label componente__label--direccion">Barrio</label>
-                <input type="text" id="barrio" class="componente__entrada componente__entrada--direccion " name="barrio" autocomplete="off" required >
-                
-         </div>
-
-         <div class="componente componente--usuarios">
-              <label for="municipio" class="componente__label ">MUNICIPIO DE  RESIDENCIA</label>
-                 <select id="municipio" class="componente__entrada componente__entrada--select " name="fkMunicipio" required>
-                  <option value="" disabled selected></option>
-                  
-              </select>
-         </div>
-         
-          </div>
-
-
-        <div class="enviar">
-       <button class="enviar__boton" type="submit">REGISTRAR</button>
-       
     </div>
-    
+
+
+    <div class="enviar">
+        <button class="boton" type="submit">REGISTRAR</button>
+
+    </div>
+
 
 </form>

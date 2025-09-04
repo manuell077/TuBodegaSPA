@@ -1,4 +1,5 @@
 import './Styles/style.css'
+import './Styles/componentes.css'
 import {router,recorrerRutas} from './Routers/router.js'
 import {routers} from './Routers/routes.js'
  
